@@ -6,7 +6,6 @@ import { useMyUserState } from '@/services/api/Auth'
 
 function AuthRoute({ children }) {
   const { data: { user: currentUser } = {} } = useMyUserState()
-  console.log(currentUser) // eslint-disable-line
 
   if (!currentUser) {
     toast.error('You need to login first!')

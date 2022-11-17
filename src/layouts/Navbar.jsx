@@ -5,28 +5,28 @@ import Form from 'react-bootstrap/Form'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 import NavDropdown from 'react-bootstrap/NavDropdown'
-// import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 
 import { useMyUserState, useLogoutMutation } from '@/services/api/Auth'
 
 function LayoutsNavbar() {
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
   const { data: { user: currentUser } = {} } = useMyUserState()
   const [logout] = useLogoutMutation()
 
-  // const customLogout = () => logout().unwrap().then(() => {
-  //   navigate('/')
-  // })
+  const customLogout = () => logout().unwrap().then(() => {
+    navigate('/')
+  })
 
   return (
 
     currentUser ? (
       <div />
     ) : (
-      <Navbar bg="dark" expand="lg" variant="dark">
+      <Navbar bg="dark" expand="lg" variant="dark" className="px-2">
         <Container fluid>
-          <Navbar.Brand href="#">t b d</Navbar.Brand>
-          <Form className="d-flex">
+          <Navbar.Brand className="fs-2">t  b  d</Navbar.Brand>
+          <Form className="d-flex ms-4">
             <Form.Control
               type="search"
               placeholder="Search"
@@ -38,13 +38,15 @@ function LayoutsNavbar() {
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
             <Nav
-              className="ms-auto my-2 my-lg-0 align-items-center"
+              className="ms-auto my-2 my-lg-0 gap-2 align-items-center"
               style={{ maxHeight: '100px' }}
               navbarScroll
             >
-              <Nav.Link href="#action1">Home</Nav.Link>
-              <Nav.Link href="#action2">Connections</Nav.Link>
-              <Nav.Link href="#action2">Messages</Nav.Link>
+              {/* <Nav.Link as={NavLink} to="/my/todos">My Todos</Nav.Link>
+              <Nav.Link as={NavLink} to="/my/todos/new">New Todo</Nav.Link> */}
+              <Nav.Link as={NavLink} to="/my/home">Home</Nav.Link>
+              <Nav.Link href="/my/connections">Connections</Nav.Link>
+              <Nav.Link href="/my/messages">Messages</Nav.Link>
               <NavDropdown
                 title={(
                   <div className="pull-left">
@@ -61,12 +63,12 @@ function LayoutsNavbar() {
                 menuVariant="dark"
                 align="end"
               >
-                <NavDropdown.Item href="#action/3.1">Profile</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">
+                <NavDropdown.Item href="/my/profile">Profile</NavDropdown.Item>
+                <NavDropdown.Item href="/my/settings">
                   Account Settings
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">
+                <NavDropdown.Item onClick={customLogout}>
                   Log Out
                 </NavDropdown.Item>
               </NavDropdown>

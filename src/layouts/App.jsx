@@ -4,7 +4,8 @@ import { ToastContainer } from 'react-toastify'
 
 import { useGetMyUserQuery } from '@/services/api/Auth'
 
-import LayoutsNavbar from '@/layouts/Navbar'
+// import LayoutsNavbar from '@/layouts/Navbar'
+import LayoutsFooter from '@/layouts/Footer'
 import Loading from '@/components/Loading'
 
 function App() {
@@ -17,8 +18,9 @@ function App() {
           <Loading />
         ) : (
           <>
-            <LayoutsNavbar />
+            {/* <LayoutsNavbar /> */}
             <Outlet />
+            <LayoutsFooter />
           </>
         )
       }
