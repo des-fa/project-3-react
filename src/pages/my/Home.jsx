@@ -1,9 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-function PagesAnother() {
+function PagesMyHome() {
   return (
-    <div id="pages-another" className="container">
+    <div id="pages-my-home" className="container">
       <header className="text-center border-bottom">
         <h1>Another Page</h1>
         <div><Link to="/">Home Page</Link></div>
@@ -12,4 +12,4 @@ function PagesAnother() {
   )
 }
 
-export default PagesAnother
+export default PagesMyHome
