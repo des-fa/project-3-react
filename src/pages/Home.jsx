@@ -12,7 +12,6 @@ function PagesHome() {
   const customLogin = async (data) => {
     try {
       await login(data).unwrap()
-      console.log(data)
       navigate('/my/home')
     } catch (err) {
       console.error('Failed to login: ', err)

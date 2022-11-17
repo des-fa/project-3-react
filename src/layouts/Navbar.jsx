@@ -11,7 +11,7 @@ import { useMyUserState, useLogoutMutation } from '@/services/api/Auth'
 
 function LayoutsNavbar() {
   const navigate = useNavigate()
-  const { data: { user: currentUser } = {} } = useMyUserState()
+  const { data: { id: currentUser } = {} } = useMyUserState()
   const [logout] = useLogoutMutation()
 
   const customLogout = () => logout().unwrap().then(() => {
@@ -21,8 +21,7 @@ function LayoutsNavbar() {
   return (
 
     currentUser ? (
-      <div />
-    ) : (
+
       <Navbar bg="dark" expand="lg" variant="dark" className="px-2">
         <Container fluid>
           <Navbar.Brand className="fs-2">t  b  d</Navbar.Brand>
@@ -76,6 +75,11 @@ function LayoutsNavbar() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
+
+    ) : (
+
+      <div />
+
     )
 
   )

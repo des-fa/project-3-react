@@ -5,7 +5,7 @@ import { toast } from 'react-toastify'
 import { useMyUserState } from '@/services/api/Auth'
 
 function NoAuthRoute({ children }) {
-  const { data: { user: currentUser } = {} } = useMyUserState()
+  const { data: { id: currentUser } = {} } = useMyUserState()
 
   if (currentUser) {
     toast.error('You are already logged in!')

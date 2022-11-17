@@ -5,7 +5,7 @@ import { toast } from 'react-toastify'
 import { useMyUserState } from '@/services/api/Auth'
 
 function AuthRoute({ children }) {
-  const { data: { user: currentUser } = {} } = useMyUserState()
+  const { data: { id: currentUser } = {} } = useMyUserState()
 
   if (!currentUser) {
     toast.error('You need to login first!')
