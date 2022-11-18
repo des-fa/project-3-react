@@ -6,7 +6,7 @@ export const apiAuth = createApi({
   baseQuery: axiosBaseQuery({ baseUrl: 'http://localhost:3000/api' }),
   reducerPath: 'apiAuth',
   refetchOnMountOrArgChange: true,
-  refetchOnFocus: true,
+  // refetchOnFocus: true,
   refetchOnReconnect: true,
   tagTypes: ['Auth'],
   endpoints: (builder) => ({

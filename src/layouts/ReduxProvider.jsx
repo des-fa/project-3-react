@@ -4,13 +4,16 @@ import { configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
 
 import { apiAuth } from '@/services/api/Auth'
+import { apiMyProfile } from '@/services/api/Profile'
 
 const store = configureStore({
   reducer: {
-    [apiAuth.reducerPath]: apiAuth.reducer
+    [apiAuth.reducerPath]: apiAuth.reducer,
+    [apiMyProfile.reducerPath]: apiMyProfile.reducer
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware()
     .concat(apiAuth.middleware)
+    .concat(apiMyProfile.middleware)
 })
 
 setupListeners(store.dispatch)

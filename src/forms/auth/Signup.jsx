@@ -1,28 +1,29 @@
 import React from 'react'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
 
 import { Formik, Field, Form, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 
-import { useSignupMutation } from '@/services/api/Auth'
+// import { useSignupMutation } from '@/services/api/Auth'
 
 const initialValues = {
   email: '',
   fullName: '',
   password: '',
   passwordConfirmation: '',
-  avatar: ''
+  file: ''
 }
 
 function FormsAuthSignupModal(props) {
-  const navigate = useNavigate()
-  const [signup] = useSignupMutation()
+  // const navigate = useNavigate()
+  // const [signup] = useSignupMutation()
 
-  const customSignup = (data) => signup(data).unwrap().then(() => {
-    navigate('/my/profile')
-  })
+  // const customSignup = (data) => signup(data).unwrap().then(() => {
+  //   console.log(data)
+  //   navigate('/my/profile')
+  // })
 
   return (
     <Modal
@@ -42,7 +43,10 @@ function FormsAuthSignupModal(props) {
 
       <Formik
         initialValues={props.initialValues || initialValues}
-        onSubmit={customSignup}
+        onSubmit={(values) => {
+          console.log(values)
+        }}
+        // {customSignup}
         enableReinitialize
         validationSchema={
         Yup.object({
@@ -50,7 +54,7 @@ function FormsAuthSignupModal(props) {
           fullName: Yup.string().required().label('Full name'),
           password: Yup.string().min(6).required().label('Password'),
           passwordConfirmation: Yup.string().oneOf([Yup.ref('password')], 'Passwords need to match').required().label('Password confirmation'),
-          avatar: Yup.mixed().required().label('Profile picture')
+          file: Yup.mixed().required().label('Profile picture')
         })
       }
       >
@@ -117,17 +121,18 @@ function FormsAuthSignupModal(props) {
               <div className="mb-3">
                 <label>Profile Picture</label>
                 <input
+                  id="file"
+                  name="file"
                   type="file"
-                  name="avatar"
                   onChange={(event) => {
-                    setFieldValue('avatar', event.currentTarget.files[0])
+                    setFieldValue('file', event.currentTarget.files[0])
                   }}
                 />
-                <ErrorMessage
+                {/* <ErrorMessage
                   className="invalid-feedback"
                   name="avatar"
                   component="div"
-                />
+                /> */}
               </div>
 
             </Modal.Body>
