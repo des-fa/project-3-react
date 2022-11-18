@@ -22,7 +22,7 @@ function LayoutsNavbar() {
 
     currentUser ? (
 
-      <Navbar bg="dark" expand="lg" variant="dark" className="px-2">
+      <Navbar bg="dark" expand="lg" variant="dark" className="px-3" sticky="top">
         <Container fluid>
           <Navbar.Brand className="fs-2">t  b  d</Navbar.Brand>
           <Form className="d-flex ms-4">
@@ -41,8 +41,6 @@ function LayoutsNavbar() {
               style={{ maxHeight: '100px' }}
               navbarScroll
             >
-              {/* <Nav.Link as={NavLink} to="/my/todos">My Todos</Nav.Link>
-              <Nav.Link as={NavLink} to="/my/todos/new">New Todo</Nav.Link> */}
               <Nav.Link as={NavLink} to="/my/home">Home</Nav.Link>
               <Nav.Link href="/my/connections">Connections</Nav.Link>
               <Nav.Link href="/my/messages">Messages</Nav.Link>
@@ -57,7 +55,7 @@ function LayoutsNavbar() {
                     />
                   </div>
                   )}
-                id="collasible-nav-dropdown"
+                id="collapsible-nav-dropdown"
                 variant="secondary"
                 menuVariant="dark"
                 align="end"

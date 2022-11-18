@@ -2,11 +2,13 @@ import React, { useEffect } from 'react'
 
 import Skeleton from 'react-loading-skeleton'
 
-import { useGetMyProfileQuery } from '@/services/api/Profile'
+import { useGetMyProfileQuery } from '@/services/api/MyProfile'
 
-import FormsProfileChangeModal from '@/forms/profile/Change'
+import FormsProfileChangeModal from '@/forms/profile/ProfileChange'
 
-function MyProfile({ profile, show, onClick, onHide, setEditState }) {
+import ProfileTabs from '@/components/ProfileTabs'
+
+function MyProfile({ profile, show, onClick, onHide, setEditModalShow }) {
   return (
     <div className="p-5 mb-4 bg-light border rounded-3">
       <div className="d-flex flex-row justify-content-end mb-2">
@@ -17,7 +19,7 @@ function MyProfile({ profile, show, onClick, onHide, setEditState }) {
         >Edit</button>
       </div>
 
-      <FormsProfileChangeModal initialValues={profile} show={show} onHide={onHide} setEditState={setEditState} />
+      <FormsProfileChangeModal initialValues={profile} show={show} onHide={onHide} setEditModalShow={setEditModalShow} />
 
       <div className="row g-4 px-4 row-cols-1 row-cols-lg-2">
 
@@ -57,8 +59,6 @@ function MyProfileModal(props) {
 }
 
 function PagesMyProfile() {
-  // submit=updates profile
-
   const [createModalShow, setCreateModalShow] = React.useState(false)
   const [editModalShow, setEditModalShow] = React.useState(false)
 
@@ -96,7 +96,7 @@ function PagesMyProfile() {
         show={editModalShow}
         onClick={() => setEditModalShow(true)}
         onHide={() => setEditModalShow(false)}
-        setEditState={setEditModalShow}
+        setEditModalShow={setEditModalShow}
       />
     )
   } else if (isError) {
@@ -107,6 +107,7 @@ function PagesMyProfile() {
     <div id="pages-my-profile" className="container p-5">
       {content}
       <MyProfileModal show={createModalShow} />
+      <ProfileTabs />
     </div>
   )
 }

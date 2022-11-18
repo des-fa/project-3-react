@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import { Formik, Field, Form, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 
-import { useUpdateMyProfileMutation, useCreateMyProfileMutation } from '@/services/api/Profile'
+import { useUpdateMyProfileMutation, useCreateMyProfileMutation } from '@/services/api/MyProfile'
 
 const initialValues = {
   currentJob: '',
@@ -24,7 +24,7 @@ function FormsProfileChangeModal(props) {
     async (values) => {
       await updateMyProfile(values)
         .then(() => {
-          props.setEditState(false)
+          props.setEditModalShow(false)
           navigate('/my/profile')
         })
     }
