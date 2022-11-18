@@ -6,7 +6,7 @@ import { useGetMyProfileQuery } from '@/services/api/Profile'
 
 import FormsProfileChangeModal from '@/forms/profile/Change'
 
-function MyProfile({ profile, show, onClick, onHide }) {
+function MyProfile({ profile, show, onClick, onHide, setEditState }) {
   return (
     <div className="p-5 mb-4 bg-light border rounded-3">
       <div className="d-flex flex-row justify-content-end mb-2">
@@ -17,7 +17,7 @@ function MyProfile({ profile, show, onClick, onHide }) {
         >Edit</button>
       </div>
 
-      <FormsProfileChangeModal initialValues={profile} show={show} onHide={onHide} />
+      <FormsProfileChangeModal initialValues={profile} show={show} onHide={onHide} setEditState={setEditState} />
 
       <div className="row g-4 px-4 row-cols-1 row-cols-lg-2">
 
@@ -96,6 +96,7 @@ function PagesMyProfile() {
         show={editModalShow}
         onClick={() => setEditModalShow(true)}
         onHide={() => setEditModalShow(false)}
+        setEditState={setEditModalShow}
       />
     )
   } else if (isError) {

@@ -17,16 +17,14 @@ const initialValues = {
 function FormsProfileChangeModal(props) {
   const navigate = useNavigate()
   const [createMyProfile] = useCreateMyProfileMutation()
-  const [updateMyProfile, { isSuccess }] = useUpdateMyProfileMutation()
+  const [updateMyProfile] = useUpdateMyProfileMutation()
 
   const handleSubmit = props.initialValues ? (
 
     async (values) => {
       await updateMyProfile(values)
         .then(() => {
-          if (isSuccess) {
-            { props.onHide }
-          }
+          props.setEditState(false)
           navigate('/my/profile')
         })
     }
