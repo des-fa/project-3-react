@@ -12,10 +12,10 @@ import { TimeAgo } from '../../../components/TimeAgo'
 
 function Post({ post }) {
   return (
-    <article className="post" key={post.id}>
+    <article className="post" key={post?.id}>
       <div className="border rounded p-4 m-3">
         <div className="d-flex flex-row justify-content-between mb-1">
-          <TimeAgo timestamp={post.createdAt} />
+          <TimeAgo timestamp={post?.createdAt} />
 
           <Dropdown>
             <Dropdown.Toggle
@@ -36,8 +36,8 @@ function Post({ post }) {
           </Dropdown>
         </div>
 
-        <h6 className="post-content my-2">{post.content.substring(0, 100)}</h6>
-        {post.image ? (
+        <h6 className="post-content my-2">{post?.content.substring(0, 100)}</h6>
+        {post?.image ? (
           <div className="text-center mt-3">
             <img src={post.image} alt="post-picture" width="25%" height="auto" />
           </div>

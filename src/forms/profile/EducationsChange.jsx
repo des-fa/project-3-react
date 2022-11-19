@@ -5,24 +5,23 @@ import Modal from 'react-bootstrap/Modal'
 import { Formik, Field, Form, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 
-import { useUpdateMyExperienceMutation, useCreateMyExperienceMutation } from '@/services/api/MyExperiences'
+import { useUpdateMyEducationMutation, useCreateMyEducationMutation } from '@/services/api/MyEducations'
 
 const initialValues = {
-  job: '',
-  company: '',
+  school: '',
+  qualification: '',
   startYear: '',
-  endYear: '',
-  description: ''
+  endYear: ''
 }
 
-function FormsExperiencesChangeModal(props) {
-  const [createMyExperience] = useCreateMyExperienceMutation()
-  const [updateMyExperience] = useUpdateMyExperienceMutation()
+function FormsEducationsChangeModal(props) {
+  const [createMyEducation] = useCreateMyEducationMutation()
+  const [updateMyEducation] = useUpdateMyEducationMutation()
 
-  const handleSubmit = props.experienceInfo ? (
+  const handleSubmit = props.educationInfo ? (
 
     async (values) => {
-      await updateMyExperience(values)
+      await updateMyEducation(values)
         .then(() => {
           // console.log(values)
           props.onHide()
@@ -31,7 +30,7 @@ function FormsExperiencesChangeModal(props) {
 
   ) : (
     (values) => {
-      createMyExperience(values).unwrap().then(() => {
+      createMyEducation(values).unwrap().then(() => {
         props.onHide()
         // console.log(values)
       })
@@ -50,31 +49,30 @@ function FormsExperiencesChangeModal(props) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Add details about your job experience
+          Add details about your education history
         </Modal.Title>
       </Modal.Header>
 
       <Formik
-        initialValues={props.experienceInfo || initialValues}
+        initialValues={props.educationInfo || initialValues}
         onSubmit={handleSubmit}
         enableReinitialize
         validationSchema={
         Yup.object({
-          job: Yup.string().required().trim().label('Job title'),
-          company: Yup.string().trim().required().label('Place of employment'),
+          school: Yup.string().required().trim().label('Educational institution'),
+          qualification: Yup.string().trim().required().label('Qualification completed'),
           startYear: Yup
             .number()
             .integer()
             .test('len', 'Must be exactly 4 numbers', (val) => val && val.toString().length === 4)
             .required()
-            .label('Starting year of employment'),
+            .label('Starting year of education'),
           endYear: Yup
             .number()
             .integer()
             .nullable()
             .test('len', 'Must be exactly 4 numbers', (val) => !val || val.toString().length === 4)
-            .label('Ending year of employment'),
-          description: Yup.string().trim().required().label('Brief job description')
+            .label('Ending year of education')
         })
     }
       >
@@ -83,29 +81,29 @@ function FormsExperiencesChangeModal(props) {
           <Form>
             <Modal.Body>
               <div className="mb-3">
-                <label>Job Title</label>
+                <label>Educational Institution</label>
                 <Field
-                  className={`form-control ${e?.job && t?.job && 'is-invalid'}`}
-                  name="job"
-                  placeholder="What position did you hold?"
+                  className={`form-control ${e?.school && t?.school && 'is-invalid'}`}
+                  name="school"
+                  placeholder="What was the name of the school you attended?"
                 />
                 <ErrorMessage
                   className="invalid-feedback"
-                  name="job"
+                  name="school"
                   component="div"
                 />
               </div>
 
               <div className="mb-3">
-                <label>Place of Employment</label>
+                <label>Qualification Received</label>
                 <Field
-                  className={`form-control ${e?.company && t?.company && 'is-invalid'}`}
-                  name="company"
-                  placeholder="Where were you employed?"
+                  className={`form-control ${e?.qualification && t?.qualification && 'is-invalid'}`}
+                  name="qualification"
+                  placeholder="What qualification/degree did you obtain?"
                 />
                 <ErrorMessage
                   className="invalid-feedback"
-                  name="company"
+                  name="qualification"
                   component="div"
                 />
               </div>
@@ -135,26 +133,10 @@ function FormsExperiencesChangeModal(props) {
                   component="div"
                 />
               </div>
-
-              <div className="mb-3">
-                <label>Brief Job Description</label>
-                <Field
-                  className={`form-control ${e?.description && t?.description && 'is-invalid'}`}
-                  name="description"
-                  as="textarea"
-                  rows="5"
-                  placeholder="Share a little bit about what you did!"
-                />
-                <ErrorMessage
-                  className="invalid-feedback"
-                  name="description"
-                  component="div"
-                />
-              </div>
             </Modal.Body>
 
             {
-            props.experienceInfo ? (
+            props.educationInfo ? (
               <Modal.Footer>
                 <Button variant="outline-secondary" onClick={props.onHide}>
                   Cancel
@@ -185,4 +167,4 @@ function FormsExperiencesChangeModal(props) {
   )
 }
 
-export default FormsExperiencesChangeModal
+export default FormsEducationsChangeModal

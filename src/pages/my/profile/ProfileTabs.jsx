@@ -3,6 +3,7 @@ import Tab from 'react-bootstrap/Tab'
 import Tabs from 'react-bootstrap/Tabs'
 import ActivityTab from './ActivityTab'
 import ExperienceTab from './ExperienceTab'
+import EducationTab from './EducationTab'
 
 function ProfileTabs() {
   const [key, setKey] = useState('activity')
@@ -20,9 +21,10 @@ function ProfileTabs() {
         </Tab>
         <Tab eventKey="experience" title="Experience">
           <ExperienceTab />
-
         </Tab>
-        <Tab eventKey="education" title="Education" />
+        <Tab eventKey="education" title="Education">
+          <EducationTab />
+        </Tab>
       </Tabs>
     </div>
   )

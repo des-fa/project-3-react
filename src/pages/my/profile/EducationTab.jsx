@@ -2,16 +2,16 @@ import React, { useState } from 'react'
 import Dropdown from 'react-bootstrap/Dropdown'
 import Skeleton from 'react-loading-skeleton'
 
-import { useGetMyExperiencesQuery, useGetMyExperienceQuery, useDeleteMyExperienceMutation } from '@/services/api/MyExperiences'
-import FormsExperiencesChangeModal from '@/forms/profile/ExperiencesChange'
+import { useGetMyEducationsQuery, useGetMyEducationQuery, useDeleteMyEducationMutation } from '@/services/api/MyEducations'
+import FormsEducationsChangeModal from '@/forms/profile/EducationsChange'
 import DeleteConfirmation from '@/components/DeleteConfirmation'
 
-function Experience({ experience, setEditModalShow, setDeleteModalShow, setExperienceInfo }) {
-  const { id } = experience
-  const { data: experienceInfo } = useGetMyExperienceQuery(id)
+function Education({ education, setEditModalShow, setDeleteModalShow, setEducationInfo }) {
+  const { id } = education
+  const { data: educationInfo } = useGetMyEducationQuery(id)
 
   return (
-    <article className="experience" key={experience?.id}>
+    <article className="education" key={education?.id}>
       <div className="border rounded p-4 m-3">
 
         <div className="d-flex flex-row justify-content-end mb-1">
@@ -26,7 +26,7 @@ function Experience({ experience, setEditModalShow, setDeleteModalShow, setExper
 
             <Dropdown.Menu variant="dark" className="dropdown-menu dropdown-menu-sm">
               <Dropdown.Item onClick={() => {
-                setExperienceInfo(experienceInfo)
+                setEducationInfo(educationInfo)
                 setEditModalShow(true)
               }}
               >
@@ -34,7 +34,7 @@ function Experience({ experience, setEditModalShow, setDeleteModalShow, setExper
               </Dropdown.Item>
               <Dropdown.Divider />
               <Dropdown.Item onClick={() => {
-                setExperienceInfo(experienceInfo)
+                setEducationInfo(educationInfo)
                 setDeleteModalShow(true)
               }}
               >Delete</Dropdown.Item>
@@ -44,13 +44,9 @@ function Experience({ experience, setEditModalShow, setDeleteModalShow, setExper
 
         <div className="d-flex flex-row justify-content-start align-items-top gap-5 px-5">
           <div className="d-flex flex-column me-5">
-            <h6 className="experience-job mb-2"><b>Job Title:</b> {experience?.job}</h6>
-            <h6 className="experience-company my-2"><b>Company:</b> {experience?.company}</h6>
-            <h6 className="experience-period my-2"><em>{experience?.startYear} {experience?.endYear ? (` - ${experience?.endYear}`) : ('')}</em></h6>
-          </div>
-          <div className="d-flex flex-column">
-            <h6>Description</h6>
-            <p>{experience?.description}</p>
+            <h6 className="education-school mb-2"><b>School:</b> {education?.school}</h6>
+            <h6 className="education-qualification my-2"><b>Qualification:</b> {education?.qualification}</h6>
+            <h6 className="education-period my-2"><em>{education?.startYear} {education?.endYear ? (` - ${education?.endYear}`) : ('')}</em></h6>
           </div>
         </div>
 
@@ -59,12 +55,12 @@ function Experience({ experience, setEditModalShow, setDeleteModalShow, setExper
   )
 }
 
-function ExperienceTab() {
-  const { data: { experiences: myExperiences } = {}, isLoading, isSuccess, isError, error } = useGetMyExperiencesQuery()
+function EducationTab() {
+  const { data: { educations: myEducations } = {}, isLoading, isSuccess, isError, error } = useGetMyEducationsQuery()
 
-  const [deleteMyExperience] = useDeleteMyExperienceMutation()
+  const [deleteMyEducation] = useDeleteMyEducationMutation()
   const handleDelete = (values) => {
-    deleteMyExperience(values).unwrap().then(() => {
+    deleteMyEducation(values).unwrap().then(() => {
       // console.log(values)
     })
   }
@@ -77,7 +73,7 @@ function ExperienceTab() {
 
   const [deleteModalShow, setDeleteModalShow] = useState(false)
 
-  const [experienceInfo, setExperienceInfo] = useState(null)
+  const [educationInfo, setEducationInfo] = useState(null)
 
   let content
 
@@ -85,20 +81,17 @@ function ExperienceTab() {
     content = (
       <Skeleton count={5} />
     )
-  } else if (!myExperiences) {
+  } else if (!myEducations) {
     content = ''
   } else if (isSuccess) {
-    // console.log(myExperiences)
-    content = myExperiences.map((experience) => (
-      <Experience
-        key={experience.id}
-        experience={experience}
-        // show={editModalShow}
+    // console.log(myEducations)
+    content = myEducations.map((education) => (
+      <Education
+        key={education.id}
+        education={education}
         setEditModalShow={setEditModalShow}
         setDeleteModalShow={setDeleteModalShow}
-        setExperienceInfo={setExperienceInfo}
-        // onClick={() => setEditModalShow(true)}
-        // onHide={() => setEditModalShow(false)}
+        setEducationInfo={setEducationInfo}
       />
     ))
   } else if (isError) {
@@ -106,27 +99,27 @@ function ExperienceTab() {
   }
 
   return (
-    <div id="pages-my-profile-experience" className="container my-4 px-5 py-2">
+    <div id="pages-my-profile-education" className="container my-4 px-5 py-2">
 
       <div className="d-flex flex-row justify-content-end px-3 mb-4">
         <button
           className="btn btn-dark btn-sm"
           type="button"
           onClick={handleCreateModalShow}
-        >Add Experience</button>
+        >Add Education</button>
       </div>
 
-      <FormsExperiencesChangeModal
+      <FormsEducationsChangeModal
         show={createModalShow}
         onHide={handleCreateModalClose}
       />
-      <FormsExperiencesChangeModal
-        experienceInfo={experienceInfo}
+      <FormsEducationsChangeModal
+        educationInfo={educationInfo}
         show={editModalShow}
         onHide={() => setEditModalShow(false)}
       />
       <DeleteConfirmation
-        data={experienceInfo}
+        data={educationInfo}
         show={deleteModalShow}
         onHide={() => setDeleteModalShow(false)}
         confirm={handleDelete}
@@ -138,4 +131,4 @@ function ExperienceTab() {
   )
 }
 
-export default ExperienceTab
+export default EducationTab
