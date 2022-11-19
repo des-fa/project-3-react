@@ -8,6 +8,7 @@ import { apiMyProfile } from '@/services/api/MyProfile'
 import { apiMyPosts } from '@/services/api/MyPosts'
 import { apiMyExperiences } from '@/services/api/MyExperiences'
 import { apiMyEducations } from '@/services/api/MyEducations'
+import { apiMyConnections } from '@/services/api/MyConnections'
 
 const store = configureStore({
   reducer: {
@@ -15,7 +16,8 @@ const store = configureStore({
     [apiMyProfile.reducerPath]: apiMyProfile.reducer,
     [apiMyPosts.reducerPath]: apiMyPosts.reducer,
     [apiMyExperiences.reducerPath]: apiMyExperiences.reducer,
-    [apiMyEducations.reducerPath]: apiMyEducations.reducer
+    [apiMyEducations.reducerPath]: apiMyEducations.reducer,
+    [apiMyConnections.reducerPath]: apiMyConnections.reducer
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware()
     .concat(apiAuth.middleware)
@@ -23,6 +25,7 @@ const store = configureStore({
     .concat(apiMyPosts.middleware)
     .concat(apiMyExperiences.middleware)
     .concat(apiMyEducations.middleware)
+    .concat(apiMyConnections.middleware)
 })
 
 setupListeners(store.dispatch)

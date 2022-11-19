@@ -11,6 +11,7 @@ import PagesHome from '@/pages/Home'
 
 import PagesMyProfile from '@/pages/my/profile/Profile'
 import PagesMyHome from '@/pages/my/Home'
+import PagesMyConnections from '@/pages/my/connections/Connections'
 
 import PagesNotFound from '@/pages/NotFound'
 
@@ -22,8 +23,9 @@ function Routing() {
           <Route path="/" element={<App />}>
             <Route index element={<NoAuthRoute><PagesHome /></NoAuthRoute>} />
 
-            <Route path="/my/profile" element={<AuthRoute><PagesMyProfile /></AuthRoute>} />
             <Route path="/my/home" element={<AuthRoute><PagesMyHome /></AuthRoute>} />
+            <Route path="/my/profile" element={<AuthRoute><PagesMyProfile /></AuthRoute>} />
+            <Route path="/my/connections" element={<AuthRoute><PagesMyConnections /></AuthRoute>} />
 
             <Route path="*" element={<PagesNotFound />} />
           </Route>
