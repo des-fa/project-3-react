@@ -9,7 +9,7 @@ import NoAuthRoute from '@/layouts/NoAuthRoute'
 
 import PagesHome from '@/pages/Home'
 
-import PagesMyProfile from '@/pages/my/Profile'
+import PagesMyProfile from '@/pages/my/profile/Profile'
 import PagesMyHome from '@/pages/my/Home'
 
 import PagesNotFound from '@/pages/NotFound'

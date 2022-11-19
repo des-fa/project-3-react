@@ -1,12 +1,14 @@
 import React from 'react'
 import Dropdown from 'react-bootstrap/Dropdown'
 import Skeleton from 'react-loading-skeleton'
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
 
-import { useGetMyPostsQuery, useUpdateMyPostMutation, useCreateMyPostMutation } from '@/services/api/MyPosts'
+// useUpdateMyPostMutation
+// useDeleteMyPostMutation
+import { useGetMyPostsQuery, useCreateMyPostMutation } from '@/services/api/MyPosts'
 import FormsPostsChange from '@/forms/profile/PostsChange'
 
-import { TimeAgo } from './TimeAgo'
+import { TimeAgo } from '../../../components/TimeAgo'
 
 function Post({ post }) {
   return (
@@ -37,7 +39,7 @@ function Post({ post }) {
         <h6 className="post-content my-2">{post.content.substring(0, 100)}</h6>
         {post.image ? (
           <div className="text-center mt-3">
-            <img src={post.image} alt="post-picture" width="40%" height="auto" />
+            <img src={post.image} alt="post-picture" width="25%" height="auto" />
           </div>
         ) : ''}
       </div>
@@ -46,9 +48,10 @@ function Post({ post }) {
 }
 
 function ActivityTab() {
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
   const [createMyPost] = useCreateMyPostMutation()
-  const [updateMyPost] = useUpdateMyPostMutation()
+  // const [updateMyPost] = useUpdateMyPostMutation()
+  // const [deleteMyPost] = useDeleteMyPostMutation()
 
   const customCreateMyPost = async (data) => {
     console.log(data)
@@ -83,7 +86,7 @@ function ActivityTab() {
   }
 
   return (
-    <div id="pages-my-profile" className="container my-4 px-5 py-2">
+    <div id="pages-my-profile-activity" className="container my-4 px-5 py-2">
       <FormsPostsChange
         onSubmit={customCreateMyPost}
       />

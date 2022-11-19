@@ -11,7 +11,7 @@ import { useMyUserState, useLogoutMutation } from '@/services/api/Auth'
 
 function LayoutsNavbar() {
   const navigate = useNavigate()
-  const { data: { id: currentUser } = {} } = useMyUserState()
+  const { data: { id: currentUser, avatar } = {} } = useMyUserState()
   const [logout] = useLogoutMutation()
 
   const customLogout = () => logout().unwrap().then(() => {
@@ -48,9 +48,9 @@ function LayoutsNavbar() {
                 title={(
                   <div className="pull-left">
                     <img
-                      className="thumbnail-image rounded-circle"
-                      width="50px"
-                      src="https://i.pinimg.com/564x/1b/14/34/1b1434c7d78bca9e24bcb89e5126903c.jpg"
+                      className="thumbnail-image border rounded-circle"
+                      width="40px"
+                      src={avatar}
                       alt="user pic"
                     />
                   </div>

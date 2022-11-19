@@ -6,7 +6,7 @@ import { useGetMyProfileQuery } from '@/services/api/MyProfile'
 
 import FormsProfileChangeModal from '@/forms/profile/ProfileChange'
 
-import ProfileTabs from '@/components/ProfileTabs'
+import ProfileTabs from '@/pages/my/profile/ProfileTabs'
 
 function MyProfile({ profile, show, onClick, onHide, setEditModalShow }) {
   return (
@@ -24,10 +24,10 @@ function MyProfile({ profile, show, onClick, onHide, setEditModalShow }) {
       <div className="row g-4 px-4 row-cols-1 row-cols-lg-2">
 
         <div className="col">
-          <div className="d-flex flex-row align-items-center justify-content-center px-5">
+          <div className="d-flex flex-row align-items-top justify-content-center px-5">
             <div className="col">
               <img
-                src={profile.avatar}
+                src={profile?.user?.avatar}
                 alt="user pic"
                 width="auto"
                 height="150px"
@@ -35,16 +35,16 @@ function MyProfile({ profile, show, onClick, onHide, setEditModalShow }) {
               />
             </div>
             <div className="col">
-              <h3 className="fs-4 fw-bold mb-4">{profile.user.fullName}</h3>
-              <h6 className="mb-2">{profile.currentJob}</h6>
-              <h6>{profile.highestEducation}</h6>
+              <h3 className="fs-4 fw-bold mb-4">{profile?.user.fullName}</h3>
+              <h6 className="mb-2">{profile?.currentJob}</h6>
+              <h6>{profile?.highestEducation}</h6>
             </div>
           </div>
         </div>
 
         <div className="d-flex flex-column justify-content-top px-5">
           <h5>About Me</h5>
-          <p>{profile.about}</p>
+          <p>{profile?.about}</p>
         </div>
 
       </div>

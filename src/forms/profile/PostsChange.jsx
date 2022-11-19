@@ -24,7 +24,7 @@ function FormsPostsChange(props) {
       }
     >
       {
-        ({ errors: e, touched: t, isSubmitting }) => (
+        ({ errors: e, touched: t, isSubmitting, setFieldValue }) => (
           <div className="border rounded p-4 m-3">
 
             <Form>
@@ -40,6 +40,17 @@ function FormsPostsChange(props) {
                   className="invalid-feedback"
                   name="content"
                   component="div"
+                />
+              </div>
+
+              <div className="mb-3">
+                <input
+                  id="image"
+                  name="image"
+                  type="file"
+                  onChange={(event) => {
+                    setFieldValue('image', event.currentTarget.files[0])
+                  }}
                 />
               </div>
 

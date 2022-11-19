@@ -6,7 +6,7 @@ export const apiMyPosts = createApi({
   baseQuery: axiosBaseQuery({ baseUrl: 'http://localhost:3000/api/my/posts' }),
   reducerPath: 'apiMyPosts',
   refetchOnMountOrArgChange: true,
-  refetchOnFocus: true,
+  // refetchOnFocus: true,
   refetchOnReconnect: true,
   tagTypes: ['MyPosts'],
   endpoints: (builder) => ({
