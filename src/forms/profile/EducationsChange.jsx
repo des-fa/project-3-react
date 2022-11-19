@@ -5,7 +5,7 @@ import Modal from 'react-bootstrap/Modal'
 import { Formik, Field, Form, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 
-import { useUpdateMyEducationMutation, useCreateMyEducationMutation } from '@/services/api/MyEducations'
+import { useUpdateMyEducationMutation, useCreateMyEducationMutation } from '@/services/api/my/MyEducations'
 
 const initialValues = {
   school: '',
@@ -74,7 +74,7 @@ function FormsEducationsChangeModal(props) {
             .test('len', 'Must be exactly 4 numbers', (val) => !val || val.toString().length === 4)
             .label('Ending year of education')
         })
-    }
+        }
       >
         {
         ({ errors: e, touched: t, isSubmitting }) => (
@@ -161,7 +161,7 @@ function FormsEducationsChangeModal(props) {
 
           </Form>
         )
-    }
+        }
       </Formik>
     </Modal>
   )

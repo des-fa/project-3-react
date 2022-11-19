@@ -1,7 +1,5 @@
 import React from 'react'
-import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
-import Form from 'react-bootstrap/Form'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 import NavDropdown from 'react-bootstrap/NavDropdown'
@@ -9,8 +7,11 @@ import { NavLink, useNavigate } from 'react-router-dom'
 
 import { useMyUserState, useLogoutMutation } from '@/services/api/Auth'
 
+import FormsSearch from '@/forms/Search'
+
 function LayoutsNavbar() {
   const navigate = useNavigate()
+  // DO I NEED TO SAVE QUERY AS STATE?!
   const { data: { id: currentUser, avatar } = {} } = useMyUserState()
   const [logout] = useLogoutMutation()
 
@@ -24,16 +25,10 @@ function LayoutsNavbar() {
 
       <Navbar bg="dark" expand="lg" variant="dark" className="px-3" sticky="top">
         <Container fluid>
-          <Navbar.Brand className="fs-2">t  b  d</Navbar.Brand>
-          <Form className="d-flex ms-4">
-            <Form.Control
-              type="search"
-              placeholder="Search"
-              className="me-2"
-              aria-label="Search"
-            />
-            <Button variant="outline-secondary">Search</Button>
-          </Form>
+          <Navbar.Brand className="fs-1 border rounded px-4 py-0">t  b  d</Navbar.Brand>
+
+          <FormsSearch />
+
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
             <Nav
@@ -43,7 +38,7 @@ function LayoutsNavbar() {
             >
               <Nav.Link as={NavLink} to="/my/home">Home</Nav.Link>
               <Nav.Link href="/my/connections">Connections</Nav.Link>
-              <Nav.Link href="/my/messages">Messages</Nav.Link>
+              <Nav.Link href="/my/messages" className="me-2">Messages</Nav.Link>
               <NavDropdown
                 title={(
                   <div className="pull-left">

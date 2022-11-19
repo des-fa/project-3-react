@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import { Formik, Field, Form, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 
-import { useUpdateMyProfileMutation, useCreateMyProfileMutation } from '@/services/api/MyProfile'
+import { useUpdateMyProfileMutation, useCreateMyProfileMutation } from '@/services/api/my/MyProfile'
 
 const initialValues = {
   currentJob: '',

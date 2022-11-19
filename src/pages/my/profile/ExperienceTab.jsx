@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Dropdown from 'react-bootstrap/Dropdown'
 import Skeleton from 'react-loading-skeleton'
 
-import { useGetMyExperiencesQuery, useGetMyExperienceQuery, useDeleteMyExperienceMutation } from '@/services/api/MyExperiences'
+import { useGetMyExperiencesQuery, useGetMyExperienceQuery, useDeleteMyExperienceMutation } from '@/services/api/my/MyExperiences'
 import FormsExperiencesChangeModal from '@/forms/profile/ExperiencesChange'
 import DeleteConfirmation from '@/components/DeleteConfirmation'
 

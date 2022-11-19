@@ -1,12 +1,12 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import Skeleton from 'react-loading-skeleton'
-import { useGetMyFollowingQuery } from '@/services/api/MyConnections'
+import { useGetMyFollowingQuery } from '@/services/api/my/MyConnections'
 
 function Following({ following }) {
   const navigate = useNavigate()
 
-  console.log(following.following.id)
+  // console.log(following.following.id)
 
   return (
     <article className="following" key={following?.following?.id}>
@@ -52,7 +52,7 @@ function FollowingTab() {
   } else if (!myFollowing) {
     content = ''
   } else if (isSuccess) {
-    console.log(myFollowing)
+    // console.log(myFollowing)
 
     content = myFollowing.map((following) => (
       <Following

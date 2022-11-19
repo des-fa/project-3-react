@@ -2,7 +2,7 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import Skeleton from 'react-loading-skeleton'
 
-import { useGetMyFollowersQuery } from '@/services/api/MyConnections'
+import { useGetMyFollowersQuery } from '@/services/api/my/MyConnections'
 
 function Follower({ follower }) {
   const navigate = useNavigate()

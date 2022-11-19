@@ -5,7 +5,7 @@ import Skeleton from 'react-loading-skeleton'
 
 // useUpdateMyPostMutation
 // useDeleteMyPostMutation
-import { useGetMyPostsQuery, useCreateMyPostMutation } from '@/services/api/MyPosts'
+import { useGetMyPostsQuery, useCreateMyPostMutation } from '@/services/api/my/MyPosts'
 import FormsPostsChange from '@/forms/profile/PostsChange'
 
 import { TimeAgo } from '../../../components/TimeAgo'

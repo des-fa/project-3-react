@@ -4,11 +4,12 @@ import { configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
 
 import { apiAuth } from '@/services/api/Auth'
-import { apiMyProfile } from '@/services/api/MyProfile'
-import { apiMyPosts } from '@/services/api/MyPosts'
-import { apiMyExperiences } from '@/services/api/MyExperiences'
-import { apiMyEducations } from '@/services/api/MyEducations'
-import { apiMyConnections } from '@/services/api/MyConnections'
+import { apiMyProfile } from '@/services/api/my/MyProfile'
+import { apiMyPosts } from '@/services/api/my/MyPosts'
+import { apiMyExperiences } from '@/services/api/my/MyExperiences'
+import { apiMyEducations } from '@/services/api/my/MyEducations'
+import { apiMyConnections } from '@/services/api/my/MyConnections'
+import { apiUsers } from '@/services/api/Users'
 
 const store = configureStore({
   reducer: {
@@ -17,7 +18,8 @@ const store = configureStore({
     [apiMyPosts.reducerPath]: apiMyPosts.reducer,
     [apiMyExperiences.reducerPath]: apiMyExperiences.reducer,
     [apiMyEducations.reducerPath]: apiMyEducations.reducer,
-    [apiMyConnections.reducerPath]: apiMyConnections.reducer
+    [apiMyConnections.reducerPath]: apiMyConnections.reducer,
+    [apiUsers.reducerPath]: apiUsers.reducer
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware()
     .concat(apiAuth.middleware)
@@ -26,6 +28,7 @@ const store = configureStore({
     .concat(apiMyExperiences.middleware)
     .concat(apiMyEducations.middleware)
     .concat(apiMyConnections.middleware)
+    .concat(apiUsers.middleware)
 })
 
 setupListeners(store.dispatch)

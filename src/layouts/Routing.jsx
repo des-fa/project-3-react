@@ -13,6 +13,8 @@ import PagesMyProfile from '@/pages/my/profile/Profile'
 import PagesMyHome from '@/pages/my/Home'
 import PagesMyConnections from '@/pages/my/connections/Connections'
 
+import PagesUsers from '@/pages/Users'
+
 import PagesNotFound from '@/pages/NotFound'
 
 function Routing() {
@@ -26,6 +28,8 @@ function Routing() {
             <Route path="/my/home" element={<AuthRoute><PagesMyHome /></AuthRoute>} />
             <Route path="/my/profile" element={<AuthRoute><PagesMyProfile /></AuthRoute>} />
             <Route path="/my/connections" element={<AuthRoute><PagesMyConnections /></AuthRoute>} />
+
+            <Route path="/users" element={<AuthRoute><PagesUsers /></AuthRoute>} />
 
             <Route path="*" element={<PagesNotFound />} />
           </Route>

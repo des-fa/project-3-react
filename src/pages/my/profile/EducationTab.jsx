@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Dropdown from 'react-bootstrap/Dropdown'
 import Skeleton from 'react-loading-skeleton'
 
-import { useGetMyEducationsQuery, useGetMyEducationQuery, useDeleteMyEducationMutation } from '@/services/api/MyEducations'
+import { useGetMyEducationsQuery, useGetMyEducationQuery, useDeleteMyEducationMutation } from '@/services/api/my/MyEducations'
 import FormsEducationsChangeModal from '@/forms/profile/EducationsChange'
 import DeleteConfirmation from '@/components/DeleteConfirmation'
 
