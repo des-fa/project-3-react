@@ -4,15 +4,15 @@ import { useParams } from 'react-router-dom'
 import Tab from 'react-bootstrap/Tab'
 import Tabs from 'react-bootstrap/Tabs'
 
-// import { useMyUserState } from '@/services/api/Auth'
-
 import UsersActivityTab from '@/pages/users/ActivityTab'
+import UsersExperienceTab from '@/pages/users/ExperienceTab'
+import UsersEducationTab from '@/pages/users/EducationTab'
+
 import ActivityTab from '../pages/my/profile/ActivityTab'
 import ExperienceTab from '../pages/my/profile/ExperienceTab'
 import EducationTab from '../pages/my/profile/EducationTab'
 
 function ProfileTabs(props) {
-  // const { data: { id: currentUser } = {} } = useMyUserState()
   const { id } = useParams()
 
   const [key, setKey] = useState('activity')
@@ -25,6 +25,7 @@ function ProfileTabs(props) {
         onSelect={(k) => setKey(k)}
         className="mb-3"
       >
+
         <Tab eventKey="activity" title="Activity">
           {!id ? (
             <ActivityTab />
@@ -32,12 +33,25 @@ function ProfileTabs(props) {
             <UsersActivityTab posts={props.posts} />
           )}
         </Tab>
+
         <Tab eventKey="experience" title="Experience">
-          <ExperienceTab />
+          {!id ? (
+            <ExperienceTab />
+          ) : (
+            <UsersExperienceTab experiences={props.experiences} />
+          )}
+
         </Tab>
+
         <Tab eventKey="education" title="Education">
-          <EducationTab />
+
+          {!id ? (
+            <EducationTab />
+          ) : (
+            <UsersEducationTab educations={props.educations} />
+          )}
         </Tab>
+
       </Tabs>
     </div>
   )

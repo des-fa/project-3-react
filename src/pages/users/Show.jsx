@@ -1,9 +1,11 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, Redirect } from 'react-router-dom'
 
 import Skeleton from 'react-loading-skeleton'
 
 import { useGetMyUserQuery } from '@/services/api/Users'
+import { useMyUserState } from '@/services/api/Auth'
+
 import ProfileTabs from '../../components/ProfileTabs'
 
 function UserProfile({ user: { profile, fullName } = {} }) {
@@ -42,7 +44,15 @@ function UserProfile({ user: { profile, fullName } = {} }) {
 }
 
 function PagesUsersShow() {
+  const { data: { id: currentUser } = {} } = useMyUserState()
   const { id } = useParams()
+  // const navigate = useNavigate()
+  console.log(id)
+  console.log(currentUser)
+
+  if (currentUser === id) {
+    window.location.href = 'http://localhost:8080/my/profile'
+  }
 
   const {
     data: user,
@@ -64,14 +74,14 @@ function PagesUsersShow() {
     content = ''
   } else if (isSuccess) {
     console.log(user)
-    // console.log(user.posts)
+    // console.log(user.experiences)
     content = (
       <>
 
         <UserProfile
           user={user}
         />
-        <ProfileTabs posts={user.posts} />
+        <ProfileTabs posts={user.posts} experiences={user.experiences} educations={user.educations} />
       </>
     )
   } else if (isError) {

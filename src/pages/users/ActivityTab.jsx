@@ -41,8 +41,13 @@ function UsersActivityTab({ posts }) {
       ))
     )
   } else if (posts) {
-    console.log(posts)
-    content = posts.map((post) => <Post key={post.id} post={post} />)
+    // console.log(posts)
+    content = posts.map((post) => (
+      <Post
+        key={post.id}
+        post={post}
+      />
+    ))
   }
 
   return (
