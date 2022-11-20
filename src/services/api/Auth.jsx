@@ -18,6 +18,14 @@ export const apiAuth = createApi({
       }),
       providesTags: ['Auth']
     }),
+    updateMyAccountSettings: builder.mutation({
+      query: (data) => ({
+        url: '/my/user/settings',
+        method: 'PUT',
+        data
+      }),
+      invalidatesTags: ['Auth']
+    }),
     signup: builder.mutation({
       query: (data) => ({
         url: '/auth/signup',
@@ -54,6 +62,7 @@ export const apiAuth = createApi({
 
 export const {
   useGetMyUserQuery,
+  useUpdateMyAccountSettingsMutation,
   useSignupMutation,
   useLoginMutation,
   useLogoutMutation

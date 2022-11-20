@@ -25,7 +25,6 @@ export const apiMyProfile = createApi({
       }),
       providesTags: ['MyProfile']
     }),
-
     updateMyProfile: builder.mutation({
       query: (data) => ({
         url: '',

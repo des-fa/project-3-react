@@ -6,7 +6,7 @@ import { useGetMyProfileQuery } from '@/services/api/my/MyProfile'
 
 import FormsProfileChangeModal from '@/forms/profile/ProfileChange'
 
-import ProfileTabs from '@/pages/my/profile/ProfileTabs'
+import ProfileTabs from '@/components/ProfileTabs'
 
 function MyProfile({ profile, show, onClick, onHide, setEditModalShow }) {
   return (
@@ -35,7 +35,7 @@ function MyProfile({ profile, show, onClick, onHide, setEditModalShow }) {
               />
             </div>
             <div className="col">
-              <h3 className="fs-4 fw-bold mb-4 text-uppercase">{profile?.user.fullName}</h3>
+              <h3 className="fs-4 fw-bold mb-4 text-uppercase">{profile?.user?.fullName}</h3>
               <h5 className="mb-2 text-capitalize">{profile?.currentJob}</h5>
               <h5 className="text-capitalize">{profile?.highestEducation}</h5>
             </div>

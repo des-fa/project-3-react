@@ -37,8 +37,8 @@ function LayoutsNavbar() {
               navbarScroll
             >
               <Nav.Link as={NavLink} to="/my/home">Home</Nav.Link>
-              <Nav.Link href="/my/connections">Connections</Nav.Link>
-              <Nav.Link href="/my/messages" className="me-2">Messages</Nav.Link>
+              <Nav.Link as={NavLink} to="/my/connections">Connections</Nav.Link>
+              <Nav.Link as={NavLink} to="/my/messages" className="me-2">Messages</Nav.Link>
               <NavDropdown
                 title={(
                   <div className="pull-left">
@@ -55,8 +55,8 @@ function LayoutsNavbar() {
                 menuVariant="dark"
                 align="end"
               >
-                <NavDropdown.Item href="/my/profile">Profile</NavDropdown.Item>
-                <NavDropdown.Item href="/my/settings">
+                <NavDropdown.Item className="mb-2" href="/my/profile">Profile</NavDropdown.Item>
+                <NavDropdown.Item href="/my/account/settings">
                   Account Settings
                 </NavDropdown.Item>
                 <NavDropdown.Divider />

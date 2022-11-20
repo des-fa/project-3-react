@@ -22,7 +22,7 @@ function FollowingPost({ post }) {
 
           <div className="d-flex flex-column">
             <h5 className="post-user-name mb-2 fw-bold"><a
-              href={`/user/${post?.userId}`}
+              href={`/users/${post?.userId}`}
               className="link-secondary text-decoration-none"
             >{post?.user?.fullName}</a></h5>
             <h6 className="follower-job mb-2">{post?.content.substring(0, 100)}</h6>
@@ -77,7 +77,7 @@ function PagesMyHome() {
 
   return (
     <div id="pages-my-home" className="container">
-      <h3 className="my-5 mx-3">Latest posts from those you follow</h3>
+      <h3 className="my-5 mx-3 fw-light">Latest posts from those you follow</h3>
       {content}
     </div>
   )

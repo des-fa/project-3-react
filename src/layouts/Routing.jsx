@@ -9,11 +9,13 @@ import NoAuthRoute from '@/layouts/NoAuthRoute'
 
 import PagesHome from '@/pages/Home'
 
-import PagesMyProfile from '@/pages/my/profile/Profile'
 import PagesMyHome from '@/pages/my/Home'
+import PagesMyProfile from '@/pages/my/profile/Profile'
+import PagesMyAccountSettings from '@/pages/my/account/Settings'
 import PagesMyConnections from '@/pages/my/connections/Connections'
 
-import PagesUsers from '@/pages/Users'
+import PagesUsers from '@/pages/users/Index'
+import PagesUsersShow from '@/pages/users/Show'
 
 import PagesNotFound from '@/pages/NotFound'
 
@@ -27,9 +29,11 @@ function Routing() {
 
             <Route path="/my/home" element={<AuthRoute><PagesMyHome /></AuthRoute>} />
             <Route path="/my/profile" element={<AuthRoute><PagesMyProfile /></AuthRoute>} />
+            <Route path="/my/account/settings" element={<AuthRoute><PagesMyAccountSettings /></AuthRoute>} />
             <Route path="/my/connections" element={<AuthRoute><PagesMyConnections /></AuthRoute>} />
 
             <Route path="/users" element={<AuthRoute><PagesUsers /></AuthRoute>} />
+            <Route path="/users/:id" element={<AuthRoute><PagesUsersShow /></AuthRoute>} />
 
             <Route path="*" element={<PagesNotFound />} />
           </Route>
