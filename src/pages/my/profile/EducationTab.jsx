@@ -44,8 +44,8 @@ function Education({ education, setEditModalShow, setDeleteModalShow, setEducati
 
         <div className="d-flex flex-row justify-content-start align-items-top gap-5 px-5">
           <div className="d-flex flex-column me-5">
-            <h6 className="education-school mb-2"><b>School:</b> {education?.school}</h6>
-            <h6 className="education-qualification my-2"><b>Qualification:</b> {education?.qualification}</h6>
+            <h6 className="education-school mb-2"><b>School:</b> <span className="text-capitalize">{education?.school}</span></h6>
+            <h6 className="education-qualification my-2"><b>Qualification:</b> <span className="text-capitalize">{education?.qualification}</span></h6>
             <h6 className="education-period my-2"><em>{education?.startYear} {education?.endYear ? (` - ${education?.endYear}`) : ('')}</em></h6>
           </div>
         </div>

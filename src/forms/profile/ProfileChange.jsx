@@ -62,7 +62,16 @@ function FormsProfileChangeModal(props) {
         Yup.object({
           currentJob: Yup.string().required().trim().label('Current job/job status'),
           highestEducation: Yup.string().trim().required().label('Institution of highest level of education'),
-          about: Yup.string().trim().required().label('About me')
+          about: Yup
+            .string()
+            .test(
+              'len',
+              'This section  must be between 1 and 400 characters.',
+              (val) => (val.length >= 1 && val.length <= 400)
+            )
+            .trim()
+            .required()
+            .label('About me')
         })
       }
       >

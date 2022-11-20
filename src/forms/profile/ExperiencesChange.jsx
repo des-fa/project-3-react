@@ -74,7 +74,16 @@ function FormsExperiencesChangeModal(props) {
             .nullable()
             .test('len', 'Must be exactly 4 numbers', (val) => !val || val.toString().length === 4)
             .label('Ending year of employment'),
-          description: Yup.string().trim().required().label('Brief job description')
+          description: Yup
+            .string()
+            .trim()
+            .test(
+              'len',
+              'This section  must be between 1 and 350 characters.',
+              (val) => (val.length >= 1 && val.length <= 350)
+            )
+            .required()
+            .label('Brief job description')
         })
     }
       >

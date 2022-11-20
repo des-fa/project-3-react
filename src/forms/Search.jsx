@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 // import { skipToken } from '@reduxjs/toolkit/dist/query'
 
-import { Formik, Field, Form, ErrorMessage } from 'formik'
+import { Formik, Field, Form } from 'formik'
 import * as Yup from 'yup'
 
 import { useGetMyUsersQuery } from '@/services/api/Users'
@@ -57,11 +57,11 @@ function FormsSearch(props) {
                 name="q"
                 placeholder="Connect with others"
               />
-              <ErrorMessage
+              {/* <ErrorMessage
                 className="invalid-feedback"
                 name="q"
                 component="div"
-              />
+              /> */}
             </div>
 
             <div className="d-flex flex-column">

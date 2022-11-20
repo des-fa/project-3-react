@@ -18,7 +18,16 @@ function FormsPostsChange(props) {
       enableReinitialize
       validationSchema={
         Yup.object({
-          content: Yup.string().required().trim().label('Content'),
+          content: Yup
+            .string()
+            .test(
+              'len',
+              'This section  must be between 1 and 1000 characters.',
+              (val) => (val.length >= 1 && val.length <= 1000)
+            )
+            .required()
+            .trim()
+            .label('Content'),
           image: Yup.mixed()
         })
       }

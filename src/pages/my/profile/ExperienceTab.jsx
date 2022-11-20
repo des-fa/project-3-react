@@ -42,16 +42,23 @@ function Experience({ experience, setEditModalShow, setDeleteModalShow, setExper
           </Dropdown>
         </div>
 
-        <div className="d-flex flex-row justify-content-start align-items-top gap-5 px-5">
-          <div className="d-flex flex-column me-5">
-            <h6 className="experience-job mb-2"><b>Job Title:</b> {experience?.job}</h6>
-            <h6 className="experience-company my-2"><b>Company:</b> {experience?.company}</h6>
-            <h6 className="experience-period my-2"><em>{experience?.startYear} {experience?.endYear ? (` - ${experience?.endYear}`) : ('')}</em></h6>
+        <div className="d-flex flex-row justify-content-evenly align-items-top px-5">
+
+          <div className="d-flex flex-column me-5 mw-25">
+
+            <div className="w-100">
+              <h6 className="experience-job mb-2"><b>Job Title: </b><span className="text-capitalize">{experience?.job}</span></h6>
+              <h6 className="experience-company my-2"><b>Company: </b><span className="text-capitalize">{experience?.company}</span></h6>
+              <h6 className="experience-period my-2"><em>{experience?.startYear} {experience?.endYear ? (` - ${experience?.endYear}`) : ('')}</em></h6>
+            </div>
+
           </div>
-          <div className="d-flex flex-column">
+
+          <div className="d-flex flex-column w-50 me-5">
             <h6>Description</h6>
             <p>{experience?.description}</p>
           </div>
+
         </div>
 
       </div>

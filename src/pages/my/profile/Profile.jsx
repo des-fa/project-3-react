@@ -35,15 +35,15 @@ function MyProfile({ profile, show, onClick, onHide, setEditModalShow }) {
               />
             </div>
             <div className="col">
-              <h3 className="fs-4 fw-bold mb-4">{profile?.user.fullName}</h3>
-              <h6 className="mb-2">{profile?.currentJob}</h6>
-              <h6>{profile?.highestEducation}</h6>
+              <h3 className="fs-4 fw-bold mb-4 text-uppercase">{profile?.user.fullName}</h3>
+              <h5 className="mb-2 text-capitalize">{profile?.currentJob}</h5>
+              <h5 className="text-capitalize">{profile?.highestEducation}</h5>
             </div>
           </div>
         </div>
 
         <div className="d-flex flex-column justify-content-top px-5">
-          <h5>About Me</h5>
+          <h4>About Me</h4>
           <p>{profile?.about}</p>
         </div>
 
@@ -72,7 +72,9 @@ function PagesMyProfile() {
 
   useEffect(() => {
     if (!profile && !createModalShow) {
-      setCreateModalShow(true)
+      setTimeout(() => {
+        setCreateModalShow(true)
+      }, 1000)
     }
     if (profile && createModalShow) {
       setCreateModalShow(false)
