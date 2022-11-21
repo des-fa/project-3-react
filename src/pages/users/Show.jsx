@@ -1,22 +1,62 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
 import Skeleton from 'react-loading-skeleton'
 
 import { useGetMyUserQuery } from '@/services/api/Users'
 import { useMyUserState } from '@/services/api/Auth'
-import { useGetMyFollowersQuery } from '@/services/api/my/MyConnections'
+import { useGetMyFollowersQuery, useGetMyFollowingQuery } from '@/services/api/my/MyConnections'
 
 import ProfileTabs from '../../components/ProfileTabs'
 
 function UserProfile({ currentUser, user: { profile, fullName, id } = {} }) {
-  // console.log(profile)
-  // console.log(fullName)
-// if following html should be unfollow, message button visible
-// if follows you: message button, follow button, follows yoou notification
-// pressing on follow button updates followers/following
-  console.log(currentUser)
-  console.log(id)
+  const [follow, setFollow] = useState('Follow')
+  const [showMessageButton, setShowMessageButton] = useState(false)
+  const [showFollowsYouText, setShowFollowsYouText] = useState(false)
+
+  // checking to see if user follows you
+  const { data: { followers: myFollowers } = {} } = useGetMyFollowersQuery()
+  const followers = myFollowers?.filter((follower) => follower.followingId === currentUser)
+  // console.log(followers)
+  const followerId = followers?.find((follower) => follower.followerId === id)
+  // console.log(followerId)
+
+  // checking to see fi you follow the user
+  const { data: { following: myFollowing } = {} } = useGetMyFollowingQuery()
+  const followings = myFollowing?.filter((follower) => follower.followerId === currentUser)
+  console.log(followings)
+  const followingId = followings?.find((following) => following.followingId === id)
+  console.log(followingId)
+
+  // changing buttons and text dynamically
+  useEffect(() => {
+    if (followerId && followingId) {
+      setFollow('Following')
+      setShowMessageButton(true)
+      setShowFollowsYouText(true)
+    } else if (followingId && !followerId) {
+      setFollow('Following')
+      setShowMessageButton(true)
+      setShowFollowsYouText(false)
+    } else if (!followingId && followerId) {
+      setFollow('Follow Back')
+      setShowMessageButton(true)
+      setShowFollowsYouText(true)
+    } else {
+      setFollow('Follow')
+      setShowMessageButton(false)
+      setShowFollowsYouText(false)
+    }
+  })
+
+  // clicking on follow button updates followers/following
+
+  // following: button outline
+
+  // normal situation=button filled in
+
+  // BUTTON FILLED IN= WHEN YOU AREN'T FOLLOWING THEM
+  // BUTTON OUTLINE=WHEN YOU ARE FOLLOWING THEM
 
   return (
     <div className="px-4 py-4 mb-4 bg-light border rounded-3">
@@ -25,6 +65,7 @@ function UserProfile({ currentUser, user: { profile, fullName, id } = {} }) {
         <button
           type="button"
           className="btn btn-sm btn-dark"
+          style={{ visibility: showMessageButton ? 'visible' : 'hidden' }}
         >
           Message
         </button>
@@ -32,9 +73,20 @@ function UserProfile({ currentUser, user: { profile, fullName, id } = {} }) {
         <button
           type="button"
           className="btn btn-sm btn-outline-secondary"
+          // onClick={() => { setShowText(true) }}
         >
-          Follow
+          {follow}
         </button>
+      </div>
+
+      <div className="d-flex flex-row justify-content-end mt-2">
+        <p
+          className="text-muted text-decoration-underline"
+          style={{ visibility: showFollowsYouText ? 'visible' : 'hidden' }}
+        >
+          Follows you
+        </p>
+
       </div>
 
       <div className="row g-4 px-4 row-cols-1 row-cols-lg-2 px-5 pb-2">
@@ -51,7 +103,7 @@ function UserProfile({ currentUser, user: { profile, fullName, id } = {} }) {
               />
             </div>
             <div className="col">
-              <h3 className="fs-4 fw-bold mb-4 text-uppercase">{fullName}</h3>
+              <h3 className="fs-4 fw-bold mb-3 text-uppercase">{fullName}</h3>
               <h5 className="mb-2 text-capitalize">{profile?.currentJob}</h5>
               <h5 className="text-capitalize">{profile?.highestEducation}</h5>
             </div>
@@ -69,8 +121,6 @@ function UserProfile({ currentUser, user: { profile, fullName, id } = {} }) {
 }
 
 function PagesUsersShow() {
-  const { data: { followers: myFollowers } = {} } = useGetMyFollowersQuery()
-  console.log(myFollowers)
   const { data: { id: currentUser } = {} } = useMyUserState()
   const { id } = useParams()
   // const navigate = useNavigate()
