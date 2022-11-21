@@ -9,7 +9,7 @@ import { useCreateMyFollowingMutation, useDeleteMyFollowingMutation, useGetMyFol
 
 import ProfileTabs from '../../components/ProfileTabs'
 
-function UserProfile({ currentUser, user: { profile, fullName, id } = {} }) {
+function UserProfile({ currentUser, user: { profile, fullName, id, avatar } = {} }) {
   const [createMyFollowing] = useCreateMyFollowingMutation()
   const [deleteMyFollowing] = useDeleteMyFollowingMutation()
 
@@ -107,13 +107,13 @@ function UserProfile({ currentUser, user: { profile, fullName, id } = {} }) {
 
         <div className="col">
           <div className="d-flex flex-row align-items-top justify-content-center px-5 py-2">
-            <div className="col">
+            <div className="col  me-5">
               <img
-                src={profile?.user?.avatar}
+                src={avatar}
                 alt="user pic"
                 width="auto"
                 height="150px"
-                className="rounded"
+                className="img-thumbnail"
               />
             </div>
             <div className="col">
@@ -146,6 +146,7 @@ function PagesUsersShow() {
   }
 
   const { data: user, isLoading, isSuccess, isError, error } = useGetMyUserQuery(id)
+  console.log(user)
 
   let content
 

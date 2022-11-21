@@ -11,13 +11,13 @@ function Follower({ follower }) {
 
   return (
     <article className="follower" key={follower?.follower?.id}>
-      <div className="border rounded p-4 m-3" style={{ height: '130px' }}>
-
+      <div className="border rounded p-4 m-3">
+        {/* style={{ height: '130px' }} */}
         <button
           type="button"
           className="btn btn-sm btn-secondary float-end"
           onClick={() => {
-            navigate(`/user/${follower?.follower?.id}`)
+            navigate(`/users/${follower?.follower?.id}`)
           }}
         >
           View
@@ -25,7 +25,13 @@ function Follower({ follower }) {
 
         <div className="d-flex flex-row justify-content-start align-items-center gap-4 px-4">
           <div className="d-flex flex-column">
-            <img src={follower?.follower?.avatar} alt="user-picture" width="60px" height="auto" />
+            <img
+              src={follower?.follower?.avatar}
+              className="img-thumbnail"
+              alt="user-picture"
+              width="80px"
+              height="auto"
+            />
           </div>
           <div className="d-flex flex-column">
             <h5 className="follower-name mb-2 fw-bold">{follower?.follower?.fullName}</h5>

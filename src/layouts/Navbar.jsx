@@ -32,19 +32,20 @@ function LayoutsNavbar() {
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
             <Nav
-              className="ms-auto my-2 my-lg-0 gap-2 align-items-center"
+              className="ms-auto my-2 my-lg-0 gap-3 align-items-center"
               style={{ maxHeight: '100px' }}
               navbarScroll
             >
-              <Nav.Link as={NavLink} to="/my/home">Home</Nav.Link>
-              <Nav.Link as={NavLink} to="/my/connections">Connections</Nav.Link>
-              <Nav.Link as={NavLink} to="/my/messages" className="me-2">Messages</Nav.Link>
+              <Nav.Link className="border rounded px-2" as={NavLink} to="/my/home">Home</Nav.Link>
+              <Nav.Link className="border rounded px-2" as={NavLink} to="/my/connections">Connections</Nav.Link>
+              <Nav.Link as={NavLink} to="/my/messages" className="border rounded px-2 me-2">Messages</Nav.Link>
               <NavDropdown
                 title={(
                   <div className="pull-left">
                     <img
-                      className="thumbnail-image border rounded-circle"
-                      width="40px"
+                      className="thumbnail-image border border-white rounded-circle"
+                      width="50px"
+                      height="50px"
                       src={avatar}
                       alt="user pic"
                     />

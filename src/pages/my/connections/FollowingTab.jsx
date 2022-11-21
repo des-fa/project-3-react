@@ -10,13 +10,13 @@ function Following({ following }) {
 
   return (
     <article className="following" key={following?.following?.id}>
-      <div className="border rounded p-4 m-3" style={{ height: '130px' }}>
+      <div className="border rounded p-4 m-3">
 
         <button
           type="button"
           className="btn btn-sm btn-secondary float-end"
           onClick={() => {
-            navigate(`/user/${following?.following?.id}`)
+            navigate(`/users/${following?.following?.id}`)
           }}
         >
           View
@@ -24,7 +24,13 @@ function Following({ following }) {
 
         <div className="d-flex flex-row justify-content-start align-items-center gap-4 px-4">
           <div className="d-flex flex-column">
-            <img src={following?.following?.avatar} alt="user-picture" width="60px" height="auto" />
+            <img
+              src={following?.following?.avatar}
+              className="img-thumbnail"
+              alt="user-picture"
+              width="80px"
+              height="auto"
+            />
           </div>
           <div className="d-flex flex-column">
             <h5 className="following-name mb-2 fw-bold">{following?.following?.fullName}</h5>

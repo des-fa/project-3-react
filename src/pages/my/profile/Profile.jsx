@@ -29,9 +29,9 @@ function MyProfile({ profile, show, onClick, onHide, setEditModalShow }) {
               <img
                 src={profile?.user?.avatar}
                 alt="user pic"
-                width="auto"
-                height="150px"
-                className="rounded"
+                width="150px"
+                height="auto"
+                className="img-thumbnail"
               />
             </div>
             <div className="col">
