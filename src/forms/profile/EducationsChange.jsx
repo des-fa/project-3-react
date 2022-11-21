@@ -48,9 +48,17 @@ function FormsEducationsChangeModal(props) {
       centered
     >
       <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Add details about your education history
-        </Modal.Title>
+        {
+        props.educationInfo ? (
+          <Modal.Title id="contained-modal-title-vcenter">
+            Edit details for this education record
+          </Modal.Title>
+        ) : (
+          <Modal.Title id="contained-modal-title-vcenter">
+            Add details about your education history
+          </Modal.Title>
+        )
+        }
       </Modal.Header>
 
       <Formik

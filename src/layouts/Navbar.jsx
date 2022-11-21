@@ -23,9 +23,12 @@ function LayoutsNavbar() {
 
     currentUser ? (
 
-      <Navbar bg="dark" expand="lg" variant="dark" className="px-3" sticky="top">
+      <Navbar bg="dark" expand="lg" variant="dark" className="px-3 py-2" sticky="top">
         <Container fluid>
-          <Navbar.Brand className="fs-1 border rounded px-4 py-0">t  b  d</Navbar.Brand>
+          <div className="py-1">
+
+            <Navbar.Brand className="fs-1 border rounded px-4 py-1">t  b  d</Navbar.Brand>
+          </div>
 
           <FormsSearch />
 
@@ -36,14 +39,14 @@ function LayoutsNavbar() {
               style={{ maxHeight: '100px' }}
               navbarScroll
             >
-              <Nav.Link className="border rounded px-2" as={NavLink} to="/my/home">Home</Nav.Link>
-              <Nav.Link className="border rounded px-2" as={NavLink} to="/my/connections">Connections</Nav.Link>
-              <Nav.Link as={NavLink} to="/my/messages" className="border rounded px-2 me-2">Messages</Nav.Link>
+              <Nav.Link className="border rounded px-3" as={NavLink} to="/my/home">Home</Nav.Link>
+              <Nav.Link className="border rounded px-3" as={NavLink} to="/my/connections">Connections</Nav.Link>
+              <Nav.Link as={NavLink} to="/my/messages" className="border rounded px-3">Messages</Nav.Link>
               <NavDropdown
                 title={(
                   <div className="pull-left">
                     <img
-                      className="thumbnail-image border border-white rounded-circle"
+                      className="thumbnail-image border border-white border-2 rounded-circle"
                       width="50px"
                       height="50px"
                       src={avatar}

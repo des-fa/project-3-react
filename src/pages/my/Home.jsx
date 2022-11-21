@@ -31,7 +31,7 @@ function FollowingPost({ post }) {
               href={`/users/${post?.userId}`}
               className="link-secondary text-decoration-none"
             >{post?.user?.fullName}</a></h5>
-            <h6 className="user-post-content mb-2 px-3">{post?.content.substring(0, 400)}</h6>
+            <h6 className="user-post-content mb-2 pe-5">{post?.content.substring(0, 400)}</h6>
           </div>
         </div>
 

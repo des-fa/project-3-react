@@ -28,10 +28,14 @@ function FormsPostsChange(props) {
       })
     }
   ) : (
-    async (data) => {
+    async (data, { resetForm, setFieldValue }) => {
       // console.log(data)
       createMyPost(data).unwrap().then(() => {
         // console.log(data)
+        resetForm({ values: '' })
+        setImagePreview(defaultImage)
+        setFieldValue('image', '')
+        imageRef.current.value = null
       })
     }
   )

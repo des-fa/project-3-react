@@ -49,9 +49,17 @@ function FormsExperiencesChangeModal(props) {
       centered
     >
       <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Add details about your job experience
-        </Modal.Title>
+        {
+        props.experienceInfo ? (
+          <Modal.Title id="contained-modal-title-vcenter">
+            Edit details for this job experience
+          </Modal.Title>
+        ) : (
+          <Modal.Title id="contained-modal-title-vcenter">
+            Add details about your job experience
+          </Modal.Title>
+        )
+        }
       </Modal.Header>
 
       <Formik

@@ -18,7 +18,10 @@ function ProfileTabs(props) {
   const [key, setKey] = useState('activity')
 
   return (
-    <div className="container">
+    <div
+      className="container"
+      // style={{ height: '50vh' }}
+    >
       <Tabs
         id="profile-tabs"
         activeKey={key}
