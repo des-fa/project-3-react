@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import { Button } from 'react-bootstrap'
 
 import { Formik, Field, Form, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
+
+import { useCreateMyPostMutation, useUpdateMyPostMutation } from '@/services/api/my/MyPosts'
+import defaultImage from '../../assets/defaultImage.png'
 
 const initialValues = {
   content: '',
@@ -10,25 +13,51 @@ const initialValues = {
 }
 
 function FormsPostsChange(props) {
+  const [imagePreview, setImagePreview] = useState(props?.postInfo?.image || props?.initialValues?.image || defaultImage)
+  const imageRef = useRef(null)
+
+  const [createMyPost] = useCreateMyPostMutation()
+  const [updateMyPost] = useUpdateMyPostMutation()
+
+  const handleSubmit = props.postInfo ? (
+    async (data) => {
+      // console.log(data)
+      updateMyPost(data).unwrap().then(() => {
+        // console.log(data)
+        props.onHide()
+      })
+    }
+  ) : (
+    async (data) => {
+      // console.log(data)
+      createMyPost(data).unwrap().then(() => {
+        // console.log(data)
+      })
+    }
+  )
+
   return (
 
     <Formik
-      initialValues={props.initialValues || initialValues}
-      onSubmit={props.onSubmit}
+      initialValues={props.postInfo || initialValues}
+      onSubmit={handleSubmit}
       enableReinitialize
       validationSchema={
         Yup.object({
           content: Yup
             .string()
-            .test(
-              'len',
-              'This section  must be between 1 and 1000 characters.',
-              (val) => (val.length >= 1 && val.length <= 1000)
-            )
-            .required()
             .trim()
+            .max(1000, 'Maximum 1000 characters.')
+            // .test(
+            //   'len',
+            //   'This section  must be between 1 and 1000 characters.',
+            //   (val) => (val.length >= 1 && val.length <= 1000)
+            // )
+            .required()
             .label('Content'),
-          image: Yup.mixed()
+          image: Yup
+            .mixed()
+            .nullable()
         })
       }
     >
@@ -52,7 +81,7 @@ function FormsPostsChange(props) {
                 />
               </div>
 
-              <div className="mb-3">
+              {/* <div className="mb-3">
                 <input
                   id="image"
                   name="image"
@@ -61,16 +90,78 @@ function FormsPostsChange(props) {
                     setFieldValue('image', event.currentTarget.files[0])
                   }}
                 />
-              </div>
+              </div> */}
 
-              <div className="d-flex flex-row justify-content-end">
-                <Button
-                  className="btn btn-dark btn-sm"
-                  type="submit"
-                  disabled={isSubmitting}
-                >Create Post</Button>
-              </div>
+              <div className="d-flex flex-row justify-content-start align-items-center gap-4">
+                <div className="col-auto">
+                  <img
+                    src={imagePreview}
+                    className="img-thumbnail rounded"
+                    width="90px"
+                  />
+                </div>
 
+                <div className="col-auto">
+                  <div className="input-group input-group-sm mb-3">
+                    <label className="input-group-text" htmlFor="image">Upload</label>
+                    <input
+                      ref={imageRef}
+                      id="image"
+                      className={`form-control ${e?.image && 'is-invalid'}`}
+                      name="image"
+                      type="file"
+                      onChange={(event) => {
+                        const fileReader = new FileReader()
+                        fileReader.onload = () => {
+                          if (fileReader.readyState === 2) {
+                            setFieldValue('image', fileReader.result)
+                            setImagePreview(fileReader.result)
+                          }
+                        }
+                        fileReader.readAsDataURL(event.target.files[0])
+                      }}
+                    />
+                    <ErrorMessage
+                      className="invalid-feedback"
+                      name="image"
+                      component="div"
+                    />
+                    <button
+                      type="button"
+                      className="btn btn-outline-dark"
+                      onClick={() => {
+                        setImagePreview(props?.initialValues?.image || defaultImage)
+                        setFieldValue('image', '')
+                        imageRef.current.value = null
+                      }}
+                    >X</button>
+                  </div>
+                </div>
+              </div>
+              {
+              props.postInfo ? (
+                <div className="d-flex flex-row justify-content-end gap-2">
+
+                  <Button variant="outline-secondary" onClick={props.onHide}>
+                    Cancel
+                  </Button>
+                  <Button
+                    className="btn btn-dark"
+                    type="submit"
+                    disabled={isSubmitting}
+                  >Save Changes</Button>
+                </div>
+
+              ) : (
+                <div className="d-flex flex-row justify-content-end">
+                  <Button
+                    className="btn btn-dark btn-sm"
+                    type="submit"
+                    disabled={isSubmitting}
+                  >Create Post</Button>
+                </div>
+              )
+              }
             </Form>
 
           </div>

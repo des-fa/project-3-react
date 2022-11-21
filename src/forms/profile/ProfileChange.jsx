@@ -61,12 +61,8 @@ function FormsProfileChangeModal(props) {
           highestEducation: Yup.string().trim().required().label('Institution of highest level of education'),
           about: Yup
             .string()
-            .test(
-              'len',
-              'This section  must be between 1 and 400 characters.',
-              (val) => (val.length >= 1 && val.length <= 400)
-            )
             .trim()
+            .max(400, 'Maximum 400 characters.')
             .required()
             .label('About me')
         })

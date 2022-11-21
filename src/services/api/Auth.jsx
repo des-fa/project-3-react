@@ -23,7 +23,7 @@ export const apiAuth = createApi({
       query: (data) => ({
         url: '/my/user/settings',
         method: 'PUT',
-        data
+        data: serialize(data, { indices: true })
       }),
       invalidatesTags: ['Auth']
     }),

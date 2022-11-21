@@ -27,11 +27,11 @@ function FollowingPost({ post }) {
           </div>
 
           <div className="d-flex flex-column">
-            <h5 className="post-user-name mb-2 fw-bold"><a
+            <h5 className="user-post-name mb-2 fw-bold"><a
               href={`/users/${post?.userId}`}
               className="link-secondary text-decoration-none"
             >{post?.user?.fullName}</a></h5>
-            <h6 className="follower-job mb-2">{post?.content.substring(0, 100)}</h6>
+            <h6 className="user-post-content mb-2 px-3">{post?.content.substring(0, 400)}</h6>
           </div>
         </div>
 

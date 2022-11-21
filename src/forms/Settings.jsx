@@ -1,19 +1,22 @@
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 
 import { Formik, Field, Form, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 
-// import { useUpdateMyAccountSettingsMutation } from '@/services/api/Auth'
+import { useUpdateMyAccountSettingsMutation } from '@/services/api/Auth'
 
 function FormsAccountSettingsChangeModal(props) {
-  // const [update] = useUpdateMyAccountSettingsMutation()
+  const [avatarPreview, setAvatarPreview] = useState(props.initialValues.avatar)
+  const avatarRef = useRef(null)
 
-  // const handleSubmit = (data) => update(data).unwrap().then(() => {
-  //   console.log(data)
-  //  props.onHide()
-  // })
+  const [update] = useUpdateMyAccountSettingsMutation()
+
+  const handleSubmit = (data) => update(data).unwrap().then(() => {
+    // console.log(data)
+    props.onHide()
+  })
 
   return (
     <Modal
@@ -32,15 +35,12 @@ function FormsAccountSettingsChangeModal(props) {
 
       <Formik
         initialValues={props.initialValues}
-        onSubmit={(values) => {
-          console.log(values)
-        }}
-        // {handleSubmit}
+        onSubmit={handleSubmit}
         enableReinitialize
         validationSchema={
         Yup.object({
-          email: Yup.string().required().label('Email'),
-          fullName: Yup.string().required().label('Full name'),
+          email: Yup.string().label('Email'),
+          fullName: Yup.string().label('Full name'),
           password: Yup.string().min(6).label('Password'),
           passwordConfirmation: Yup.string().oneOf([Yup.ref('password')], 'Passwords need to match').label('Password confirmation'),
           avatar: Yup.mixed().label('Profile picture')
@@ -107,21 +107,51 @@ function FormsAccountSettingsChangeModal(props) {
                 />
               </div>
 
-              <div className="mb-3">
-                <label>Profile Picture</label>
-                <input
-                  id="avatar"
-                  name="avatar"
-                  type="file"
-                  onChange={(event) => {
-                    setFieldValue('avatar', event.currentTarget.files[0])
-                  }}
-                />
-                {/* <ErrorMessage
-                  className="invalid-feedback"
-                  name="avatar"
-                  component="div"
-                /> */}
+              <div className="d-flex flex-row justify-content-evenly align-items-center gap-3 mb-2">
+                <div className="col-auto">
+                  <img
+                    src={avatarPreview}
+                    className="img-thumbnail rounded-circle"
+                    width="100px"
+                  />
+                </div>
+
+                <div className="col-9">
+                  <div className="input-group input-group-sm mb-3">
+                    <label className="input-group-text" htmlFor="avatar">Upload</label>
+                    <input
+                      ref={avatarRef}
+                      id="avatar"
+                      className={`form-control ${e?.avatar && 'is-invalid'}`}
+                      name="avatar"
+                      type="file"
+                      onChange={(event) => {
+                        const fileReader = new FileReader()
+                        fileReader.onload = () => {
+                          if (fileReader.readyState === 2) {
+                            setFieldValue('avatar', fileReader.result)
+                            setAvatarPreview(fileReader.result)
+                          }
+                        }
+                        fileReader.readAsDataURL(event.target.files[0])
+                      }}
+                    />
+                    <ErrorMessage
+                      className="invalid-feedback"
+                      name="avatar"
+                      component="div"
+                    />
+                    <button
+                      type="button"
+                      className="btn btn-outline-dark"
+                      onClick={() => {
+                        setAvatarPreview(props.initialValues.avatar)
+                        setFieldValue('avatar', '')
+                        avatarRef.current.value = null
+                      }}
+                    >X</button>
+                  </div>
+                </div>
               </div>
 
             </Modal.Body>

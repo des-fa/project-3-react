@@ -77,11 +77,7 @@ function FormsExperiencesChangeModal(props) {
           description: Yup
             .string()
             .trim()
-            .test(
-              'len',
-              'This section  must be between 1 and 350 characters.',
-              (val) => (val.length >= 1 && val.length <= 350)
-            )
+            .max(350, 'Maximum 350 characters.')
             .required()
             .label('Brief job description')
         })
@@ -184,7 +180,7 @@ function FormsExperiencesChangeModal(props) {
               </Modal.Footer>
 
             )
-          }
+            }
 
           </Form>
         )

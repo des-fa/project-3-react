@@ -1,16 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Dropdown from 'react-bootstrap/Dropdown'
+import { Modal } from 'react-bootstrap'
 import Skeleton from 'react-loading-skeleton'
-// import { useNavigate } from 'react-router-dom'
 
-// useUpdateMyPostMutation
-// useDeleteMyPostMutation
-import { useGetMyPostsQuery, useCreateMyPostMutation } from '@/services/api/my/MyPosts'
+import { useGetMyPostsQuery, useGetMyPostQuery, useDeleteMyPostMutation } from '@/services/api/my/MyPosts'
 import FormsPostsChange from '@/forms/profile/PostsChange'
 
+import DeleteConfirmation from '@/components/DeleteConfirmation'
 import { TimeAgo } from '../../../components/TimeAgo'
 
-function Post({ post }) {
+function Post({ post, setEditModalShow, setDeleteModalShow, setPostInfo }) {
+  const { id } = post
+  const { data: postInfo } = useGetMyPostQuery(id)
+
   return (
     <article className="post" key={post?.id}>
       <div className="border rounded p-4 m-3">
@@ -28,17 +30,31 @@ function Post({ post }) {
 
             <Dropdown.Menu variant="dark" className="dropdown-menu dropdown-menu-sm">
               <Dropdown.Item href="#/action-2" className="mb-1"> View </Dropdown.Item>
-              <Dropdown.Item href="#/action-1"> Edit </Dropdown.Item>
+              <Dropdown.Item onClick={() => {
+                setPostInfo(postInfo)
+                setEditModalShow(true)
+              }}
+              > Edit </Dropdown.Item>
               <Dropdown.Divider />
-              <Dropdown.Item href="#/action-4">Delete</Dropdown.Item>
+              <Dropdown.Item onClick={() => {
+                setPostInfo(postInfo)
+                setDeleteModalShow(true)
+              }}
+              >Delete</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
         </div>
 
-        <h6 className="post-content my-2">{post?.content.substring(0, 100)}</h6>
+        <h6 className="post-content my-4 px-3">{post?.content.substring(0, 400)}</h6>
         {post?.image ? (
           <div className="text-center mt-3">
-            <img src={post.image} alt="post-picture" width="25%" height="auto" />
+            <img
+              src={post.image}
+              className="rounded"
+              alt="post-picture"
+              width="25%"
+              height="auto"
+            />
           </div>
         ) : ''}
       </div>
@@ -46,22 +62,47 @@ function Post({ post }) {
   )
 }
 
+// postInfo={postInfo}
+//         show={editModalShow}
+//         onHide={() => setEditModalShow(false)}
+
+function PostsChangeModal({ postInfo, show, onHide }) {
+  return (
+    <Modal
+      show={show}
+      onHide={onHide}
+      backdrop="static"
+      keyboard={false}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">
+          Edit your post
+        </Modal.Title>
+      </Modal.Header>
+
+      <FormsPostsChange postInfo={postInfo} onHide={onHide} />
+
+    </Modal>
+  )
+}
+
 function ActivityTab() {
-  // const navigate = useNavigate()
-  const [createMyPost] = useCreateMyPostMutation()
-  // const [updateMyPost] = useUpdateMyPostMutation()
-  // const [deleteMyPost] = useDeleteMyPostMutation()
+  const { data: { posts: myPosts } = {}, isLoading, isSuccess, isError, error } = useGetMyPostsQuery()
 
-  const customCreateMyPost = async (data) => {
-    console.log(data)
-
-    createMyPost(data).unwrap().then(() => {
-      console.log(data)
-    // navigate('/my/profile')
+  const [deleteMyPost] = useDeleteMyPostMutation()
+  const handleDelete = (values) => {
+    deleteMyPost(values).unwrap().then(() => {
+      // console.log(values)
     })
   }
+  const [editModalShow, setEditModalShow] = useState(false)
 
-  const { data: { posts: myPosts } = {}, isLoading, isSuccess, isError, error } = useGetMyPostsQuery()
+  const [deleteModalShow, setDeleteModalShow] = useState(false)
+
+  const [postInfo, setPostInfo] = useState(null)
 
   let content
 
@@ -79,17 +120,39 @@ function ActivityTab() {
     content = ''
   } else if (isSuccess) {
     // console.log(myPosts)
-    content = myPosts.map((post) => <Post key={post.id} post={post} />)
+    content = myPosts.map((post) => (
+      <Post
+        key={post.id}
+        post={post}
+        setEditModalShow={setEditModalShow}
+        setDeleteModalShow={setDeleteModalShow}
+        setPostInfo={setPostInfo}
+      />
+    ))
   } else if (isError) {
     content = <div>{error.toString()}</div>
   }
 
   return (
     <div id="pages-my-profile-activity" className="container my-4 px-5 py-2">
-      <FormsPostsChange
-        onSubmit={customCreateMyPost}
+
+      <FormsPostsChange />
+
+      <PostsChangeModal
+        postInfo={postInfo}
+        show={editModalShow}
+        onHide={() => setEditModalShow(false)}
       />
+
+      <DeleteConfirmation
+        data={postInfo}
+        show={deleteModalShow}
+        onHide={() => setDeleteModalShow(false)}
+        confirm={handleDelete}
+      />
+
       {content}
+
     </div>
   )
 }

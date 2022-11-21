@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 import { useNavigate } from 'react-router-dom'
@@ -19,6 +19,7 @@ const initialValues = {
 
 function FormsAuthSignupModal(props) {
   const [avatarPreview, setAvatarPreview] = useState(defaultAvatar)
+  const avatarRef = useRef(null)
   const navigate = useNavigate()
   const [signup] = useSignupMutation()
 
@@ -36,7 +37,6 @@ function FormsAuthSignupModal(props) {
       size="md"
       aria-labelledby="contained-modal-title-vcenter"
       centered
-      className="shadow"
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
@@ -118,41 +118,54 @@ function FormsAuthSignupModal(props) {
                 />
               </div>
 
-              <div className="d-flex flex-row justify-content-evenly align-items-center gap-3 mb-2">
-                <div className="col-auto">
+              <div className="d-flex flex-row justify-content-evenly align-items-center mb-2">
+                <div className="col-3">
                   <img
                     src={avatarPreview}
-                    className="img-thumbnail rounded-circle"
+                    className="img-thumbnail rounded-circle me-0"
                     width="100px"
                   />
                 </div>
 
-                <div className="col-auto input-group-sm mb-3">
-                  <input
-                    id="avatar"
-                    className={`form-control ${e?.avatar && 'is-invalid'}`}
-                    name="avatar"
-                    type="file"
+                <div className="col-9">
+                  <div className="input-group input-group-sm mb-3">
+                    <label className="input-group-text" htmlFor="avatar">Upload</label>
+                    <input
+                      ref={avatarRef}
+                      id="avatar"
+                      className={`form-control ${e?.avatar && 'is-invalid'}`}
+                      name="avatar"
+                      type="file"
                   // onChange={(event) => {
                   //   setFieldValue('avatar', event.currentTarget.files[0])
                   //   setAvatarPreview(values.avatar)
                   // }}
-                    onChange={(event) => {
-                      const fileReader = new FileReader()
-                      fileReader.onload = () => {
-                        if (fileReader.readyState === 2) {
-                          setFieldValue('avatar', fileReader.result)
-                          setAvatarPreview(fileReader.result)
+                      onChange={(event) => {
+                        const fileReader = new FileReader()
+                        fileReader.onload = () => {
+                          if (fileReader.readyState === 2) {
+                            setFieldValue('avatar', fileReader.result)
+                            setAvatarPreview(fileReader.result)
+                          }
                         }
-                      }
-                      fileReader.readAsDataURL(event.target.files[0])
-                    }}
-                  />
-                  <ErrorMessage
-                    className="invalid-feedback"
-                    name="avatar"
-                    component="div"
-                  />
+                        fileReader.readAsDataURL(event.target.files[0])
+                      }}
+                    />
+                    <ErrorMessage
+                      className="invalid-feedback"
+                      name="avatar"
+                      component="div"
+                    />
+                    <button
+                      type="button"
+                      className="btn btn-outline-dark"
+                      onClick={() => {
+                        setAvatarPreview(defaultAvatar)
+                        setFieldValue('avatar', '')
+                        avatarRef.current.value = null
+                      }}
+                    >X</button>
+                  </div>
                 </div>
               </div>
 

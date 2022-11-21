@@ -1,4 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
+import { serialize } from 'object-to-formdata'
 
 import axiosBaseQuery from '@/services/axios-base-query'
 
@@ -28,7 +29,7 @@ export const apiMyPosts = createApi({
       query: (data) => ({
         url: '',
         method: 'POST',
-        data
+        data: serialize(data, { indices: true })
       }),
       invalidatesTags: (result) => (result ? [{ type: 'MyPosts', id: result?.post?.id }] : [])
     }),
@@ -36,7 +37,7 @@ export const apiMyPosts = createApi({
       query: (data) => ({
         url: `/${data.id}`,
         method: 'PUT',
-        data
+        data: serialize(data, { indices: true })
       }),
       invalidatesTags: (result) => (result ? [{ type: 'MyPosts', id: result?.post?.id }] : [])
     }),

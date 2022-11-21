@@ -16,10 +16,16 @@ function Post({ post }) {
           </button>
         </div>
 
-        <h6 className="post-content my-2">{post?.content.substring(0, 100)}</h6>
+        <h6 className="post-content my-4 px-3">{post?.content.substring(0, 400)}</h6>
         {post?.image ? (
           <div className="text-center mt-3">
-            <img src={post.image} alt="post-picture" width="25%" height="auto" />
+            <img
+              src={post.image}
+              className="rounded"
+              alt="post-picture"
+              width="25%"
+              height="auto"
+            />
           </div>
         ) : ''}
       </div>
