@@ -5,12 +5,16 @@ import Skeleton from 'react-loading-skeleton'
 
 import { useGetMyUserQuery } from '@/services/api/Users'
 import { useMyUserState } from '@/services/api/Auth'
-import { useGetMyFollowersQuery, useGetMyFollowingQuery } from '@/services/api/my/MyConnections'
+import { useCreateMyFollowingMutation, useDeleteMyFollowingMutation, useGetMyFollowersQuery, useGetMyFollowingQuery } from '@/services/api/my/MyConnections'
 
 import ProfileTabs from '../../components/ProfileTabs'
 
 function UserProfile({ currentUser, user: { profile, fullName, id } = {} }) {
-  const [follow, setFollow] = useState('Follow')
+  const [createMyFollowing] = useCreateMyFollowingMutation()
+  const [deleteMyFollowing] = useDeleteMyFollowingMutation()
+
+  const [followButton, setFollowButton] = useState('true')
+  const [followText, setFollowText] = useState('Follow')
   const [showMessageButton, setShowMessageButton] = useState(false)
   const [showFollowsYouText, setShowFollowsYouText] = useState(false)
 
@@ -21,42 +25,52 @@ function UserProfile({ currentUser, user: { profile, fullName, id } = {} }) {
   const followerId = followers?.find((follower) => follower.followerId === id)
   // console.log(followerId)
 
-  // checking to see fi you follow the user
+  // checking to see if you follow the user
   const { data: { following: myFollowing } = {} } = useGetMyFollowingQuery()
   const followings = myFollowing?.filter((follower) => follower.followerId === currentUser)
-  console.log(followings)
+  // console.log(followings)
   const followingId = followings?.find((following) => following.followingId === id)
-  console.log(followingId)
+  // console.log(followingId)
 
-  // changing buttons and text dynamically
+  // changing buttons and follow message dynamically
   useEffect(() => {
     if (followerId && followingId) {
-      setFollow('Following')
+      setFollowButton(false)
+      setFollowText('Following')
       setShowMessageButton(true)
       setShowFollowsYouText(true)
     } else if (followingId && !followerId) {
-      setFollow('Following')
+      setFollowButton(false)
+      setFollowText('Following')
       setShowMessageButton(true)
       setShowFollowsYouText(false)
     } else if (!followingId && followerId) {
-      setFollow('Follow Back')
+      setFollowButton(true)
+      setFollowText('Follow Back')
       setShowMessageButton(true)
       setShowFollowsYouText(true)
     } else {
-      setFollow('Follow')
-      setShowMessageButton(false)
+      setFollowButton(true)
+      setFollowText('Follow')
       setShowFollowsYouText(false)
+      setShowMessageButton(false)
     }
-  })
+  }, [followingId, followerId])
 
   // clicking on follow button updates followers/following
-
-  // following: button outline
-
-  // normal situation=button filled in
-
-  // BUTTON FILLED IN= WHEN YOU AREN'T FOLLOWING THEM
-  // BUTTON OUTLINE=WHEN YOU ARE FOLLOWING THEM
+  const handleClick = followingId ? (
+    (value) => {
+      deleteMyFollowing(value).unwrap().then(() => {
+        console.log('unfollowed')
+      })
+    }
+  ) : (
+    (value) => {
+      createMyFollowing(value).unwrap().then(() => {
+        console.log('followed')
+      })
+    }
+  )
 
   return (
     <div className="px-4 py-4 mb-4 bg-light border rounded-3">
@@ -72,10 +86,10 @@ function UserProfile({ currentUser, user: { profile, fullName, id } = {} }) {
 
         <button
           type="button"
-          className="btn btn-sm btn-outline-secondary"
-          // onClick={() => { setShowText(true) }}
+          className={followButton ? 'btn btn-sm btn-secondary' : 'btn btn-sm btn-outline-secondary'}
+          onClick={() => handleClick(id)}
         >
-          {follow}
+          {followText}
         </button>
       </div>
 

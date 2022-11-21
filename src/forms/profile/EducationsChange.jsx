@@ -153,7 +153,7 @@ function FormsEducationsChangeModal(props) {
                   className="btn btn-dark"
                   type="submit"
                   disabled={isSubmitting}
-                >Create Experience</Button>
+                >Create Education</Button>
               </Modal.Footer>
 
             )

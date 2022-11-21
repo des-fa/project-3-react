@@ -20,7 +20,6 @@ function FormsProfileChangeModal(props) {
   const [updateMyProfile] = useUpdateMyProfileMutation()
 
   const handleSubmit = props.initialValues ? (
-
     async (values) => {
       await updateMyProfile(values)
         .then(() => {
@@ -28,7 +27,6 @@ function FormsProfileChangeModal(props) {
           navigate('/my/profile')
         })
     }
-
   ) : (
     (values) => {
       createMyProfile(values).unwrap().then(() => {
@@ -36,7 +34,6 @@ function FormsProfileChangeModal(props) {
         navigate('/my/profile')
       })
     }
-
   )
 
   return (

@@ -33,7 +33,7 @@ export const apiMyConnections = createApi({
     }),
     createMyFollowing: builder.mutation({
       query: (data) => ({
-        url: `/following/${data.id}`,
+        url: `/following/${data}`,
         method: 'POST',
         data
       }),
@@ -41,7 +41,7 @@ export const apiMyConnections = createApi({
     }),
     deleteMyFollowing: builder.mutation({
       query: (data) => ({
-        url: `/following/${data.id}`,
+        url: `/following/${data}`,
         method: 'DELETE'
       }),
       invalidatesTags: (result) => (result ? [{ type: 'MyConnections', id: result?.following?.id }] : [])
