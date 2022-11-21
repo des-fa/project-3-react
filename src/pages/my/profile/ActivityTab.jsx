@@ -27,9 +27,8 @@ function Post({ post }) {
             </Dropdown.Toggle>
 
             <Dropdown.Menu variant="dark" className="dropdown-menu dropdown-menu-sm">
-              <Dropdown.Item href="#/action-1">
-                Edit
-              </Dropdown.Item>
+              <Dropdown.Item href="#/action-2" className="mb-1"> View </Dropdown.Item>
+              <Dropdown.Item href="#/action-1"> Edit </Dropdown.Item>
               <Dropdown.Divider />
               <Dropdown.Item href="#/action-4">Delete</Dropdown.Item>
             </Dropdown.Menu>

@@ -16,16 +16,15 @@ export const apiUsers = createApi({
         url: '',
         method: 'GET'
       }),
-      providesTags: (result) => (result?.users ? result?.users?.map(({ id }) => ({ type: 'MyUsers', id })) : [])
+      providesTags: (result) => (result?.users ? [...result.users.map(({ id }) => ({ type: 'MyUsers', id })), 'MyUsers'] : ['MyUsers'])
     }),
     getMyUser: builder.query({
       query: (id) => ({
         url: `/${id}`,
         method: 'GET'
       }),
-      providesTags: (result) => (result ? [{ type: 'MyUsers', id: result?.user?.id }] : [])
+      providesTags: (result) => (result ? [{ type: 'MyUsers', id: result?.user?.id }, 'MyUsers'] : ['MyUsers'])
     })
-
   })
 })
 

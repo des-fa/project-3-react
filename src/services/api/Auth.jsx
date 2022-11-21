@@ -1,4 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
+import { serialize } from 'object-to-formdata'
 
 import axiosBaseQuery from '@/services/axios-base-query'
 
@@ -7,7 +8,7 @@ export const apiAuth = createApi({
   reducerPath: 'apiAuth',
   refetchOnMountOrArgChange: true,
   // refetchOnFocus: true,
-  refetchOnReconnect: true,
+  // refetchOnReconnect: true,
   tagTypes: ['Auth'],
   endpoints: (builder) => ({
     getMyUser: builder.query({
@@ -30,7 +31,7 @@ export const apiAuth = createApi({
       query: (data) => ({
         url: '/auth/signup',
         method: 'POST',
-        data
+        data: serialize(data, { indices: true })
       }),
       invalidatesTags: (result) => (result ? ['Auth'] : [])
     }),
