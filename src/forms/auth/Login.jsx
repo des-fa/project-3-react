@@ -28,7 +28,7 @@ function FormsAuthLogin(props) {
       {
         ({ errors: e, touched: t, isSubmitting }) => (
           <Form
-            className="p-4 p-md-5 border rounded-3 bg-light"
+            className="p-5 border rounded-3 bg-light"
             // style={{ height: '400px' }}
           >
             <div className="mb-3">

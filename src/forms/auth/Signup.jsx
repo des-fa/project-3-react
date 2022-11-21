@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 import { useNavigate } from 'react-router-dom'
@@ -7,6 +7,7 @@ import { Formik, Field, Form, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 
 import { useSignupMutation } from '@/services/api/Auth'
+import defaultAvatar from '../../assets/defaultAvatar.png'
 
 const initialValues = {
   email: '',
@@ -17,6 +18,7 @@ const initialValues = {
 }
 
 function FormsAuthSignupModal(props) {
+  const [avatarPreview, setAvatarPreview] = useState(defaultAvatar)
   const navigate = useNavigate()
   const [signup] = useSignupMutation()
 
@@ -116,21 +118,42 @@ function FormsAuthSignupModal(props) {
                 />
               </div>
 
-              <div className="mb-3">
-                <label>Profile Picture</label>
-                <input
-                  id="avatar"
-                  name="avatar"
-                  type="file"
-                  onChange={(event) => {
-                    setFieldValue('avatar', event.currentTarget.files[0])
-                  }}
-                />
-                {/* <ErrorMessage
-                  className="invalid-feedback"
-                  name="avatar"
-                  component="div"
-                /> */}
+              <div className="d-flex flex-row justify-content-evenly align-items-center gap-3 mb-2">
+                <div className="col-auto">
+                  <img
+                    src={avatarPreview}
+                    className="img-thumbnail rounded-circle"
+                    width="100px"
+                  />
+                </div>
+
+                <div className="col-auto input-group-sm mb-3">
+                  <input
+                    id="avatar"
+                    className={`form-control ${e?.avatar && 'is-invalid'}`}
+                    name="avatar"
+                    type="file"
+                  // onChange={(event) => {
+                  //   setFieldValue('avatar', event.currentTarget.files[0])
+                  //   setAvatarPreview(values.avatar)
+                  // }}
+                    onChange={(event) => {
+                      const fileReader = new FileReader()
+                      fileReader.onload = () => {
+                        if (fileReader.readyState === 2) {
+                          setFieldValue('avatar', fileReader.result)
+                          setAvatarPreview(fileReader.result)
+                        }
+                      }
+                      fileReader.readAsDataURL(event.target.files[0])
+                    }}
+                  />
+                  <ErrorMessage
+                    className="invalid-feedback"
+                    name="avatar"
+                    component="div"
+                  />
+                </div>
               </div>
 
             </Modal.Body>
