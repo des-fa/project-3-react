@@ -79,6 +79,7 @@ function UserProfile({ currentUser, user: { profile, fullName, id, avatar, follo
           type="button"
           className="btn btn-sm btn-dark"
           style={{ visibility: showMessageButton ? 'visible' : 'hidden' }}
+          // onClick={() => navigator.clipboard.writeText('Copy this text to clipboard')}
         >
           Message
         </button>

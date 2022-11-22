@@ -1,7 +1,65 @@
 @import "~bootstrap/scss/bootstrap";
+@import "~react-loading-skeleton/dist/skeleton.css";
+@import "~react-toastify/dist/ReactToastify.css";
+
+body {
+  width: 100%;
+  height: 100%;
+}
+
+.container {
+  min-height: 250px;
+}
+
+.rounded-circle, .img-thumbnail {
+  object-fit: cover !important;
+}
 
 .dropdown-toggle::after {
   display: none !important;
+}
+
+.nav-tabs .nav-item .nav-link {
+  color: gray;
+}
+
+.nav-tabs .nav-item .nav-link.active {
+  color: black;
+}
+
+
+.dropdown-item.active, .dropdown-item:active {
+    color: rgb(35, 34, 34);
+    background-color: darkgray;
+}
+
+.pagination > li > a
+{
+    background-color: white;
+    color: black;
+}
+
+.pagination > li > a:focus,
+.pagination > li > a:hover,
+.pagination > li > span:focus,
+.pagination > li > span:hover
+{
+    color: #5a5a5a;
+    background-color: #eee;
+    border-color: #ddd;
+}
+
+.pagination > .active > a
+{
+    color: white;
+    background-color: #6B728E !Important;
+    border: solid 1px #474E68 !Important;
+}
+
+.pagination > .active > a:hover
+{
+    background-color: #474E68 !Important;
+    border: solid 1px #474E68;
 }
 
 .read-or-hide{

@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-
 import Skeleton from 'react-loading-skeleton'
 
 import { useGetMyProfileQuery } from '@/services/api/my/MyProfile'

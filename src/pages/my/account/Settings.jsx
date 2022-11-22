@@ -29,8 +29,8 @@ function MyAccountSettings({ user, show, onClick, onHide, setEditModalShow }) {
         />
         <div className="text-start ms-3">
 
-          <h4 className="fs-4 mb-3 text-capitalize"><b>Name:</b> {user?.fullName}</h4>
-          <h4 className="fs-4 mb-2"><b>Email:</b> {user?.email}</h4>
+          <h4 className="fs-4 fw-light mb-3 text-capitalize"><b>Name:</b> {user?.fullName}</h4>
+          <h4 className="fs-4 fw-light mb-2"><b>Email:</b> {user?.email}</h4>
         </div>
 
       </div>

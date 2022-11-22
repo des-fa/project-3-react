@@ -7,6 +7,14 @@ import * as Yup from 'yup'
 
 import { useUpdateMyAccountSettingsMutation } from '@/services/api/Auth'
 
+const initialValues = {
+  email: '',
+  fullName: '',
+  password: '',
+  passwordConfirmation: '',
+  avatar: ''
+}
+
 function FormsAccountSettingsChangeModal(props) {
   const [avatarPreview, setAvatarPreview] = useState(props.initialValues.avatar)
   const avatarRef = useRef(null)
@@ -23,7 +31,7 @@ function FormsAccountSettingsChangeModal(props) {
       {...props}
       backdrop="static"
       keyboard={false}
-      size="md"
+      size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
@@ -34,7 +42,7 @@ function FormsAccountSettingsChangeModal(props) {
       </Modal.Header>
 
       <Formik
-        initialValues={props.initialValues}
+        initialValues={initialValues}
         onSubmit={handleSubmit}
         enableReinitialize
         validationSchema={
@@ -51,72 +59,95 @@ function FormsAccountSettingsChangeModal(props) {
         ({ errors: e, touched: t, isSubmitting, setFieldValue }) => (
           <Form>
             <Modal.Body>
-              <div className="mb-3">
-                <label>Email</label>
-                <Field
-                  className={`form-control ${e?.email && t?.email && 'is-invalid'}`}
-                  name="email"
-                  type="email"
-                />
-                <ErrorMessage
-                  className="invalid-feedback"
-                  name="email"
-                  component="div"
-                />
+
+              <div className="mb-1 d-flex flex-row justify-content-start align-items-center">
+                <label htmlFor="staticEmail" className="col-3 col-form-label">Current Email: </label>
+                <div className="col">
+                  <input type="text" readOnly className="form-control-plaintext text-muted" id="staticEmail" value={props.initialValues.email} />
+                </div>
               </div>
 
-              <div className="mb-3">
-                <label>Full Name</label>
-                <Field
-                  className={`form-control ${e?.fullName && t?.fullName && 'is-invalid'}`}
-                  name="fullName"
-                  type="text"
-                />
-                <ErrorMessage
-                  className="invalid-feedback"
-                  name="fullName"
-                  component="div"
-                />
+              <div className="mb-3 d-flex flex-row justify-content-start align-items-center">
+                <label className="col-3 fw-semibold">New Email:</label>
+                <div className="col-6">
+                  <Field
+                    className={`form-control ${e?.email && t?.email && 'is-invalid'}`}
+                    name="email"
+                    type="email"
+                  />
+                  <ErrorMessage
+                    className="invalid-feedback"
+                    name="email"
+                    component="div"
+                  />
+                </div>
               </div>
 
-              <div className="mb-3">
-                <label>Password</label>
-                <Field
-                  className={`form-control ${e?.password && t?.password && 'is-invalid'}`}
-                  name="password"
-                  type="password"
-                />
-                <ErrorMessage
-                  className="invalid-feedback"
-                  name="password"
-                  component="div"
-                />
+              <div className="mb-1 d-flex flex-row justify-content-start align-items-center">
+                <label htmlFor="staticName" className="col-sm-3 col-form-label">Current Full Name: </label>
+                <div className="col-sm-9">
+                  <input type="text" readOnly className="form-control-plaintext text-muted" id="staticName" value={props.initialValues.fullName} />
+                </div>
               </div>
 
-              <div className="mb-3">
-                <label>Password Confirmation</label>
-                <Field
-                  className={`form-control ${e?.passwordConfirmation && t?.passwordConfirmation && 'is-invalid'}`}
-                  name="passwordConfirmation"
-                  type="password"
-                />
-                <ErrorMessage
-                  className="invalid-feedback"
-                  name="passwordConfirmation"
-                  component="div"
-                />
+              <div className="mb-3 d-flex flex-row justify-content-start align-items-center">
+                <label className="col-3 fw-semibold">New Full Name:</label>
+                <div className="col-6">
+                  <Field
+                    className={`form-control ${e?.fullName && t?.fullName && 'is-invalid'}`}
+                    name="fullName"
+                    type="text"
+                  />
+                  <ErrorMessage
+                    className="invalid-feedback"
+                    name="fullName"
+                    component="div"
+                  />
+                </div>
               </div>
 
-              <div className="d-flex flex-row justify-content-evenly align-items-center gap-3 mb-2">
-                <div className="col-auto">
+              <div className="mb-3 d-flex flex-row justify-content-start align-items-center">
+                <label className="col-3 fw-semibold">New Password:</label>
+                <div className="col-6">
+                  <Field
+                    className={`form-control ${e?.password && t?.password && 'is-invalid'}`}
+                    name="password"
+                    type="password"
+                  />
+                  <ErrorMessage
+                    className="invalid-feedback"
+                    name="password"
+                    component="div"
+                  />
+                </div>
+              </div>
+
+              <div className="mb-3 d-flex flex-row justify-content-start align-items-center">
+                <label className="col-3 fw-semibold">Confirm New Password:</label>
+                <div className="col-6">
+                  <Field
+                    className={`form-control ${e?.passwordConfirmation && t?.passwordConfirmation && 'is-invalid'}`}
+                    name="passwordConfirmation"
+                    type="password"
+                  />
+                  <ErrorMessage
+                    className="invalid-feedback"
+                    name="passwordConfirmation"
+                    component="div"
+                  />
+                </div>
+              </div>
+
+              <div className="d-flex flex-row justify-content-start align-items-center mb-2">
+                <div className="col-3">
                   <img
                     src={avatarPreview}
-                    className="img-thumbnail rounded-circle"
+                    className="img-thumbnail rounded-5 ms-4"
                     width="100px"
                   />
                 </div>
 
-                <div className="col-9">
+                <div className="col-6">
                   <div className="input-group input-group-sm mb-3">
                     <label className="input-group-text" htmlFor="avatar">Upload</label>
                     <input

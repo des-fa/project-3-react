@@ -28,12 +28,13 @@ function App() {
         position="bottom-left"
         autoClose={5000}
         hideProgressBar={false}
-        newestOnTop
+        newestOnTop={false}
         closeOnClick
         rtl={false}
         pauseOnFocusLoss
         draggable
         pauseOnHover
+        theme="dark"
       />
     </>
   )

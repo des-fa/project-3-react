@@ -1,9 +1,11 @@
 import React from 'react'
 import Skeleton from 'react-loading-skeleton'
+import { useSearchParams } from 'react-router-dom'
 
 import { useGetMyFollowingPostsQuery } from '@/services/api/my/MyConnections'
 import { TimeAgo } from '@/components/TimeAgo'
 import ReadMore from '@/components/ReadMore'
+import GeneratePagination from '@/components/Pagination'
 
 function FollowingPost({ post }) {
   // console.log(post.id)
@@ -22,8 +24,8 @@ function FollowingPost({ post }) {
               src={post?.user?.avatar}
               className="border border-3 border-dark rounded-circle p-1"
               alt="user-picture"
-              width="70px"
-              height="auto"
+              width="90px"
+              height="90px"
             />
           </div>
 
@@ -69,10 +71,15 @@ function FollowingPost({ post }) {
 }
 
 function PagesMyHome() {
-  const { data: { followingPosts: myFollowingPosts } = {}, isLoading, isSuccess, isError, error } = useGetMyFollowingPostsQuery()
+  const [searchParams, setSearchParams] = useSearchParams()
+  const currentPage = searchParams.get('page') || 1
+  const { data: { meta, followingPosts: myFollowingPosts } = {}, isLoading, isSuccess, isError, error } = useGetMyFollowingPostsQuery(currentPage)
+
+  const handleChangePage = (newPage) => {
+    setSearchParams({ page: newPage })
+  }
 
   let content
-
   if (isLoading) {
     content = (
       <Skeleton count={5} />
@@ -83,7 +90,6 @@ function PagesMyHome() {
     )
   } else if (isSuccess) {
     // console.log(myFollowingPosts)
-
     content = myFollowingPosts.map((post) => (
       <FollowingPost
         key={post.id}
@@ -97,7 +103,12 @@ function PagesMyHome() {
   return (
     <div id="pages-my-home" className="container px-5 w-75">
       <h3 className="my-5 mx-3 fw-light">Latest posts from those you follow</h3>
+
       {content}
+
+      <div className="my-4">
+        <GeneratePagination meta={meta} changePage={handleChangePage} />
+      </div>
     </div>
   )
 }

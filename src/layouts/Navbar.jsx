@@ -11,7 +11,6 @@ import FormsSearch from '@/forms/Search'
 
 function LayoutsNavbar() {
   const navigate = useNavigate()
-  // DO I NEED TO SAVE QUERY AS STATE?!
   const { data: { id: currentUser, avatar } = {} } = useMyUserState()
   const [logout] = useLogoutMutation()
 

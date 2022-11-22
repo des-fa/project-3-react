@@ -102,12 +102,9 @@ function ExperienceTab() {
       <Experience
         key={experience.id}
         experience={experience}
-        // show={editModalShow}
-        setEditModalShow={setEditModalShow}
+        setEditModalShow={setCreateModalShow}
         setDeleteModalShow={setDeleteModalShow}
         setExperienceInfo={setExperienceInfo}
-        // onClick={() => setEditModalShow(true)}
-        // onHide={() => setEditModalShow(false)}
       />
     ))
   } else if (isError) {

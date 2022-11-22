@@ -37,9 +37,10 @@ export const apiMyConnections = createApi({
       ) : [])
     }),
     getMyFollowingPosts: builder.query({
-      query: () => ({
+      query: (page) => ({
         url: '/following/posts',
-        method: 'GET'
+        method: 'GET',
+        params: { page }
       }),
       providesTags: (result) => (result?.following ? (
         result.following.map(({ followingId, followerId }) => ({

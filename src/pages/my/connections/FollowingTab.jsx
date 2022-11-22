@@ -22,14 +22,14 @@ function Following({ following }) {
           View
         </button>
 
-        <div className="d-flex flex-row justify-content-start align-items-center gap-4 px-4">
+        <div className="d-flex flex-row justify-content-start align-items-center gap-5 px-4">
           <div className="d-flex flex-column">
             <img
               src={following?.following?.avatar}
               className="img-thumbnail"
               alt="user-picture"
-              width="80px"
-              height="auto"
+              width="90px"
+              height="90px"
             />
           </div>
           <div className="d-flex flex-column">

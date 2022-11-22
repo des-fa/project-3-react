@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 // import { skipToken } from '@reduxjs/toolkit/dist/query'
 
 import { Formik, Field, Form } from 'formik'
 import * as Yup from 'yup'
 
-import { useGetUsersQuery } from '@/services/api/Users'
+import { useLazyGetUsersQuery } from '@/services/api/Users'
 
 const initialValues = {
   q: ''
@@ -12,33 +12,24 @@ const initialValues = {
 
 function FormsSearch(props) {
   // const [myState, setState] = useState(skipToken)
-  // const result = useGetUsersQuery(myState)
-  // const { data } = useGetUsersQuery(q)
+  const [trigger, { data }] = useLazyGetUsersQuery()
 
-  // const handleSubmit = (query) => {
-  //   setState(query)
-  //   console.log(result)
-  // }
-
-  // const [trigger, result] = useLazyGetMyUsersQuery()
-  // const handleSubmit = (q) => {
-  //   trigger(q)
-  //   console.log(result.data)
-  // }
-  const [click, setClick] = useState(true)
-  const [query, setQuery] = useState('')
-  const { data } = useGetUsersQuery(query, { skip: click })
-
-  const changeSkip = () => {
-    setClick(false)
-  }
-
-  const changeQuery = () => setQuery()
+  // const [click, setClick] = useState(true)
+  // const { data } = useGetUsersQuery(undefined, { skip: click })
+  // {(values) => {
+  //       console.log(values)
+  //       setClick(false)
+  //     }}
+  console.log(data)
 
   return (
     <Formik
       initialValues={props.query || initialValues}
-      onSubmit={(q) => { changeQuery(q); changeSkip() }}
+      onSubmit={(values) => {
+        console.log(values)
+        trigger(values)
+      }}
+      // {handleSubmit}
       enableReinitialize
       validationSchema={
       Yup.object({
