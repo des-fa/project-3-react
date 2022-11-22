@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import Skeleton from 'react-loading-skeleton'
 
@@ -74,7 +74,7 @@ function UserProfile({ currentUser, user: { profile, fullName, id, avatar, follo
   return (
     <div className="px-4 py-4 mb-4 bg-light border rounded-3">
 
-      <div className="d-flex flex-row justify-content-end mt-0 mb-2 gap-3">
+      <div className="d-flex flex-row justify-content-end mt-0 mb-2 me-1 gap-3">
         <button
           type="button"
           className="btn btn-sm btn-dark"
@@ -92,7 +92,7 @@ function UserProfile({ currentUser, user: { profile, fullName, id, avatar, follo
         </button>
       </div>
 
-      <div className="d-flex flex-row justify-content-end mt-2">
+      <div className="d-flex flex-row justify-content-end mt-2 me-1 mb-0">
         <p
           className="text-muted text-decoration-underline"
           style={{ visibility: showFollowsYouText ? 'visible' : 'hidden' }}
@@ -145,13 +145,9 @@ function UserProfile({ currentUser, user: { profile, fullName, id, avatar, follo
 function PagesUsersShow() {
   const { data: { id: currentUser } = {} } = useMyUserState()
   const { id } = useParams()
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
   // console.log(id)
   // console.log(currentUser)
-
-  if (currentUser === id) {
-    window.location.href = 'http://localhost:8080/my/profile'
-  }
 
   const { data: user, isLoading, isSuccess, isError, error } = useGetUserQuery(id)
   // console.log(user)
@@ -167,6 +163,10 @@ function PagesUsersShow() {
   } else if (!user) {
     content = ''
   } else if (isSuccess) {
+    if (currentUser === user.id) {
+      // console.log('same')
+      navigate('/my/profile')
+    }
     // console.log(user)
     // console.log(user.experiences)
     content = (

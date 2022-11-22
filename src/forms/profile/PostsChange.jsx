@@ -159,7 +159,7 @@ function FormsPostsChange(props) {
               ) : (
                 <div className="d-flex flex-row justify-content-end">
                   <Button
-                    className="btn btn-dark btn-sm"
+                    className="btn btn-dark btn-sm mt-0"
                     type="submit"
                     disabled={isSubmitting}
                   >Create Post</Button>

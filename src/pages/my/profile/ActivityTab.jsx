@@ -46,7 +46,7 @@ function Post({ post, setEditModalShow, setDeleteModalShow, setPostInfo }) {
           </Dropdown>
         </div>
 
-        <div className="my-4 px-5">
+        <div className="mt-4 px-5">
           <ReadMore text={post?.content} />
         </div>
         {/* <h6 className="post-content my-4 pe-5">{post?.content.substring(0, 400)}</h6> */}
@@ -57,7 +57,7 @@ function Post({ post, setEditModalShow, setDeleteModalShow, setPostInfo }) {
               src={post.image}
               className="rounded border"
               alt="post-picture"
-              width="40%"
+              width="35%"
               height="auto"
             />
           </div>
