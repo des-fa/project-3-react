@@ -11,9 +11,10 @@ export const apiMyExperiences = createApi({
   tagTypes: ['MyExperiences'],
   endpoints: (builder) => ({
     getMyExperiences: builder.query({
-      query: () => ({
+      query: (page) => ({
         url: '',
-        method: 'GET'
+        method: 'GET',
+        params: { page }
       }),
       providesTags: (result) => (result?.experiences ? result?.experiences?.map(({ id }) => ({ type: 'MyExperiences', id })) : [])
     }),
@@ -30,7 +31,7 @@ export const apiMyExperiences = createApi({
         method: 'POST',
         data
       }),
-      invalidatesTags: (result) => (result ? [{ type: 'MyExperiences', id: result?.experience?.id }] : [])
+      invalidatesTags: (result) => (result ? [{ type: 'MyExperiences', id: result?.experience?.id }] : ['MyExperiences'])
     }),
     updateMyExperience: builder.mutation({
       query: (data) => ({

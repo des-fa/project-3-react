@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import Dropdown from 'react-bootstrap/Dropdown'
 import Skeleton from 'react-loading-skeleton'
 
 import { useGetMyExperiencesQuery, useGetMyExperienceQuery, useDeleteMyExperienceMutation } from '@/services/api/my/MyExperiences'
 import FormsExperiencesChangeModal from '@/forms/profile/ExperiencesChange'
+
 import DeleteConfirmation from '@/components/DeleteConfirmation'
+import GeneratePagination from '@/components/Pagination'
 
 function Experience({ experience, setEditModalShow, setDeleteModalShow, setExperienceInfo }) {
   const { id } = experience
@@ -42,9 +45,9 @@ function Experience({ experience, setEditModalShow, setDeleteModalShow, setExper
           </Dropdown>
         </div>
 
-        <div className="d-flex flex-row justify-content-evenly align-items-top px-5">
+        <div className="d-flex flex-row justify-content-start align-items-top gap-5 px-5">
 
-          <div className="d-flex flex-column me-5 mw-25">
+          <div className="col-3">
 
             <div className="w-100">
               <h6 className="experience-job mb-2"><b>Job Title: </b><span className="text-capitalize">{experience?.job}</span></h6>
@@ -54,7 +57,7 @@ function Experience({ experience, setEditModalShow, setDeleteModalShow, setExper
 
           </div>
 
-          <div className="d-flex flex-column w-50 me-5">
+          <div className="d-flex flex-column me-5">
             <h6>Description</h6>
             <p>{experience?.description}</p>
           </div>
@@ -67,7 +70,14 @@ function Experience({ experience, setEditModalShow, setDeleteModalShow, setExper
 }
 
 function ExperienceTab() {
-  const { data: { experiences: myExperiences } = {}, isLoading, isSuccess, isError, error } = useGetMyExperiencesQuery()
+  const [searchParams, setSearchParams] = useSearchParams()
+  const currentPage = searchParams.get('page') || 1
+
+  const { data: { meta, experiences: myExperiences } = {}, isLoading, isSuccess, isError, error } = useGetMyExperiencesQuery(currentPage)
+
+  const handleChangePage = (newPage) => {
+    setSearchParams({ page: newPage })
+  }
 
   const [deleteMyExperience] = useDeleteMyExperienceMutation()
   const handleDelete = (values) => {
@@ -81,9 +91,7 @@ function ExperienceTab() {
   const handleCreateModalShow = () => setCreateModalShow(true)
 
   const [editModalShow, setEditModalShow] = useState(false)
-
   const [deleteModalShow, setDeleteModalShow] = useState(false)
-
   const [experienceInfo, setExperienceInfo] = useState(null)
 
   let content
@@ -102,9 +110,12 @@ function ExperienceTab() {
       <Experience
         key={experience.id}
         experience={experience}
-        setEditModalShow={setCreateModalShow}
+        // show={editModalShow}
+        setEditModalShow={setEditModalShow}
         setDeleteModalShow={setDeleteModalShow}
         setExperienceInfo={setExperienceInfo}
+        // onClick={() => setEditModalShow(true)}
+        // onHide={() => setEditModalShow(false)}
       />
     ))
   } else if (isError) {
@@ -139,6 +150,10 @@ function ExperienceTab() {
       />
 
       {content}
+
+      <div className="my-4">
+        <GeneratePagination meta={meta} changePage={handleChangePage} />
+      </div>
 
     </div>
   )

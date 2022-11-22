@@ -12,9 +12,10 @@ export const apiMyPosts = createApi({
   tagTypes: ['MyPosts'],
   endpoints: (builder) => ({
     getMyPosts: builder.query({
-      query: () => ({
+      query: (page) => ({
         url: '',
-        method: 'GET'
+        method: 'GET',
+        params: { page }
       }),
       providesTags: (result) => (result?.posts ? result?.posts?.map(({ id }) => ({ type: 'MyPosts', id })) : [])
     }),

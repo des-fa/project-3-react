@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import Dropdown from 'react-bootstrap/Dropdown'
 import Skeleton from 'react-loading-skeleton'
 
 import { useGetMyEducationsQuery, useGetMyEducationQuery, useDeleteMyEducationMutation } from '@/services/api/my/MyEducations'
 import FormsEducationsChangeModal from '@/forms/profile/EducationsChange'
+
 import DeleteConfirmation from '@/components/DeleteConfirmation'
+import GeneratePagination from '@/components/Pagination'
 
 function Education({ education, setEditModalShow, setDeleteModalShow, setEducationInfo }) {
   const { id } = education
@@ -56,7 +59,14 @@ function Education({ education, setEditModalShow, setDeleteModalShow, setEducati
 }
 
 function EducationTab() {
-  const { data: { educations: myEducations } = {}, isLoading, isSuccess, isError, error } = useGetMyEducationsQuery()
+  const [searchParams, setSearchParams] = useSearchParams()
+  const currentPage = searchParams.get('page') || 1
+
+  const { data: { meta, educations: myEducations } = {}, isLoading, isSuccess, isError, error } = useGetMyEducationsQuery(currentPage)
+
+  const handleChangePage = (newPage) => {
+    setSearchParams({ page: newPage })
+  }
 
   const [deleteMyEducation] = useDeleteMyEducationMutation()
   const handleDelete = (values) => {
@@ -128,6 +138,10 @@ function EducationTab() {
       />
 
       {content}
+
+      <div className="my-4">
+        <GeneratePagination meta={meta} changePage={handleChangePage} />
+      </div>
 
     </div>
   )

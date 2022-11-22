@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import Dropdown from 'react-bootstrap/Dropdown'
 import { Modal } from 'react-bootstrap'
 import Skeleton from 'react-loading-skeleton'
@@ -8,6 +9,7 @@ import FormsPostsChange from '@/forms/profile/PostsChange'
 
 import DeleteConfirmation from '@/components/DeleteConfirmation'
 import ReadMore from '@/components/ReadMore'
+import GeneratePagination from '@/components/Pagination'
 import { TimeAgo } from '../../../components/TimeAgo'
 
 function Post({ post, setEditModalShow, setDeleteModalShow, setPostInfo }) {
@@ -67,10 +69,6 @@ function Post({ post, setEditModalShow, setDeleteModalShow, setPostInfo }) {
   )
 }
 
-// postInfo={postInfo}
-//         show={editModalShow}
-//         onHide={() => setEditModalShow(false)}
-
 function PostsChangeModal({ postInfo, show, onHide }) {
   return (
     <Modal
@@ -95,7 +93,14 @@ function PostsChangeModal({ postInfo, show, onHide }) {
 }
 
 function ActivityTab() {
-  const { data: { posts: myPosts } = {}, isLoading, isSuccess, isError, error } = useGetMyPostsQuery()
+  const [searchParams, setSearchParams] = useSearchParams()
+  const currentPage = searchParams.get('page') || 1
+
+  const { data: { meta, posts: myPosts } = {}, isLoading, isSuccess, isError, error } = useGetMyPostsQuery(currentPage)
+
+  const handleChangePage = (newPage) => {
+    setSearchParams({ page: newPage })
+  }
 
   const [deleteMyPost] = useDeleteMyPostMutation()
   const handleDelete = (values) => {
@@ -104,9 +109,7 @@ function ActivityTab() {
     })
   }
   const [editModalShow, setEditModalShow] = useState(false)
-
   const [deleteModalShow, setDeleteModalShow] = useState(false)
-
   const [postInfo, setPostInfo] = useState(null)
 
   let content
@@ -159,6 +162,10 @@ function ActivityTab() {
       />
 
       {content}
+
+      <div className="my-4">
+        <GeneratePagination meta={meta} changePage={handleChangePage} />
+      </div>
 
     </div>
   )

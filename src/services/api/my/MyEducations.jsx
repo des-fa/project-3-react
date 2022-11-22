@@ -11,9 +11,10 @@ export const apiMyEducations = createApi({
   tagTypes: ['MyEducations'],
   endpoints: (builder) => ({
     getMyEducations: builder.query({
-      query: () => ({
+      query: (page) => ({
         url: '',
-        method: 'GET'
+        method: 'GET',
+        params: { page }
       }),
       providesTags: (result) => (result?.educations ? result?.educations?.map(({ id }) => ({ type: 'MyEducations', id })) : [])
     }),
@@ -30,7 +31,7 @@ export const apiMyEducations = createApi({
         method: 'POST',
         data
       }),
-      invalidatesTags: (result) => (result ? [{ type: 'MyEducations', id: result?.education?.id }] : [])
+      invalidatesTags: (result) => (result ? [{ type: 'MyEducations', id: result?.education?.id }] : ['MyEducations'])
     }),
     updateMyEducation: builder.mutation({
       query: (data) => ({
