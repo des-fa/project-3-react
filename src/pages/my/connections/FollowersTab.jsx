@@ -1,8 +1,10 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useSearchParams, useNavigate } from 'react-router-dom'
 import Skeleton from 'react-loading-skeleton'
 
 import { useGetMyFollowersQuery } from '@/services/api/my/MyConnections'
+
+import GeneratePagination from '@/components/Pagination'
 
 function Follower({ follower }) {
   const navigate = useNavigate()
@@ -48,7 +50,14 @@ function Follower({ follower }) {
 }
 
 function FollowersTab() {
-  const { data: { followers: myFollowers } = {}, isLoading, isSuccess, isError, error } = useGetMyFollowersQuery()
+  const [searchParams, setSearchParams] = useSearchParams()
+  const currentPage = searchParams.get('page') || 1
+
+  const { data: { meta, followers: myFollowers } = {}, isLoading, isSuccess, isError, error } = useGetMyFollowersQuery(currentPage)
+
+  const handleChangePage = (newPage) => {
+    setSearchParams({ page: newPage })
+  }
 
   let content
 
@@ -75,7 +84,12 @@ function FollowersTab() {
 
   return (
     <div id="pages-my-connections-followers" className="container my-4 px-5 py-2">
+
       {content}
+
+      <div className="mt-auto">
+        <GeneratePagination meta={meta} changePage={handleChangePage} />
+      </div>
     </div>
   )
 }

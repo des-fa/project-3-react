@@ -12,9 +12,10 @@ export const apiMyConnections = createApi({
   tagTypes: ['MyConnections'],
   endpoints: (builder) => ({
     getMyFollowing: builder.query({
-      query: () => ({
+      query: (page) => ({
         url: '/following',
-        method: 'GET'
+        method: 'GET',
+        params: { page }
       }),
       providesTags: (result) => (result?.following ? (
         [
@@ -26,9 +27,10 @@ export const apiMyConnections = createApi({
       ) : ['MyConnections'])
     }),
     getMyFollowers: builder.query({
-      query: () => ({
+      query: (page) => ({
         url: '/followers',
-        method: 'GET'
+        method: 'GET',
+        params: { page }
       }),
       providesTags: (result) => (result?.followers ? (
         result.followers.map(({ followingId, followerId }) => ({

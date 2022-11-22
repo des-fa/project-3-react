@@ -12,10 +12,11 @@ export const apiUsers = createApi({
   tagTypes: ['Users'],
   endpoints: (builder) => ({
     getUsers: builder.query({
-      query: (q) => ({
+      query: (page) => ({
         url: '',
         method: 'GET',
-        params: { q }
+        params: { page }
+        // params: { q }
       }),
       providesTags: (result) => (result?.users ? [...result.users.map(({ id }) => ({ type: 'Users', id })), 'Users'] : ['Users'])
     }),

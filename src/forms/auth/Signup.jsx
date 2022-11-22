@@ -151,11 +151,7 @@ function FormsAuthSignupModal(props) {
                         fileReader.readAsDataURL(event.target.files[0])
                       }}
                     />
-                    <ErrorMessage
-                      className="invalid-feedback"
-                      name="avatar"
-                      component="div"
-                    />
+
                     <button
                       type="button"
                       className="btn btn-outline-dark"
@@ -165,6 +161,12 @@ function FormsAuthSignupModal(props) {
                         avatarRef.current.value = null
                       }}
                     >X</button>
+
+                    <ErrorMessage
+                      className="invalid-feedback"
+                      name="avatar"
+                      component="div"
+                    />
                   </div>
                 </div>
               </div>

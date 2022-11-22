@@ -1,7 +1,9 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useSearchParams, useNavigate } from 'react-router-dom'
 import Skeleton from 'react-loading-skeleton'
 import { useGetMyFollowingQuery } from '@/services/api/my/MyConnections'
+
+import GeneratePagination from '@/components/Pagination'
 
 function Following({ following }) {
   const navigate = useNavigate()
@@ -47,7 +49,14 @@ function Following({ following }) {
 }
 
 function FollowingTab() {
-  const { data: { following: myFollowing } = {}, isLoading, isSuccess, isError, error } = useGetMyFollowingQuery()
+  const [searchParams, setSearchParams] = useSearchParams()
+  const currentPage = searchParams.get('page') || 1
+
+  const { data: { meta, following: myFollowing } = {}, isLoading, isSuccess, isError, error } = useGetMyFollowingQuery(currentPage)
+
+  const handleChangePage = (newPage) => {
+    setSearchParams({ page: newPage })
+  }
 
   let content
 
@@ -57,7 +66,7 @@ function FollowingTab() {
     )
   } else if (myFollowing.length === 0) {
     content = (
-      <h5 className="text-muted mt-2 fw-light">You are not following anyone yet.</h5>
+      <h5 className="text-muted mt-2 mb-5 fw-light">You are not following anyone yet.</h5>
     )
   } else if (isSuccess) {
     // console.log(myFollowing)
@@ -74,7 +83,12 @@ function FollowingTab() {
 
   return (
     <div id="pages-my-connections-following" className="container my-4 px-5 py-2">
+
       {content}
+
+      <div className="mt-auto">
+        <GeneratePagination meta={meta} changePage={handleChangePage} />
+      </div>
     </div>
   )
 }
