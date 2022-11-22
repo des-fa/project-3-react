@@ -121,8 +121,10 @@ function ActivityTab() {
         </tr>
       ))
     )
-  } else if (!myPosts) {
-    content = ''
+  } else if (myPosts.length === 0) {
+    content = (
+      <h5 className="text-muted mt-5 ms-3 fw-light">You have not created any posts yet.</h5>
+    )
   } else if (isSuccess) {
     // console.log(myPosts)
     content = myPosts.map((post) => (

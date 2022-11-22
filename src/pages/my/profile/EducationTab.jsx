@@ -81,8 +81,10 @@ function EducationTab() {
     content = (
       <Skeleton count={5} />
     )
-  } else if (!myEducations) {
-    content = ''
+  } else if (myEducations.length === 0) {
+    content = (
+      <h5 className="text-muted fw-light">You have not added any information about your education history yet.</h5>
+    )
   } else if (isSuccess) {
     // console.log(myEducations)
     content = myEducations.map((education) => (

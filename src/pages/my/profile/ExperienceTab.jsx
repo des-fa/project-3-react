@@ -92,8 +92,10 @@ function ExperienceTab() {
     content = (
       <Skeleton count={5} />
     )
-  } else if (!myExperiences) {
-    content = ''
+  } else if (myExperiences.length === 0) {
+    content = (
+      <h5 className="text-muted fw-light">You have not added any information about your work experience yet.</h5>
+    )
   } else if (isSuccess) {
     // console.log(myExperiences)
     content = myExperiences.map((experience) => (

@@ -77,8 +77,10 @@ function PagesMyHome() {
     content = (
       <Skeleton count={5} />
     )
-  } else if (!myFollowingPosts) {
-    content = ''
+  } else if (myFollowingPosts.length === 0) {
+    content = (
+      <h5 className="text-muted mx-3 fw-light">You are not following anyone yet.</h5>
+    )
   } else if (isSuccess) {
     // console.log(myFollowingPosts)
 

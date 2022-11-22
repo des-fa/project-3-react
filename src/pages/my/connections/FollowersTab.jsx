@@ -56,8 +56,10 @@ function FollowersTab() {
     content = (
       <Skeleton count={5} />
     )
-  } else if (!myFollowers) {
-    content = ''
+  } else if (myFollowers.length === 0) {
+    content = (
+      <h5 className="text-muted mt-2 fw-light">You have no followers yet.</h5>
+    )
   } else if (isSuccess) {
     // console.log(myFollowers)
 
