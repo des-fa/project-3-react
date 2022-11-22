@@ -45,7 +45,7 @@ function FormsProfileChangeModal(props) {
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
-      <Modal.Header>
+      <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
           Enter your profile information
         </Modal.Title>

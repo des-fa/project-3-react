@@ -102,11 +102,20 @@ function UserProfile({ currentUser, user: { profile, fullName, id, avatar, follo
 
       </div>
 
-      <div className="row g-4 px-4 row-cols-1 row-cols-lg-2 px-5 pb-2">
+      <div className="d-flex flex-row px-4 gap-3 mb-2">
+        <div className="col-2 ps-5">
+          <img
+            src={avatar}
+            alt="user pic"
+            width="100%"
+            height="auto"
+            className="img-thumbnail"
+          />
+        </div>
 
-        <div className="col">
-          <div className="d-flex flex-row align-items-top justify-content-center px-5 py-2">
-            <div className="col  me-5">
+        {/* <div className="col"> */}
+        <div className="d-flex flex-row align-items-top justify-content-center pe-5 gap-2">
+          {/* <div className="col  me-5">
               <img
                 src={avatar}
                 alt="user pic"
@@ -114,19 +123,19 @@ function UserProfile({ currentUser, user: { profile, fullName, id, avatar, follo
                 height="150px"
                 className="img-thumbnail"
               />
-            </div>
-            <div className="col">
-              <h3 className="fs-4 fw-bold mb-3 text-uppercase">{fullName}</h3>
-              <h5 className="mb-2 text-capitalize">{profile?.currentJob}</h5>
-              <h5 className="text-capitalize">{profile?.highestEducation}</h5>
-            </div>
+            </div> */}
+          <div className="px-5">
+            <h3 className="fs-4 fw-bold mb-3 text-uppercase">{fullName}</h3>
+            <h5 className="mb-2 text-capitalize">{profile?.currentJob}</h5>
+            <h5 className="text-capitalize">{profile?.highestEducation}</h5>
+          </div>
+
+          <div className="col px-5">
+            <h4 className="fw-bold">About Me</h4>
+            <p className="pe-5">{profile?.about}</p>
           </div>
         </div>
-
-        <div className="d-flex flex-column justify-content-top px-5">
-          <h4>About Me</h4>
-          <p className="pe-5">{profile?.about}</p>
-        </div>
+        {/* </div> */}
 
       </div>
     </div>
@@ -175,7 +184,7 @@ function PagesUsersShow() {
   }
 
   return (
-    <div id="pages-users-show" className="container m-5">
+    <div id="pages-users-show" className="container p-5">
       {content}
     </div>
   )

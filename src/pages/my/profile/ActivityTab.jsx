@@ -7,6 +7,7 @@ import { useGetMyPostsQuery, useGetMyPostQuery, useDeleteMyPostMutation } from '
 import FormsPostsChange from '@/forms/profile/PostsChange'
 
 import DeleteConfirmation from '@/components/DeleteConfirmation'
+import ReadMore from '@/components/ReadMore'
 import { TimeAgo } from '../../../components/TimeAgo'
 
 function Post({ post, setEditModalShow, setDeleteModalShow, setPostInfo }) {
@@ -16,7 +17,7 @@ function Post({ post, setEditModalShow, setDeleteModalShow, setPostInfo }) {
   return (
     <article className="post" key={post?.id}>
       <div className="border rounded p-4 m-3">
-        <div className="d-flex flex-row justify-content-between mb-1">
+        <div className="d-flex flex-row justify-content-between ms-5 mb-1">
           <TimeAgo timestamp={post?.createdAt} />
 
           <Dropdown>
@@ -29,7 +30,7 @@ function Post({ post, setEditModalShow, setDeleteModalShow, setPostInfo }) {
             </Dropdown.Toggle>
 
             <Dropdown.Menu variant="dark" className="dropdown-menu dropdown-menu-sm">
-              <Dropdown.Item href="#/action-2" className="mb-1"> View </Dropdown.Item>
+              {/* <Dropdown.Item href="#/action-2" className="mb-1"> View </Dropdown.Item> */}
               <Dropdown.Item onClick={() => {
                 setPostInfo(postInfo)
                 setEditModalShow(true)
@@ -45,14 +46,18 @@ function Post({ post, setEditModalShow, setDeleteModalShow, setPostInfo }) {
           </Dropdown>
         </div>
 
-        <h6 className="post-content my-4 pe-5">{post?.content.substring(0, 400)}</h6>
+        <div className="my-4 px-5">
+          <ReadMore text={post?.content} />
+        </div>
+        {/* <h6 className="post-content my-4 pe-5">{post?.content.substring(0, 400)}</h6> */}
+
         {post?.image ? (
-          <div className="text-center mt-3">
+          <div className="text-center">
             <img
               src={post.image}
               className="rounded border"
               alt="post-picture"
-              width="25%"
+              width="40%"
               height="auto"
             />
           </div>
