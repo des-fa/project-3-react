@@ -59,7 +59,7 @@ export const apiMyConnections = createApi({
         } catch (err) {
           console.error(err) // eslint-disable-line
         } finally {
-          dispatch(apiUsers.util.invalidateTags([{ type: 'MyUsers' }]))
+          dispatch(apiUsers.util.invalidateTags([{ type: 'Users' }]))
         }
       }
     }),
@@ -74,7 +74,7 @@ export const apiMyConnections = createApi({
         } catch (err) {
           console.error(err) // eslint-disable-line
         } finally {
-          dispatch(apiUsers.util.invalidateTags(['MyUsers']))
+          dispatch(apiUsers.util.invalidateTags(['Users']))
         }
       }
     })

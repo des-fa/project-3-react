@@ -130,7 +130,7 @@ function FormsEducationsChangeModal(props) {
               </div>
 
               <div className="mb-3">
-                <label>Ending Year (not required)</label>
+                <label>Ending Year (Optional)</label>
                 <Field
                   className={`form-control ${e?.endYear && t?.endYear && 'is-invalid'}`}
                   name="endYear"

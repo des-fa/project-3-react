@@ -9,27 +9,27 @@ export const apiUsers = createApi({
   refetchOnMountOrArgChange: true,
   // refetchOnFocus: true,
   refetchOnReconnect: true,
-  tagTypes: ['MyUsers'],
+  tagTypes: ['Users'],
   endpoints: (builder) => ({
-    getMyUsers: builder.query({
+    getUsers: builder.query({
       query: () => ({
         url: '',
         method: 'GET'
       }),
-      providesTags: (result) => (result?.users ? [...result.users.map(({ id }) => ({ type: 'MyUsers', id })), 'MyUsers'] : ['MyUsers'])
+      providesTags: (result) => (result?.users ? [...result.users.map(({ id }) => ({ type: 'Users', id })), 'Users'] : ['Users'])
     }),
-    getMyUser: builder.query({
+    getUser: builder.query({
       query: (id) => ({
         url: `/${id}`,
         method: 'GET'
       }),
-      providesTags: (result) => (result ? [{ type: 'MyUsers', id: result?.user?.id }, 'MyUsers'] : ['MyUsers'])
+      providesTags: (result) => (result ? [{ type: 'Users', id: result?.user?.id }, 'Users'] : ['Users'])
     })
   })
 })
 
 export const {
-  useGetMyUsersQuery,
-  useLazyGetMyUsersQuery,
-  useGetMyUserQuery
+  useGetUsersQuery,
+  useLazyGetUsersQuery,
+  useGetUserQuery
 } = apiUsers

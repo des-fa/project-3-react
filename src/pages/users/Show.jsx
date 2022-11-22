@@ -3,13 +3,13 @@ import { useParams } from 'react-router-dom'
 
 import Skeleton from 'react-loading-skeleton'
 
-import { useGetMyUserQuery } from '@/services/api/Users'
+import { useGetUserQuery } from '@/services/api/Users'
 import { useMyUserState } from '@/services/api/Auth'
-import { useCreateMyFollowingMutation, useDeleteMyFollowingMutation, useGetMyFollowersQuery, useGetMyFollowingQuery } from '@/services/api/my/MyConnections'
+import { useCreateMyFollowingMutation, useDeleteMyFollowingMutation } from '@/services/api/my/MyConnections'
 
 import ProfileTabs from '../../components/ProfileTabs'
 
-function UserProfile({ currentUser, user: { profile, fullName, id, avatar } = {} }) {
+function UserProfile({ currentUser, user: { profile, fullName, id, avatar, following, followedBy } = {} }) {
   const [createMyFollowing] = useCreateMyFollowingMutation()
   const [deleteMyFollowing] = useDeleteMyFollowingMutation()
 
@@ -19,32 +19,31 @@ function UserProfile({ currentUser, user: { profile, fullName, id, avatar } = {}
   const [showFollowsYouText, setShowFollowsYouText] = useState(false)
 
   // checking to see if user follows you
-  const { data: { followers: myFollowers } = {} } = useGetMyFollowersQuery()
-  const followers = myFollowers?.filter((follower) => follower.followingId === currentUser)
-  // console.log(followers)
-  const followerId = followers?.find((follower) => follower.followerId === id)
-  // console.log(followerId)
+  // const { data: { followers: myFollowers } = {} } = useGetMyFollowersQuery()
+  const followsCurrentUser = following?.filter((follower) => follower.followingId === currentUser)
+  // console.log(followsCurrentUser)
+  // const followerId = followers?.find((follower) => follower.followerId === id)
 
   // checking to see if you follow the user
-  const { data: { following: myFollowing } = {} } = useGetMyFollowingQuery()
-  const followings = myFollowing?.filter((follower) => follower.followerId === currentUser)
-  // console.log(followings)
-  const followingId = followings?.find((following) => following.followingId === id)
-  // console.log(followingId)
+  // const { data: { following: myFollowing } = {} } = useGetMyFollowingQuery()
+  const followingUser = followedBy?.filter((follower) => follower.followerId === currentUser)
+  // console.log(followingUser)
+
+  // const followingId = followings?.find((following) => following.followingId === id)
 
   // changing buttons and follow message dynamically
   useEffect(() => {
-    if (followerId && followingId) {
+    if (followsCurrentUser && followingUser.length !== 0) {
       setFollowButton(false)
       setFollowText('Following')
       setShowMessageButton(true)
       setShowFollowsYouText(true)
-    } else if (followingId && !followerId) {
+    } else if (followingUser.length !== 0 && !followsCurrentUser) {
       setFollowButton(false)
       setFollowText('Following')
       setShowMessageButton(true)
       setShowFollowsYouText(false)
-    } else if (!followingId && followerId) {
+    } else if (followingUser.length === 0 && followsCurrentUser) {
       setFollowButton(true)
       setFollowText('Follow Back')
       setShowMessageButton(true)
@@ -55,19 +54,19 @@ function UserProfile({ currentUser, user: { profile, fullName, id, avatar } = {}
       setShowFollowsYouText(false)
       setShowMessageButton(false)
     }
-  }, [followingId, followerId])
+  }, [followingUser, followsCurrentUser])
 
   // clicking on follow button updates followers/following
-  const handleClick = followingId ? (
+  const handleClick = followingUser.length !== 0 ? (
     (value) => {
       deleteMyFollowing(value).unwrap().then(() => {
-        console.log('unfollowed')
+        // console.log('unfollowed')
       })
     }
   ) : (
     (value) => {
       createMyFollowing(value).unwrap().then(() => {
-        console.log('followed')
+        // console.log('followed')
       })
     }
   )
@@ -145,8 +144,8 @@ function PagesUsersShow() {
     window.location.href = 'http://localhost:8080/my/profile'
   }
 
-  const { data: user, isLoading, isSuccess, isError, error } = useGetMyUserQuery(id)
-  console.log(user)
+  const { data: user, isLoading, isSuccess, isError, error } = useGetUserQuery(id)
+  // console.log(user)
 
   let content
 

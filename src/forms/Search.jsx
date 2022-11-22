@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { Formik, Field, Form } from 'formik'
 import * as Yup from 'yup'
 
-import { useGetMyUsersQuery } from '@/services/api/Users'
+import { useGetUsersQuery } from '@/services/api/Users'
 
 const initialValues = {
   q: ''
@@ -12,8 +12,8 @@ const initialValues = {
 
 function FormsSearch(props) {
   // const [myState, setState] = useState(skipToken)
-  // const result = useGetMyUsersQuery(myState)
-  // const { data } = useGetMyUsersQuery(q)
+  // const result = useGetUsersQuery(myState)
+  // const { data } = useGetUsersQuery(q)
 
   // const handleSubmit = (query) => {
   //   setState(query)
@@ -27,7 +27,7 @@ function FormsSearch(props) {
   // }
   const [click, setClick] = useState(true)
   const [query, setQuery] = useState('')
-  const { data } = useGetMyUsersQuery(query, { skip: click })
+  const { data } = useGetUsersQuery(query, { skip: click })
 
   const changeSkip = () => {
     setClick(false)
