@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import Dropdown from 'react-bootstrap/Dropdown'
 import Skeleton from 'react-loading-skeleton'
@@ -85,6 +85,16 @@ function EducationTab() {
 
   const [educationInfo, setEducationInfo] = useState(null)
 
+  const [showPagination, setShowPagination] = useState(false)
+
+  useEffect(() => {
+    if (myEducations?.length > 0) {
+      setShowPagination(true)
+    } else {
+      setShowPagination(false)
+    }
+  }, [myEducations])
+
   let content
 
   if (isLoading) {
@@ -139,7 +149,10 @@ function EducationTab() {
 
       {content}
 
-      <div className="my-4">
+      <div
+        className="my-4"
+        style={{ display: showPagination ? '' : 'none' }}
+      >
         <GeneratePagination meta={meta} changePage={handleChangePage} />
       </div>
 

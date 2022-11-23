@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSearchParams, useNavigate } from 'react-router-dom'
 import Skeleton from 'react-loading-skeleton'
 
@@ -59,6 +59,16 @@ function FollowersTab() {
     setSearchParams({ page: newPage })
   }
 
+  const [showPagination, setShowPagination] = useState(false)
+
+  useEffect(() => {
+    if (myFollowers?.length > 0) {
+      setShowPagination(true)
+    } else {
+      setShowPagination(false)
+    }
+  }, [myFollowers])
+
   let content
 
   if (isLoading) {
@@ -87,7 +97,10 @@ function FollowersTab() {
 
       {content}
 
-      <div className="mt-auto">
+      <div
+        className="mt-auto"
+        style={{ display: showPagination ? '' : 'none' }}
+      >
         <GeneratePagination meta={meta} changePage={handleChangePage} />
       </div>
     </div>

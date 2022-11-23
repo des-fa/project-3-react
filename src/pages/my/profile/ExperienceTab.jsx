@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import Dropdown from 'react-bootstrap/Dropdown'
 import Skeleton from 'react-loading-skeleton'
@@ -94,6 +94,16 @@ function ExperienceTab() {
   const [deleteModalShow, setDeleteModalShow] = useState(false)
   const [experienceInfo, setExperienceInfo] = useState(null)
 
+  const [showPagination, setShowPagination] = useState(false)
+
+  useEffect(() => {
+    if (myExperiences?.length > 0) {
+      setShowPagination(true)
+    } else {
+      setShowPagination(false)
+    }
+  }, [myExperiences])
+
   let content
 
   if (isLoading) {
@@ -151,7 +161,10 @@ function ExperienceTab() {
 
       {content}
 
-      <div className="my-4">
+      <div
+        className="my-4"
+        style={{ display: showPagination ? '' : 'none' }}
+      >
         <GeneratePagination meta={meta} changePage={handleChangePage} />
       </div>
 

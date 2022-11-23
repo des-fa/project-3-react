@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Skeleton from 'react-loading-skeleton'
 import { useSearchParams } from 'react-router-dom'
 
@@ -79,6 +79,16 @@ function PagesMyHome() {
     setSearchParams({ page: newPage })
   }
 
+  const [showPagination, setShowPagination] = useState(false)
+
+  useEffect(() => {
+    if (myFollowingPosts?.length > 0) {
+      setShowPagination(true)
+    } else {
+      setShowPagination(false)
+    }
+  }, [myFollowingPosts])
+
   let content
   if (isLoading) {
     content = (
@@ -106,7 +116,10 @@ function PagesMyHome() {
 
       {content}
 
-      <div className="my-4">
+      <div
+        className="my-4"
+        style={{ display: showPagination ? '' : 'none' }}
+      >
         <GeneratePagination meta={meta} changePage={handleChangePage} />
       </div>
     </div>

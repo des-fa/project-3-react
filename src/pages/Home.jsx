@@ -28,6 +28,7 @@ function PagesHome() {
           <h3 className="col-lg-10 fw-bold mb-4">to be discussed, to be determined.</h3>
           <p className="fs-5 mb-4">1. used to facilitate the sharing of information about the incalculable number of career paths available for us to choose from</p>
           <p className="fs-5">2. used to promote more open conversations regarding the infinite uncertainties encountered on our journey of life</p>
+          {/* used to create a community to discuss */}
         </div>
         <div className="col-md-10 mx-auto col-lg-5">
           <FormsAuthLogin

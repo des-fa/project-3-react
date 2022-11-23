@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSearchParams, useNavigate } from 'react-router-dom'
 import Skeleton from 'react-loading-skeleton'
 import { useGetMyFollowingQuery } from '@/services/api/my/MyConnections'
@@ -58,6 +58,16 @@ function FollowingTab() {
     setSearchParams({ page: newPage })
   }
 
+  const [showPagination, setShowPagination] = useState(false)
+
+  useEffect(() => {
+    if (myFollowing?.length > 0) {
+      setShowPagination(true)
+    } else {
+      setShowPagination(false)
+    }
+  }, [myFollowing])
+
   let content
 
   if (isLoading) {
@@ -86,7 +96,10 @@ function FollowingTab() {
 
       {content}
 
-      <div className="mt-auto">
+      <div
+        className="mt-auto"
+        style={{ display: showPagination ? '' : 'none' }}
+      >
         <GeneratePagination meta={meta} changePage={handleChangePage} />
       </div>
     </div>

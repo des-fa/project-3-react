@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import Dropdown from 'react-bootstrap/Dropdown'
 import { Modal } from 'react-bootstrap'
@@ -112,6 +112,16 @@ function ActivityTab() {
   const [deleteModalShow, setDeleteModalShow] = useState(false)
   const [postInfo, setPostInfo] = useState(null)
 
+  const [showPagination, setShowPagination] = useState(false)
+
+  useEffect(() => {
+    if (myPosts?.length > 0) {
+      setShowPagination(true)
+    } else {
+      setShowPagination(false)
+    }
+  }, [myPosts])
+
   let content
 
   if (isLoading) {
@@ -163,7 +173,10 @@ function ActivityTab() {
 
       {content}
 
-      <div className="my-4">
+      <div
+        className="my-4"
+        style={{ display: showPagination ? '' : 'none' }}
+      >
         <GeneratePagination meta={meta} changePage={handleChangePage} />
       </div>
 
