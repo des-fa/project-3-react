@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import { OverlayTrigger, Tooltip } from 'react-bootstrap'
 
 import Skeleton from 'react-loading-skeleton'
 
@@ -9,7 +10,7 @@ import { useCreateMyFollowingMutation, useDeleteMyFollowingMutation } from '@/se
 
 import ProfileTabs from '../../components/ProfileTabs'
 
-function UserProfile({ currentUser, user: { profile, fullName, id, avatar, following, followedBy } = {} }) {
+function UserProfile({ currentUser, user: { profile, fullName, id, email, avatar, following, followedBy } = {} }) {
   const [createMyFollowing] = useCreateMyFollowingMutation()
   const [deleteMyFollowing] = useDeleteMyFollowingMutation()
 
@@ -33,17 +34,17 @@ function UserProfile({ currentUser, user: { profile, fullName, id, avatar, follo
 
   // changing buttons and follow message dynamically
   useEffect(() => {
-    if (followsCurrentUser && followingUser.length !== 0) {
+    if (followsCurrentUser.length !== 0 && followingUser.length !== 0) {
       setFollowButton(false)
       setFollowText('Following')
       setShowMessageButton(true)
       setShowFollowsYouText(true)
-    } else if (followingUser.length !== 0 && !followsCurrentUser) {
+    } else if (followingUser.length !== 0 && followsCurrentUser.length === 0) {
       setFollowButton(false)
       setFollowText('Following')
       setShowMessageButton(true)
       setShowFollowsYouText(false)
-    } else if (followingUser.length === 0 && followsCurrentUser) {
+    } else if (followingUser.length === 0 && followsCurrentUser.length > 0) {
       setFollowButton(true)
       setFollowText('Follow Back')
       setShowMessageButton(true)
@@ -71,18 +72,52 @@ function UserProfile({ currentUser, user: { profile, fullName, id, avatar, follo
     }
   )
 
+  // email popover
+  // const [popoverMessage, setpopoverMessage] = useState('Click to copy!')
+  // const [popoverColor, setPopoverColor] = useState('bg-white')
+
+  const renderHoverTooltip = (props) => (
+    <Tooltip id="button-tooltip" {...props}>
+      Click to send this user an email!
+    </Tooltip>
+  )
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(email)
+    window.location.href = `mailto:${email}`
+    // setpopoverMessage('Email copied!')
+  }
+
   return (
     <div className="px-4 py-4 mb-4 bg-light border rounded-3">
 
       <div className="d-flex flex-row justify-content-end mt-0 mb-2 me-1 gap-3">
-        <button
-          type="button"
-          className="btn btn-sm btn-dark"
-          style={{ visibility: showMessageButton ? 'visible' : 'hidden' }}
-          // onClick={() => navigator.clipboard.writeText('Copy this text to clipboard')}
+        <OverlayTrigger
+          placement="bottom"
+          delay={{ show: 250, hide: 400 }}
+          overlay={renderHoverTooltip}
         >
-          Message
-        </button>
+          <button
+            type="button"
+            className="btn btn-sm btn-dark"
+            style={{ visibility: showMessageButton ? 'visible' : 'hidden' }}
+            onClick={handleCopy}
+          >
+            Message
+          </button>
+        </OverlayTrigger>
+
+        {/* <Overlay
+          target={target.current}
+          show={show}
+          placement="bottom"
+        >
+          {(props) => (
+            <Tooltip id="overlay-example" {...props}>
+              My Tooltip
+            </Tooltip>
+          )}
+        </Overlay> */}
 
         <button
           type="button"
@@ -168,7 +203,7 @@ function PagesUsersShow() {
       // console.log('same')
       navigate('/my/profile')
     }
-    // console.log(user)
+    console.log(user)
     // console.log(user.experiences)
     content = (
       <>

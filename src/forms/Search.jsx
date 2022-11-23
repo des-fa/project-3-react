@@ -1,11 +1,11 @@
 import React from 'react'
 // import { skipToken } from '@reduxjs/toolkit/dist/query'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 
 import { Formik, Field, Form } from 'formik'
 import * as Yup from 'yup'
 
 import { useLazyGetUsersQuery } from '@/services/api/Users'
-import { useSearchParams } from 'react-router-dom'
 
 const initialValues = {
   q: ''
@@ -13,6 +13,7 @@ const initialValues = {
 
 function FormsSearch(props) {
   // const [myState, setState] = useState(skipToken)
+  const navigate = useNavigate()
   const [searchParams, setSearchParams] = useSearchParams()
   const searchInput = searchParams.get('q')
   // const removeQueryParams = () => {
@@ -22,15 +23,16 @@ function FormsSearch(props) {
   //     setSearchParams({ q: '' })
   //   }
   // }
-  const [trigger, { data, isSuccess }] = useLazyGetUsersQuery()
+  const [trigger, { data }] = useLazyGetUsersQuery()
 
-  const handleSubmit = async (values, { resetForm }) => {
+  const handleSubmit = (values, { resetForm }) => {
     // await setSearchParams({ q: values.q })
     trigger(searchInput)
 
-    if (isSuccess) {
-      resetForm()
-    }
+    // if (isSuccess) {
+    resetForm()
+    navigate('/users', { state: data?.users })
+    // }
   }
 
   // const [click, setClick] = useState(true)
@@ -40,6 +42,7 @@ function FormsSearch(props) {
   //       setClick(false)
   //     }}
   console.log(data)
+  // console.log(data?.users)
 
   return (
     <Formik

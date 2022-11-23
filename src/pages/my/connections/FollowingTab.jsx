@@ -35,7 +35,12 @@ function Following({ following }) {
             />
           </div>
           <div className="d-flex flex-column">
-            <h5 className="following-name mb-2 fw-bold">{following?.following?.fullName}</h5>
+            <h5
+              className="following-name mb-2 fw-bold"
+            ><a
+              href={`/users/${following?.following?.id}`}
+              className="link-secondary text-decoration-none"
+            >{following?.following?.fullName}</a></h5>
             <h6 className="following-job mb-2">{following?.following?.profile?.currentJob}</h6>
             <h6 className="following-education">
               {following?.following?.profile?.highestEducation}

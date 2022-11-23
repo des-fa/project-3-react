@@ -27,6 +27,26 @@ body {
   color: black;
 }
 
+.tooltip-inner, .tooltip-main {
+  color: white !important;
+  background: #474E68 !important;
+  font-size: 16px;
+  max-width: 300px;
+  padding: 10px !important;
+}
+
+.tooltip.bs-tooltip-top .tooltip-arrow::before {
+  border-top-color: #6B728E;
+}
+.tooltip.bs-tooltip-bottom .tooltip-arrow::before {
+  border-bottom-color: #6B728E;
+}
+.tooltip.bs-tooltip-start .tooltip-arrow::before {
+  border-left-color: #6B728E;
+}
+.tooltip.bs-tooltip-end .tooltip-arrow::before {
+  border-right-color: #6B728E;
+}
 
 .dropdown-item.active, .dropdown-item:active {
     color: rgb(35, 34, 34);
