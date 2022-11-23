@@ -10,11 +10,18 @@ import FormsPostsChange from '@/forms/profile/PostsChange'
 import DeleteConfirmation from '@/components/DeleteConfirmation'
 import ReadMore from '@/components/ReadMore'
 import GeneratePagination from '@/components/Pagination'
+import ImageModal from '@/components/ImageModal'
 import { TimeAgo } from '../../../components/TimeAgo'
 
 function Post({ post, setEditModalShow, setDeleteModalShow, setPostInfo }) {
   const { id } = post
   const { data: postInfo } = useGetMyPostQuery(id)
+
+  // image modal
+  const [showImageModal, setShowImageModal] = useState(false)
+
+  const handleClose = () => setShowImageModal(false)
+  const handleShow = () => setShowImageModal(true)
 
   return (
     <article className="post" key={post?.id}>
@@ -57,13 +64,25 @@ function Post({ post, setEditModalShow, setDeleteModalShow, setPostInfo }) {
           <div className="text-center">
             <img
               src={post.image}
-              className="rounded border"
+              className="rounded border trigger-img-modal"
               alt="post-picture"
               width="35%"
               height="auto"
+              onClick={handleShow}
             />
           </div>
         ) : ''}
+        {/* <Modal show={showImageModal} onHide={handleClose} className="img-modal">
+          <Modal.Body className="img-modal-content">
+            <img
+              src={post?.image}
+              className="rounded border w-100 h-100 text-center"
+              alt="post-picture"
+            />
+          </Modal.Body>
+        </Modal> */}
+        <ImageModal show={showImageModal} onHide={handleClose} image={post?.image} />
+
       </div>
     </article>
   )
