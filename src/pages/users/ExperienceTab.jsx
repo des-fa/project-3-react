@@ -1,5 +1,4 @@
 import React from 'react'
-import Skeleton from 'react-loading-skeleton'
 
 function Experience({ experience }) {
   return (
@@ -33,11 +32,11 @@ function Experience({ experience }) {
 function UsersExperienceTab({ experiences }) {
   let content
 
-  if (!experiences) {
+  if (experiences?.length === 0) {
     content = (
-      <Skeleton count={5} />
+      <h5 className="text-muted mt-2 fw-light">There&apos;s nothing to see here!</h5>
     )
-  } else if (experiences) {
+  } else if (experiences?.length > 0) {
     // console.log(experiences)
     content = experiences.map((experience) => (
       <Experience

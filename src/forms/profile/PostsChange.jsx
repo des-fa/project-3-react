@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-import { Button } from 'react-bootstrap'
+import { Badge, Button } from 'react-bootstrap'
 
 import { Formik, Field, Form, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
@@ -13,6 +13,9 @@ const initialValues = {
 }
 
 function FormsPostsChange(props) {
+  const [inputText, setInputText] = useState('')
+  const [characterLimit] = useState(1000)
+
   const [imagePreview, setImagePreview] = useState(props?.postInfo?.image || props?.initialValues?.image || defaultImage)
   const imageRef = useRef(null)
 
@@ -71,12 +74,19 @@ function FormsPostsChange(props) {
 
             <Form>
               <div className="mb-3">
+                <div className="d-flex flex-row justify-content-end mb-0">
+                  <Badge className="mb-3" bg={`${inputText.length > characterLimit ? 'danger' : 'secondary'}`}>{inputText.length}/{characterLimit}</Badge>
+                </div>
                 <Field
                   className={`form-control ${e?.content && t?.content && 'is-invalid'}`}
                   name="content"
                   as="textarea"
                   rows="5"
                   placeholder="What would you like to share?"
+                  onChange={(event) => {
+                    setFieldValue('content', event.target.value)
+                    setInputText(event.target.value)
+                  }}
                 />
                 <ErrorMessage
                   className="invalid-feedback"
@@ -106,7 +116,7 @@ function FormsPostsChange(props) {
                 </div>
 
                 <div className="col-auto">
-                  <div className="input-group input-group-sm mb-3">
+                  <div className="input-group input-group-sm mb-3 mt-0">
                     <label className="input-group-text" htmlFor="image">Upload</label>
                     <input
                       ref={imageRef}

@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import Skeleton from 'react-loading-skeleton'
 
 import { TimeAgo } from '@/components/TimeAgo'
 import ReadMore from '@/components/ReadMore'
@@ -60,18 +59,12 @@ function Post({ post }) {
 function UsersActivityTab({ posts }) {
   let content
 
-  if (!posts) {
+  if (posts?.length === 0) {
     content = (
-      Array(10).fill(null).map((temp, i) => (
-        <tr key={i}>
-          <td><Skeleton /></td>
-          <td><Skeleton /></td>
-          <td><Skeleton /></td>
-        </tr>
-      ))
+      <h5 className="text-muted mt-2 fw-light">There&apos;s nothing to see here!</h5>
     )
-  } else if (posts) {
-    // console.log(posts)
+  } else if (posts?.length > 0) {
+    console.log(posts)
     content = posts.map((post) => (
       <Post
         key={post.id}

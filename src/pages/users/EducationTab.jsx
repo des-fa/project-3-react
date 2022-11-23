@@ -1,5 +1,4 @@
 import React from 'react'
-import Skeleton from 'react-loading-skeleton'
 
 function Education({ education }) {
   return (
@@ -22,11 +21,11 @@ function Education({ education }) {
 function UsersEducationTab({ educations }) {
   let content
 
-  if (!educations) {
+  if (educations?.length === 0) {
     content = (
-      <Skeleton count={5} />
+      <h5 className="text-muted mt-2 fw-light">There&apos;s nothing to see here!</h5>
     )
-  } else if (educations) {
+  } else if (educations?.length > 0) {
     // console.log(educations)
     content = educations.map((education) => (
       <Education

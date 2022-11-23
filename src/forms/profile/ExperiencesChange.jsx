@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
+import { Badge } from 'react-bootstrap'
 
 import { Formik, Field, Form, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
@@ -16,6 +17,9 @@ const initialValues = {
 }
 
 function FormsExperiencesChangeModal(props) {
+  const [inputText, setInputText] = useState('')
+  const [characterLimit] = useState(350)
+
   const [createMyExperience] = useCreateMyExperienceMutation()
   const [updateMyExperience] = useUpdateMyExperienceMutation()
 
@@ -46,7 +50,7 @@ function FormsExperiencesChangeModal(props) {
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
-      <Modal.Header closeButton>
+      <Modal.Header closeButton onClick={() => { setInputText('') }}>
         {
         props.experienceInfo ? (
           <Modal.Title id="contained-modal-title-vcenter">
@@ -90,7 +94,7 @@ function FormsExperiencesChangeModal(props) {
     }
       >
         {
-        ({ errors: e, touched: t, isSubmitting }) => (
+        ({ errors: e, touched: t, isSubmitting, setFieldValue }) => (
           <Form>
             <Modal.Body>
               <div className="mb-3">
@@ -155,19 +159,32 @@ function FormsExperiencesChangeModal(props) {
                   as="textarea"
                   rows="5"
                   placeholder="Share a little bit about what you did!"
+                  onChange={(event) => {
+                    setFieldValue('description', event.target.value)
+                    setInputText(event.target.value)
+                  }}
                 />
                 <ErrorMessage
                   className="invalid-feedback"
                   name="description"
                   component="div"
                 />
+                <div className="d-flex flex-row justify-content-start mb-0">
+                  <Badge className="mt-2" bg={`${inputText.length > characterLimit ? 'danger' : 'secondary'}`}>{inputText.length}/{characterLimit}</Badge>
+                </div>
               </div>
             </Modal.Body>
 
             {
             props.experienceInfo ? (
               <Modal.Footer>
-                <Button variant="outline-secondary" onClick={props.onHide}>
+                <Button
+                  variant="outline-secondary"
+                  onClick={() => {
+                    props.onHide()
+                    setInputText('')
+                  }}
+                >
                   Cancel
                 </Button>
                 <Button
