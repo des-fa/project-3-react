@@ -87,7 +87,7 @@ function PagesUsers() {
   }
 
   return (
-    <div id="pages-users" className="container px-5 w-75">
+    <div id="pages-users" className="container px-2 w-75">
       <h3 className="my-5 mx-3 fw-light">Search Results</h3>
 
       {content}

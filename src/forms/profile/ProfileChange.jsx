@@ -28,9 +28,9 @@ function FormsProfileChangeModal(props) {
         })
     }
   ) : (
-    (values) => {
-      createMyProfile(values).unwrap().then(() => {
-        console.log(values)
+    async (values) => {
+      await createMyProfile(values).unwrap().then(() => {
+        // console.log(values)
         navigate('/my/profile')
       })
     }

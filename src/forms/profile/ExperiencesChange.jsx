@@ -20,7 +20,6 @@ function FormsExperiencesChangeModal(props) {
   const [updateMyExperience] = useUpdateMyExperienceMutation()
 
   const handleSubmit = props.experienceInfo ? (
-
     async (values) => {
       await updateMyExperience(values)
         .then(() => {
@@ -30,13 +29,12 @@ function FormsExperiencesChangeModal(props) {
     }
 
   ) : (
-    (values) => {
-      createMyExperience(values).unwrap().then(() => {
+    async (values) => {
+      await createMyExperience(values).unwrap().then(() => {
         props.onHide()
         // console.log(values)
       })
     }
-
   )
 
   return (

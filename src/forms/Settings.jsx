@@ -21,10 +21,12 @@ function FormsAccountSettingsChangeModal(props) {
 
   const [update] = useUpdateMyAccountSettingsMutation()
 
-  const handleSubmit = (data) => update(data).unwrap().then(() => {
+  const handleSubmit = async (data) => {
+    update(data).unwrap().then(() => {
     // console.log(data)
-    props.onHide()
-  })
+      props.onHide()
+    })
+  }
 
   return (
     <Modal

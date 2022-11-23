@@ -45,7 +45,7 @@ function LayoutsNavbar() {
                 <Nav.Link className="border rounded px-3" as={NavLink} to="/my/home">Home</Nav.Link>
                 <Nav.Link className="border rounded px-3" as={NavLink} to="/my/connections">Connections</Nav.Link>
                 <Nav.Link as={NavLink} to="/my/messages" className="border rounded px-3">Messages</Nav.Link>
-                <Nav.Link as={NavLink} className="border rounded px-3" onClick={handleShowNotifications}>Notifications</Nav.Link>
+                <Nav.Link className="border rounded px-3" onClick={handleShowNotifications}>Notifications</Nav.Link>
                 <NavDropdown
                   title={(
                     <div className="pull-left">

@@ -1,4 +1,3 @@
-// router.get('/api/users/:id', authenticateUser('json'), (await import('./api/users/show.js')).default)
 import { createApi } from '@reduxjs/toolkit/query/react'
 
 import axiosBaseQuery from '@/services/axios-base-query'

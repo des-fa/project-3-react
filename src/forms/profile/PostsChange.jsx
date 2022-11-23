@@ -22,7 +22,7 @@ function FormsPostsChange(props) {
   const handleSubmit = props.postInfo ? (
     async (data) => {
       // console.log(data)
-      updateMyPost(data).unwrap().then(() => {
+      await updateMyPost(data).unwrap().then(() => {
         // console.log(data)
         props.onHide()
       })
@@ -30,7 +30,7 @@ function FormsPostsChange(props) {
   ) : (
     async (data, { resetForm, setFieldValue }) => {
       // console.log(data)
-      createMyPost(data).unwrap().then(() => {
+      await createMyPost(data).unwrap().then(() => {
         // console.log(data)
         resetForm({ values: '' })
         setImagePreview(defaultImage)

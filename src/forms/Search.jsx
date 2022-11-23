@@ -25,18 +25,15 @@ function FormsSearch(props) {
   // }
   const [trigger, { data }] = useLazyGetUsersQuery()
 
-  useEffect(() => {
-    navigate('/users', { state: { users: data?.users, meta: data?.meta } })
-  }, [data])
+  // useEffect(() => {
+  //   navigate('/users', { state: { users: data?.users, meta: data?.meta } })
+  // }, [data?.users])
 
   const handleSubmit = (values, { resetForm }) => {
     // await setSearchParams({ q: values.q })
     trigger(searchInput)
 
-    // if (isSuccess) {
     resetForm()
-    // navigate('/users', { state: { users: data?.users } })
-    // }
   }
 
   // const [click, setClick] = useState(true)

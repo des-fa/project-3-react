@@ -19,7 +19,6 @@ function FormsEducationsChangeModal(props) {
   const [updateMyEducation] = useUpdateMyEducationMutation()
 
   const handleSubmit = props.educationInfo ? (
-
     async (values) => {
       await updateMyEducation(values)
         .then(() => {
@@ -29,13 +28,12 @@ function FormsEducationsChangeModal(props) {
     }
 
   ) : (
-    (values) => {
-      createMyEducation(values).unwrap().then(() => {
+    async (values) => {
+      await createMyEducation(values).unwrap().then(() => {
         props.onHide()
         // console.log(values)
       })
     }
-
   )
 
   return (
