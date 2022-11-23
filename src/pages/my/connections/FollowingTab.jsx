@@ -79,7 +79,7 @@ function FollowingTab() {
     content = (
       <Skeleton count={5} />
     )
-  } else if (myFollowing.length === 0) {
+  } else if (myFollowing?.length === 0) {
     content = (
       <h5 className="text-muted mt-2 mb-5 fw-light">You are not following anyone yet.</h5>
     )

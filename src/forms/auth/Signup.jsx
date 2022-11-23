@@ -59,7 +59,7 @@ function FormsAuthSignupModal(props) {
       }
       >
         {
-        ({ errors: e, touched: t, isSubmitting, setFieldValue }) => (
+        ({ errors: e, touched: t, isValidating, setFieldValue }) => (
           <Form>
             <Modal.Body>
               <div className="mb-3">
@@ -119,11 +119,12 @@ function FormsAuthSignupModal(props) {
               </div>
 
               <div className="d-flex flex-row justify-content-evenly align-items-center mb-2">
-                <div className="col-3">
+                <div className="col-3 h-100">
                   <img
                     src={avatarPreview}
-                    className="img-thumbnail rounded-circle me-0"
+                    className="img-thumbnail rounded-4 me-0"
                     width="100px"
+                    height="auto"
                   />
                 </div>
 
@@ -176,7 +177,7 @@ function FormsAuthSignupModal(props) {
               <Button
                 className="btn btn-dark"
                 type="submit"
-                disabled={isSubmitting}
+                disabled={isValidating}
               >Sign Up</Button>
             </Modal.Footer>
           </Form>

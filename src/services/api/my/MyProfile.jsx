@@ -6,7 +6,7 @@ export const apiMyProfile = createApi({
   baseQuery: axiosBaseQuery({ baseUrl: 'http://localhost:3000/api/my/profile' }),
   reducerPath: 'apiMyProfile',
   refetchOnMountOrArgChange: true,
-  refetchOnFocus: true,
+  // refetchOnFocus: true,
   refetchOnReconnect: true,
   tagTypes: ['MyProfile'],
   endpoints: (builder) => ({

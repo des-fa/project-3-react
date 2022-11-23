@@ -34,17 +34,17 @@ function UserProfile({ currentUser, user: { profile, fullName, id, email, avatar
 
   // changing buttons and follow message dynamically
   useEffect(() => {
-    if (followsCurrentUser.length !== 0 && followingUser.length !== 0) {
+    if (followsCurrentUser?.length !== 0 && followingUser?.length !== 0) {
       setFollowButton(false)
       setFollowText('Following')
       setShowMessageButton(true)
       setShowFollowsYouText(true)
-    } else if (followingUser.length !== 0 && followsCurrentUser.length === 0) {
+    } else if (followingUser?.length !== 0 && followsCurrentUser?.length === 0) {
       setFollowButton(false)
       setFollowText('Following')
       setShowMessageButton(true)
       setShowFollowsYouText(false)
-    } else if (followingUser.length === 0 && followsCurrentUser.length > 0) {
+    } else if (followingUser?.length === 0 && followsCurrentUser?.length > 0) {
       setFollowButton(true)
       setFollowText('Follow Back')
       setShowMessageButton(true)
@@ -58,7 +58,7 @@ function UserProfile({ currentUser, user: { profile, fullName, id, email, avatar
   }, [followingUser, followsCurrentUser])
 
   // clicking on follow button updates followers/following
-  const handleClick = followingUser.length !== 0 ? (
+  const handleClick = followingUser?.length !== 0 ? (
     (value) => {
       deleteMyFollowing(value).unwrap().then(() => {
         // console.log('unfollowed')
@@ -191,7 +191,7 @@ function PagesUsersShow() {
       // console.log('same')
       navigate('/my/profile')
     }
-    console.log(user)
+    // console.log(user)
     // console.log(user.experiences)
     content = (
       <>

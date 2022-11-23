@@ -110,7 +110,7 @@ function ExperienceTab() {
     content = (
       <Skeleton count={5} />
     )
-  } else if (myExperiences.length === 0) {
+  } else if (myExperiences?.length === 0) {
     content = (
       <h5 className="text-muted fw-light">You have not added any information about your work experience yet.</h5>
     )

@@ -7,6 +7,7 @@ import { TimeAgo } from '@/components/TimeAgo'
 import ReadMore from '@/components/ReadMore'
 import GeneratePagination from '@/components/Pagination'
 import ImageModal from '@/components/ImageModal'
+import { useGetMyUserQuery } from '@/services/api/Auth'
 
 function FollowingPost({ post }) {
   // console.log(post.id)
@@ -75,6 +76,8 @@ function FollowingPost({ post }) {
 }
 
 function PagesMyHome() {
+  const { data: { following: myFollowing } = {} } = useGetMyUserQuery()
+  // console.log(myFollowing)
   const [searchParams, setSearchParams] = useSearchParams()
   const currentPage = searchParams.get('page') || 1
   const { data: { meta, followingPosts: myFollowingPosts } = {}, isLoading, isSuccess, isError, error } = useGetMyFollowingPostsQuery(currentPage)
@@ -98,9 +101,13 @@ function PagesMyHome() {
     content = (
       <Skeleton count={5} />
     )
-  } else if (myFollowingPosts.length === 0) {
+  } else if (myFollowing?.length > 0 && myFollowingPosts?.length === 0) {
     content = (
-      <h5 className="text-muted mx-3 fw-light">You are not following anyone yet.</h5>
+      <h5 className="text-muted mx-3 fw-light">There&apos;s nothing new to report!</h5>
+    )
+  } else if (myFollowing?.length === 0 && myFollowingPosts?.length === 0) {
+    content = (
+      <h5 className="text-muted mx-3 fw-light">You are not following anyone yet!</h5>
     )
   } else if (isSuccess) {
     // console.log(myFollowingPosts)

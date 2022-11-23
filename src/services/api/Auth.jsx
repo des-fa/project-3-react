@@ -8,7 +8,7 @@ export const apiAuth = createApi({
   reducerPath: 'apiAuth',
   refetchOnMountOrArgChange: true,
   // refetchOnFocus: true,
-  // refetchOnReconnect: true,
+  refetchOnReconnect: true,
   tagTypes: ['Auth'],
   endpoints: (builder) => ({
     getMyUser: builder.query({

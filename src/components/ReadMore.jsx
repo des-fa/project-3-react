@@ -13,7 +13,7 @@ function ReadMore({ text }) {
         <span
           onClick={toggleReadMore}
           className="read-or-hide fw-bold"
-          style={{ display: text.length >= 400 ? '' : 'none' }}
+          style={{ display: text?.length >= 400 ? '' : 'none' }}
         >
           {isReadMore ? '...READ MORE' : ' SHOW LESS'}
         </span>

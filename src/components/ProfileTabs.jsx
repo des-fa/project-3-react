@@ -20,7 +20,6 @@ function ProfileTabs(props) {
   return (
     <div
       className="container"
-      // style={{ height: '50vh' }}
     >
       <Tabs
         id="profile-tabs"
