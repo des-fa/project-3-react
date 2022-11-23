@@ -1,10 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Skeleton from 'react-loading-skeleton'
 
 import { TimeAgo } from '@/components/TimeAgo'
 import ReadMore from '@/components/ReadMore'
+import ImageModal from '@/components/ImageModal'
 
 function Post({ post }) {
+  // image modal
+  const [showImageModal, setShowImageModal] = useState(false)
+
+  const handleClose = () => setShowImageModal(false)
+  const handleShow = () => setShowImageModal(true)
+
   return (
     <article className="post" key={post?.id}>
       <div className="border rounded p-4 m-3">
@@ -28,14 +35,24 @@ function Post({ post }) {
           <div className="text-center mt-3">
             <img
               src={post.image}
-              className="rounded border"
+              className="rounded border trigger-img-modal"
               alt="post-picture"
-              width="35%"
-              height="auto"
+              // width="35%"
+              // height="auto"
+              style={{
+                minWidth: '40%%',
+                maxWidth: 400,
+                minHeight: '40%',
+                maxHeight: 300
+              }}
+              onClick={handleShow}
             />
           </div>
         ) : ''}
       </div>
+
+      <ImageModal show={showImageModal} onHide={handleClose} image={post?.image} />
+
     </article>
   )
 }

@@ -66,21 +66,19 @@ function Post({ post, setEditModalShow, setDeleteModalShow, setPostInfo }) {
               src={post.image}
               className="rounded border trigger-img-modal"
               alt="post-picture"
-              width="35%"
-              height="auto"
+              // width="35%"
+              // height="auto"
+              style={{
+                minWidth: '40%%',
+                maxWidth: 400,
+                minHeight: '40%',
+                maxHeight: 300
+              }}
               onClick={handleShow}
             />
           </div>
         ) : ''}
-        {/* <Modal show={showImageModal} onHide={handleClose} className="img-modal">
-          <Modal.Body className="img-modal-content">
-            <img
-              src={post?.image}
-              className="rounded border w-100 h-100 text-center"
-              alt="post-picture"
-            />
-          </Modal.Body>
-        </Modal> */}
+
         <ImageModal show={showImageModal} onHide={handleClose} image={post?.image} />
 
       </div>

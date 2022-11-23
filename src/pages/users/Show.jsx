@@ -93,7 +93,7 @@ function UserProfile({ currentUser, user: { profile, fullName, id, email, avatar
 
       <div className="d-flex flex-row justify-content-end mt-0 mb-2 me-1 gap-3">
         <OverlayTrigger
-          placement="bottom"
+          placement="left"
           delay={{ show: 250, hide: 400 }}
           overlay={renderHoverTooltip}
         >
@@ -106,18 +106,6 @@ function UserProfile({ currentUser, user: { profile, fullName, id, email, avatar
             Message
           </button>
         </OverlayTrigger>
-
-        {/* <Overlay
-          target={target.current}
-          show={show}
-          placement="bottom"
-        >
-          {(props) => (
-            <Tooltip id="overlay-example" {...props}>
-              My Tooltip
-            </Tooltip>
-          )}
-        </Overlay> */}
 
         <button
           type="button"

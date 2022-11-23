@@ -6,9 +6,16 @@ import { useGetMyFollowingPostsQuery } from '@/services/api/my/MyConnections'
 import { TimeAgo } from '@/components/TimeAgo'
 import ReadMore from '@/components/ReadMore'
 import GeneratePagination from '@/components/Pagination'
+import ImageModal from '@/components/ImageModal'
 
 function FollowingPost({ post }) {
   // console.log(post.id)
+
+  // image modal
+  const [showImageModal, setShowImageModal] = useState(false)
+
+  const handleClose = () => setShowImageModal(false)
+  const handleShow = () => setShowImageModal(true)
 
   return (
     <article className="post" key={post?.id}>
@@ -43,27 +50,24 @@ function FollowingPost({ post }) {
           {post?.image ? (
             <div className="text-center">
               <img
-                className="border rounded px-5 py-2"
+                className="trigger-img-modal border rounded "
                 src={post.image}
                 alt="post-picture"
-                width="40%"
-                height="auto"
+                // width="40%"
+                // height="auto"
+                style={{
+                  minWidth: '40%%',
+                  maxWidth: 400,
+                  minHeight: '40%',
+                  maxHeight: 300
+                }}
+                onClick={handleShow}
               />
             </div>
           ) : ''}
         </div>
 
-        {/* <div className="d-flex flex-row justify-content-end my-0 me-2">
-          <button
-            type="button"
-            className="btn btn-sm btn-secondary"
-          >
-            View Post
-          </button>
-        </div> */}
-        {/* // onClick={() => {
-          //   navigate(`/user/${follower?.follower?.id}`)
-          // }} */}
+        <ImageModal show={showImageModal} onHide={handleClose} image={post?.image} />
 
       </div>
     </article>
