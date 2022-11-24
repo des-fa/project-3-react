@@ -1,6 +1,7 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
 
 import axiosBaseQuery from '@/services/axios-base-query'
+import { apiAuth } from '@/services/api/Auth'
 
 export const apiMyProfile = createApi({
   baseQuery: axiosBaseQuery({ baseUrl: 'http://localhost:3000/api/my/profile' }),
@@ -8,7 +9,7 @@ export const apiMyProfile = createApi({
   refetchOnMountOrArgChange: true,
   // refetchOnFocus: true,
   refetchOnReconnect: true,
-  tagTypes: ['MyProfile, MyProfileShow'],
+  tagTypes: ['MyProfile'],
   endpoints: (builder) => ({
     createMyProfile: builder.mutation({
       query: (data) => ({
@@ -16,14 +17,24 @@ export const apiMyProfile = createApi({
         method: 'POST',
         data
       }),
-      invalidatesTags: (result) => (result ? ['MyProfile', { type: 'MyProfileShow', id: result?.profile?.id }] : [])
+      // invalidatesTags: (result) => (result ? ['MyProfile', { type: 'MyProfileShow', id: result?.profile?.id }] : [])
+      invalidatesTags: (result) => (result ? ['MyProfile'] : []),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          await queryFulfilled
+        } catch (err) {
+          console.error(err) // eslint-disable-line
+        } finally {
+          dispatch(apiAuth.util.invalidateTags(['Auth']))
+        }
+      }
     }),
     getMyProfile: builder.query({
       query: () => ({
         url: '',
         method: 'GET'
       }),
-      providesTags: (result) => (result?.profile ? [{ type: 'MyProfileShow', id: result?.profile?.id }
+      providesTags: (result) => (result ? ['MyProfile'
       ] : ['MyProfile'])
     }),
     updateMyProfile: builder.mutation({
@@ -32,7 +43,7 @@ export const apiMyProfile = createApi({
         method: 'PUT',
         data
       }),
-      invalidatesTags: (result) => (result ? ['MyProfileShow', { type: 'MyProfile' }] : [])
+      invalidatesTags: (result) => (result ? ['MyProfile'] : [])
     })
   })
 })
