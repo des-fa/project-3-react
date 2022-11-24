@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 import { Badge } from 'react-bootstrap'
@@ -24,11 +24,21 @@ function FormsProfileChangeModal(props) {
   const [createMyProfile] = useCreateMyProfileMutation()
   const [updateMyProfile] = useUpdateMyProfileMutation()
 
+  // charCount when updating
+  useEffect(() => {
+    if (props?.initialValues?.about) {
+      setInputText(props?.initialValues?.about)
+      // console.log(props.experienceInfo.description.length)
+      // console.log('checked experience')
+    }
+  }, [props?.show])
+
   const handleSubmit = props.initialValues ? (
     async (values) => {
       await updateMyProfile(values)
         .then(() => {
           props.setEditModalShow(false)
+          setInputText('')
           navigate('/my/profile')
         })
     }
@@ -51,9 +61,18 @@ function FormsProfileChangeModal(props) {
       centered
     >
       <Modal.Header closeButton onClick={() => { setInputText('') }}>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Enter your profile information
-        </Modal.Title>
+        {
+        props.initialValues ? (
+          <Modal.Title id="contained-modal-title-vcenter">
+            Edit your profile information
+          </Modal.Title>
+        ) : (
+
+          <Modal.Title id="contained-modal-title-vcenter">
+            Enter your profile information
+          </Modal.Title>
+        )
+      }
       </Modal.Header>
 
       <Formik

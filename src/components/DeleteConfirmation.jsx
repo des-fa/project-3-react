@@ -7,7 +7,7 @@ function DeleteConfirmation({ show, onHide, confirm, data }) {
       <Modal.Header closeButton>
         <Modal.Title>Delete Confirmation</Modal.Title>
       </Modal.Header>
-      <Modal.Body><div className="alert alert-danger">This action is permanent. Are you sure you want to delete this?</div></Modal.Body>
+      <Modal.Body><div className="alert alert-danger">This action is permanent. Are you sure you want to continue?</div></Modal.Body>
       <Modal.Footer>
         <Button variant="default" onClick={onHide}>
           Cancel

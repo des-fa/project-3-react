@@ -8,7 +8,7 @@ export const apiMyEducations = createApi({
   refetchOnMountOrArgChange: true,
   // refetchOnFocus: true,
   refetchOnReconnect: true,
-  tagTypes: ['MyEducations'],
+  tagTypes: ['MyEducations', 'MyEducationShow'],
   endpoints: (builder) => ({
     getMyEducations: builder.query({
       query: (page) => ({
@@ -16,14 +16,17 @@ export const apiMyEducations = createApi({
         method: 'GET',
         params: { page }
       }),
-      providesTags: (result) => (result?.educations ? result?.educations?.map(({ id }) => ({ type: 'MyEducations', id })) : [])
+      providesTags: (result) => (result?.educations ? [
+        ...result.educations.map(({ id }) => ({ type: 'MyEducations', id })),
+        'MyEducations'
+      ] : ['MyEducations'])
     }),
     getMyEducation: builder.query({
       query: (id) => ({
         url: `/${id}`,
         method: 'GET'
       }),
-      providesTags: (result) => (result ? [{ type: 'MyEducations', id: result?.education?.id }] : [])
+      providesTags: (result) => (result ? [{ type: 'MyEducationShow', id: result?.education?.id }] : [])
     }),
     createMyEducation: builder.mutation({
       query: (data) => ({
@@ -31,7 +34,7 @@ export const apiMyEducations = createApi({
         method: 'POST',
         data
       }),
-      invalidatesTags: (result) => (result ? [{ type: 'MyEducations', id: result?.education?.id }] : ['MyEducations'])
+      invalidatesTags: (result) => (result ? ['MyEducations'] : [])
     }),
     updateMyEducation: builder.mutation({
       query: (data) => ({
@@ -39,14 +42,14 @@ export const apiMyEducations = createApi({
         method: 'PUT',
         data
       }),
-      invalidatesTags: (result) => (result ? [{ type: 'MyEducations', id: result?.education?.id }] : [])
+      invalidatesTags: (result) => (result ? ['MyEducations', { type: 'MyEducationShow', id: result?.education?.id }] : [])
     }),
     deleteMyEducation: builder.mutation({
       query: (data) => ({
         url: `/${data.id}`,
         method: 'DELETE'
       }),
-      invalidatesTags: (result) => (result ? [{ type: 'MyEducations', id: result?.education?.id }] : [])
+      invalidatesTags: (result) => (result ? ['MyEducations'] : [])
     })
   })
 })

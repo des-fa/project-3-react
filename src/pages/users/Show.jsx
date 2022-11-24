@@ -208,7 +208,7 @@ function PagesUsersShow() {
   }
 
   return (
-    <div id="pages-users-show" className="container p-5">
+    <div id="pages-users-show" className="container px-5 pt-5">
       {content}
     </div>
   )

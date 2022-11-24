@@ -112,7 +112,7 @@ function PagesMyProfile() {
   }
 
   return (
-    <div id="pages-my-profile" className="container p-5">
+    <div id="pages-my-profile" className="container px-5 pt-5">
       {content}
       <MyProfileModal
         show={createModalShow}

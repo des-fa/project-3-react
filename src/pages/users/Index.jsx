@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 
 function User({ user }) {
   const navigate = useNavigate()
-  console.log('page', user)
+  // console.log('page', user)
 
   return (
     <article className="following" key={user?.id}>

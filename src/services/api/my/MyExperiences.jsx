@@ -8,7 +8,7 @@ export const apiMyExperiences = createApi({
   refetchOnMountOrArgChange: true,
   // refetchOnFocus: true,
   refetchOnReconnect: true,
-  tagTypes: ['MyExperiences'],
+  tagTypes: ['MyExperiences', 'MyExperienceShow'],
   endpoints: (builder) => ({
     getMyExperiences: builder.query({
       query: (page) => ({
@@ -16,14 +16,17 @@ export const apiMyExperiences = createApi({
         method: 'GET',
         params: { page }
       }),
-      providesTags: (result) => (result?.experiences ? result?.experiences?.map(({ id }) => ({ type: 'MyExperiences', id })) : [])
+      providesTags: (result) => (result?.experiences ? [
+        ...result.experiences.map(({ id }) => ({ type: 'MyExperiences', id })),
+        'MyExperiences'
+      ] : ['MyExperiences'])
     }),
     getMyExperience: builder.query({
       query: (id) => ({
         url: `/${id}`,
         method: 'GET'
       }),
-      providesTags: (result) => (result ? [{ type: 'MyExperiences', id: result?.experience?.id }] : [])
+      providesTags: (result) => (result ? [{ type: 'MyExperienceShow', id: result?.experience?.id }] : [])
     }),
     createMyExperience: builder.mutation({
       query: (data) => ({
@@ -31,7 +34,7 @@ export const apiMyExperiences = createApi({
         method: 'POST',
         data
       }),
-      invalidatesTags: (result) => (result ? [{ type: 'MyExperiences', id: result?.experience?.id }] : ['MyExperiences'])
+      invalidatesTags: (result) => (result ? ['MyExperiences'] : [])
     }),
     updateMyExperience: builder.mutation({
       query: (data) => ({
@@ -39,14 +42,14 @@ export const apiMyExperiences = createApi({
         method: 'PUT',
         data
       }),
-      invalidatesTags: (result) => (result ? [{ type: 'MyExperiences', id: result?.experience?.id }] : [])
+      invalidatesTags: (result) => (result ? ['MyExperiences', { type: 'MyExperienceShow', id: result?.experience?.id }] : [])
     }),
     deleteMyExperience: builder.mutation({
       query: (data) => ({
         url: `/${data.id}`,
         method: 'DELETE'
       }),
-      invalidatesTags: (result) => (result ? [{ type: 'MyExperiences', id: result?.experience?.id }] : [])
+      invalidatesTags: (result) => (result ? ['MyExperiences'] : [])
     })
   })
 })

@@ -71,6 +71,7 @@ function FormsEducationsChangeModal(props) {
             .number()
             .integer()
             .test('len', 'Must be exactly 4 numbers', (val) => val && val.toString().length === 4)
+            .typeError('You must specify a number')
             .required()
             .label('Starting year of education'),
           endYear: Yup
@@ -78,6 +79,7 @@ function FormsEducationsChangeModal(props) {
             .integer()
             .nullable()
             .test('len', 'Must be exactly 4 numbers', (val) => !val || val.toString().length === 4)
+            .typeError('You must specify a number')
             .label('Ending year of education')
         })
         }

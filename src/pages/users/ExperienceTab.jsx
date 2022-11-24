@@ -5,9 +5,9 @@ function Experience({ experience }) {
     <article className="experience" key={experience?.id}>
       <div className="border rounded p-4 m-3">
 
-        <div className="d-flex flex-row justify-content-evenly align-items-top px-5 py-1">
+        <div className="d-flex flex-row justify-content-start align-items-top gap-5 px-5 pt-2">
 
-          <div className="d-flex flex-column me-5 mw-25">
+          <div className="col-3">
 
             <div className="w-100">
               <h6 className="experience-job mb-2"><b>Job Title: </b><span className="text-capitalize">{experience?.job}</span></h6>
@@ -17,7 +17,7 @@ function Experience({ experience }) {
 
           </div>
 
-          <div className="d-flex flex-column w-50 me-5">
+          <div className="d-flex flex-column me-5">
             <h6>Description</h6>
             <p>{experience?.description}</p>
           </div>

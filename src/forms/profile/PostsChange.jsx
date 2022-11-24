@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import { Badge, Button } from 'react-bootstrap'
 
 import { Formik, Field, Form, ErrorMessage } from 'formik'
@@ -22,12 +22,22 @@ function FormsPostsChange(props) {
   const [createMyPost] = useCreateMyPostMutation()
   const [updateMyPost] = useUpdateMyPostMutation()
 
+  // charCount when updating
+  useEffect(() => {
+    if (props?.postInfo?.content) {
+      setInputText(props?.postInfo?.content)
+      // console.log(props.postInfo.content.length)
+      console.log('checked posts')
+    }
+  }, [props?.postInfo])
+
   const handleSubmit = props.postInfo ? (
     async (data) => {
       // console.log(data)
       await updateMyPost(data).unwrap().then(() => {
         // console.log(data)
         props.onHide()
+        setInputText('')
       })
     }
   ) : (
@@ -39,6 +49,7 @@ function FormsPostsChange(props) {
         setImagePreview(defaultImage)
         setFieldValue('image', '')
         imageRef.current.value = null
+        setInputText('')
       })
     }
   )

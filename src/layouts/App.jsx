@@ -1,6 +1,7 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
+import ScrollToTop from 'react-scroll-to-top'
 
 import { useGetMyUserQuery } from '@/services/api/Auth'
 
@@ -21,6 +22,7 @@ function App() {
             <LayoutsNavbar />
             <Outlet />
             <LayoutsFooter />
+            <ScrollToTop smooth />
           </>
         )
       }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 import { Badge } from 'react-bootstrap'
@@ -23,12 +23,22 @@ function FormsExperiencesChangeModal(props) {
   const [createMyExperience] = useCreateMyExperienceMutation()
   const [updateMyExperience] = useUpdateMyExperienceMutation()
 
+  // charCount when updating
+  useEffect(() => {
+    if (props?.experienceInfo?.description) {
+      setInputText(props?.experienceInfo?.description)
+      // console.log(props.experienceInfo.description.length)
+      // console.log('checked experience')
+    }
+  }, [props?.show])
+
   const handleSubmit = props.experienceInfo ? (
     async (values) => {
       await updateMyExperience(values)
         .then(() => {
           // console.log(values)
           props.onHide()
+          setInputText('')
         })
     }
 
@@ -36,6 +46,7 @@ function FormsExperiencesChangeModal(props) {
     async (values) => {
       await createMyExperience(values).unwrap().then(() => {
         props.onHide()
+        setInputText('')
         // console.log(values)
       })
     }
@@ -76,6 +87,7 @@ function FormsExperiencesChangeModal(props) {
             .number()
             .integer()
             .test('len', 'Must be exactly 4 numbers', (val) => val && val.toString().length === 4)
+            .typeError('You must specify a number')
             .required()
             .label('Starting year of employment'),
           endYear: Yup
@@ -83,6 +95,7 @@ function FormsExperiencesChangeModal(props) {
             .integer()
             .nullable()
             .test('len', 'Must be exactly 4 numbers', (val) => !val || val.toString().length === 4)
+            .typeError('You must specify a number')
             .label('Ending year of employment'),
           description: Yup
             .string()

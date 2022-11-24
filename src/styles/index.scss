@@ -2,14 +2,32 @@
 @import "~react-loading-skeleton/dist/skeleton.css";
 @import "~react-toastify/dist/ReactToastify.css";
 
-body {
-  width: 100%;
+html, body {
   height: 100%;
 }
 
+body {
+  min-height: 100vh;
+}
+
+#root {
+  // min-height: 250px;
+  // margin-bottom: 200px;
+    // min-height: calc(100% - 90px);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 .container {
-  min-height: 250px;
-  margin-bottom: 200px;
+  flex: 1 0 auto;
+}
+
+.footer {
+  // flex-shrink: 0;
+  margin-top: auto;
+  background-color: #EDEDED;
+  // height: 90px;
 }
 
 .rounded-circle, .img-thumbnail {
@@ -50,14 +68,14 @@ body {
 }
 
 .dropdown-item.active, .dropdown-item:active {
-    color: rgb(35, 34, 34);
-    background-color: darkgray;
+  color: rgb(35, 34, 34);
+  background-color: darkgray;
 }
 
 .pagination > li > a
 {
-    background-color: white;
-    color: black;
+  background-color: white;
+  color: black;
 }
 
 .pagination > li > a:focus,
@@ -65,22 +83,22 @@ body {
 .pagination > li > span:focus,
 .pagination > li > span:hover
 {
-    color: #5a5a5a;
-    background-color: #eee;
-    border-color: #ddd;
+  color: #5a5a5a;
+  background-color: #eee;
+  border-color: #ddd;
 }
 
 .pagination > .active > a
 {
-    color: white;
-    background-color: #6B728E !Important;
-    border: solid 1px #474E68 !Important;
+  color: white;
+  background-color: #6B728E !Important;
+  border: solid 1px #474E68 !Important;
 }
 
 .pagination > .active > a:hover
 {
-    background-color: #474E68 !Important;
-    border: solid 1px #474E68;
+  background-color: #474E68 !Important;
+  border: solid 1px #474E68;
 }
 
 .read-or-hide{
