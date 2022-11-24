@@ -6,7 +6,8 @@ import { useGetUserQuery } from '@/services/api/Users'
 import { useMyUserState } from '@/services/api/Auth'
 import { useCreateMyFollowingMutation, useDeleteMyFollowingMutation } from '@/services/api/my/MyConnections'
 
-import PostSkeleton from '@/components/PostSkeleton'
+import PostSkeleton from '@/components/skeletons/PostSkeleton'
+import ProfileSkeleton from '@/components/skeletons/ProfileSkeleton'
 import ProfileTabs from '../../components/ProfileTabs'
 
 function UserProfile({ currentUser, user: { profile, fullName, id, email, avatar, following, followedBy } = {} }) {
@@ -180,6 +181,7 @@ function PagesUsersShow() {
   if (isLoading) {
     content = (
       <div className="my-4 px-5 py-2">
+        <ProfileSkeleton quantity={1} />
         <PostSkeleton quantity={1} />
       </div>
     )

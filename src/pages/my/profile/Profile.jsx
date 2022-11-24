@@ -5,7 +5,7 @@ import { useGetMyProfileQuery } from '@/services/api/my/MyProfile'
 import FormsProfileChangeModal from '@/forms/profile/ProfileChange'
 
 import ProfileTabs from '@/components/ProfileTabs'
-import ProfileSkeleton from '@/components/Profile'
+import ProfileSkeleton from '@/components/skeletons/ProfileSkeleton'
 
 function MyProfile({ profile, show, onClick, onHide, setEditModalShow }) {
   return (
@@ -86,7 +86,7 @@ function PagesMyProfile() {
 
   let content
 
-  if (true) {
+  if (isLoading) {
     content = (
       <ProfileSkeleton quantity={1} />
     )

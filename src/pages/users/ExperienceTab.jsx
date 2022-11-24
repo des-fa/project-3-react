@@ -1,5 +1,7 @@
 import React from 'react'
 
+import ExperienceEducationSkeleton from '@/components/skeletons/ExperienceEducationSkeleton'
+
 function Experience({ experience }) {
   return (
     <article className="experience" key={experience?.id}>
@@ -38,12 +40,15 @@ function UsersExperienceTab({ experiences }) {
     )
   } else if (experiences?.length > 0) {
     // console.log(experiences)
-    content = experiences.map((experience) => (
-      <Experience
-        key={experience.id}
-        experience={experience}
-      />
-    ))
+    content = (
+      experiences.map((experience) => (
+        <Experience
+          key={experience.id}
+          experience={experience}
+        />
+      ))
+    || <ExperienceEducationSkeleton quantity={1} />
+    )
   }
 
   return (

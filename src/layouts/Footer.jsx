@@ -21,10 +21,10 @@ function LayoutsFooter() {
             <p className="blockquote-footer text-end mb-2 pe-4">
               Dr. Seuss, <cite title="Source Title">Oh, the Places You&apos;ll Go!</cite>
             </p> */}
-            <h6 className="pt-3 pe-4 text-end fw-light">
+            <h6 className="pt-3 pe-3 text-end fw-light">
               When nothing is certain, anything is possible.
             </h6>
-            <p className="text-end fw-semibold pe-4">© 2022 Destinée Fa</p>
+            <p className="text-end fw-semibold pe-3">© 2022 Destinée Fa</p>
           </div>
         </div>
       </footer>

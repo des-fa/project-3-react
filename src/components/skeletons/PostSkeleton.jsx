@@ -15,9 +15,9 @@ function PostSkeleton({ quantity }) {
             <Skeleton height={150} width={900} />
           </div>
 
-          <div className="d-flex flex-row px-5 justify-content-center">
+          {/* <div className="d-flex flex-row px-5 justify-content-center">
             <Skeleton width={400} height={300} className="rounded" />
-          </div>
+          </div> */}
         </div>
       </div>
     )

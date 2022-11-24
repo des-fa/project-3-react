@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import Skeleton from 'react-loading-skeleton'
 
 function ReadMore({ text }) {
   const [isReadMore, setIsReadMore] = useState(true)
@@ -9,7 +8,7 @@ function ReadMore({ text }) {
 
   return (
     <>
-      <h6>{isReadMore ? text?.slice(0, 400) || <Skeleton count={6} /> : text || <Skeleton count={6} />}</h6>
+      <h6>{isReadMore ? text?.slice(0, 400) : text }</h6>
       <div className="d-flex flex-row justify-content-end">
         <span
           onClick={toggleReadMore}

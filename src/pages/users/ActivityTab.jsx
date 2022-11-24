@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { TimeAgo } from '@/components/TimeAgo'
 import ReadMore from '@/components/ReadMore'
 import ImageModal from '@/components/ImageModal'
+import PostSkeleton from '@/components/skeletons/PostSkeleton'
 
 function Post({ post }) {
   // image modal
@@ -65,12 +66,15 @@ function UsersActivityTab({ posts }) {
     )
   } else if (posts?.length > 0) {
     // console.log(posts)
-    content = posts.map((post) => (
-      <Post
-        key={post.id}
-        post={post}
-      />
-    ))
+    content = (
+      posts.map((post) => (
+        <Post
+          key={post.id}
+          post={post}
+        />
+      ))
+      || <PostSkeleton quantity={1} />
+    )
   }
 
   return (

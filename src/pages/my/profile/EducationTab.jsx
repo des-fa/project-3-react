@@ -7,7 +7,7 @@ import FormsEducationsChangeModal from '@/forms/profile/EducationsChange'
 
 import DeleteConfirmation from '@/components/DeleteConfirmation'
 import GeneratePagination from '@/components/Pagination'
-import ExperienceEducationSkeleton from '@/components/ExperienceEducationSkeleton'
+import ExperienceEducationSkeleton from '@/components/skeletons/ExperienceEducationSkeleton'
 
 function Education({ education, setEditModalShow, setDeleteModalShow, setEducationInfo }) {
   const { id } = education

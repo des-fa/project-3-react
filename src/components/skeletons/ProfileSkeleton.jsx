@@ -6,6 +6,10 @@ function ProfileSkeleton({ quantity }) {
     Array(quantity).fill(0).map((_, i) => (
       <div className="post-skeleton" key={i}>
         <div className="border rounded p-5 m-3">
+          <div className="d-flex flex-row justify-content-end mb-0">
+            <Skeleton width={70} height={30} />
+          </div>
+
           <div className="d-flex flex-row p-3">
             <div className="col-3">
               <Skeleton width={180} height={180} className="rounded" />
@@ -18,10 +22,9 @@ function ProfileSkeleton({ quantity }) {
             <div className="col-6">
 
               <Skeleton width={200} height={40} className="mb-3" />
-              <Skeleton height={150} width={400} />
+              <Skeleton height={150} width={430} />
             </div>
           </div>
-
         </div>
       </div>
     )

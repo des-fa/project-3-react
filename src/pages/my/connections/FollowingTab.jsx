@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useSearchParams, useNavigate } from 'react-router-dom'
-import Skeleton from 'react-loading-skeleton'
 import { useGetMyFollowingQuery } from '@/services/api/my/MyConnections'
 
 import GeneratePagination from '@/components/Pagination'
+import UserSkeleton from '@/components/skeletons/UserSkeleton'
 
 function Following({ following }) {
   const navigate = useNavigate()
@@ -77,7 +77,7 @@ function FollowingTab() {
 
   if (isLoading) {
     content = (
-      <Skeleton count={5} />
+      <UserSkeleton quantity={3} />
     )
   } else if (myFollowing?.length === 0) {
     content = (

@@ -38,7 +38,14 @@ function FormsAuthSignupModal(props) {
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
-      <Modal.Header closeButton>
+      <Modal.Header
+        closeButton
+        onClick={() => {
+          props.onHide()
+          setAvatarPreview(defaultAvatar)
+          avatarRef.current.value = null
+        }}
+      >
         <Modal.Title id="contained-modal-title-vcenter">
           Sign up for free
         </Modal.Title>

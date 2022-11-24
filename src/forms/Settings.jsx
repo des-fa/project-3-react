@@ -192,7 +192,15 @@ function FormsAccountSettingsChangeModal(props) {
 
             </Modal.Body>
             <Modal.Footer>
-              <Button variant="outline-secondary" onClick={props.onHide}>
+              <Button
+                variant="outline-secondary"
+                onClick={() => {
+                  props.onHide()
+                  setAvatarPreview(props.initialValues.avatar)
+                  setFieldValue('avatar', '')
+                  avatarRef.current.value = null
+                }}
+              >
                 Cancel
               </Button>
               <Button

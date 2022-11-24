@@ -10,7 +10,7 @@ import DeleteConfirmation from '@/components/DeleteConfirmation'
 import ReadMore from '@/components/ReadMore'
 import GeneratePagination from '@/components/Pagination'
 import ImageModal from '@/components/ImageModal'
-import PostSkeleton from '@/components/PostSkeleton'
+import PostSkeleton from '@/components/skeletons/PostSkeleton'
 import { TimeAgo } from '../../../components/TimeAgo'
 
 function Post({ post, setEditModalShow, setDeleteModalShow, setPostInfo }) {

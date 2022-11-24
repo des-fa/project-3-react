@@ -8,7 +8,7 @@ export const apiMyProfile = createApi({
   refetchOnMountOrArgChange: true,
   // refetchOnFocus: true,
   refetchOnReconnect: true,
-  tagTypes: ['MyProfile'],
+  tagTypes: ['MyProfile, MyProfileShow'],
   endpoints: (builder) => ({
     createMyProfile: builder.mutation({
       query: (data) => ({
@@ -16,14 +16,15 @@ export const apiMyProfile = createApi({
         method: 'POST',
         data
       }),
-      invalidatesTags: ['MyProfile']
+      invalidatesTags: (result) => (result ? ['MyProfile', { type: 'MyProfileShow', id: result?.profile?.id }] : [])
     }),
     getMyProfile: builder.query({
       query: () => ({
         url: '',
         method: 'GET'
       }),
-      providesTags: ['MyProfile']
+      providesTags: (result) => (result?.profile ? [{ type: 'MyProfileShow', id: result?.profile?.id }
+      ] : ['MyProfile'])
     }),
     updateMyProfile: builder.mutation({
       query: (data) => ({
@@ -31,7 +32,7 @@ export const apiMyProfile = createApi({
         method: 'PUT',
         data
       }),
-      invalidatesTags: ['MyProfile']
+      invalidatesTags: (result) => (result ? ['MyProfileShow', { type: 'MyProfile' }] : [])
     })
   })
 })

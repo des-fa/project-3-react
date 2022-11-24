@@ -8,7 +8,7 @@ import { TimeAgo } from '@/components/TimeAgo'
 import ReadMore from '@/components/ReadMore'
 import GeneratePagination from '@/components/Pagination'
 import ImageModal from '@/components/ImageModal'
-import HomePostSkeleton from '@/components/HomePostSkeleton'
+import HomePostSkeleton from '@/components/skeletons/HomePostSkeleton'
 
 function FollowingPost({ post }) {
   // console.log(post.id)
@@ -69,9 +69,8 @@ function FollowingPost({ post }) {
           ) : ''}
         </div>
 
-        <ImageModal show={showImageModal} onHide={handleClose} image={post?.image} />
-
       </div>
+      <ImageModal show={showImageModal} onHide={handleClose} image={post?.image} />
     </article>
   )
 }

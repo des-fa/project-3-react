@@ -1,4 +1,5 @@
-import React from 'react'
+import UserSkeleton from '@/components/skeletons/UserSkeleton'
+import React, { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 // import GeneratePagination from '@/components/Pagination'
@@ -51,8 +52,11 @@ function User({ user }) {
 }
 
 function PagesUsers() {
+  const [indexTitle, setIndexTitle] = useState('Search')
+  const [indexMsg, setIndexMsg] = useState('Start searching for users above by entering a name, a school, a degree, a job title, or a company that you\'re interested in!\nThe world is your oyster.')
+
   const { state } = useLocation()
-  // console.log(state?.users)
+  // console.log(typeof (state?.users))
   // console.log(state?.meta)
 
   // const [searchParams, setSearchParams] = useSearchParams()
@@ -73,22 +77,37 @@ function PagesUsers() {
   // }, [state?.users])
 
   let content
+  useEffect(() => {
+    if (state?.users?.length >= 0) {
+      setIndexTitle('Search Results')
+      setIndexMsg(' No users were found. Please try something else!')
+    }
+
+    if (state?.users === undefined) {
+      setIndexTitle('Search')
+      setIndexMsg('Start searching for users above by entering a name, a school, a degree, a job title, or a company that you\'re interested in!\nThe world is your oyster.')
+    }
+  })
 
   if (state?.users?.length > 0) {
-    content = state?.users.map((user) => (
-      <User
-        key={user?.id}
-        user={user}
-      />
-    ))
+    content = (
+      state?.users.map((user) => (
+        <User
+          key={user?.id}
+          user={user}
+        />
+      ))
+      || <UserSkeleton quantity={3} />
+    )
   } else {
     content = (
-      <h5 className="text-muted mx-3 fw-light">No users were found. Please try something else!</h5>)
+      <h5 className="col-6 lh-lg text-muted mx-3 fw-light">{indexMsg}</h5>
+    )
   }
 
   return (
     <div id="pages-users" className="container px-2 w-75">
-      <h3 className="my-5 mx-3 fw-light">Search Results</h3>
+      <h3 className="my-5 mx-3 fw-light">{indexTitle}</h3>
 
       {content}
 

@@ -7,7 +7,7 @@ import FormsExperiencesChangeModal from '@/forms/profile/ExperiencesChange'
 
 import DeleteConfirmation from '@/components/DeleteConfirmation'
 import GeneratePagination from '@/components/Pagination'
-import ExperienceEducationSkeleton from '@/components/ExperienceEducationSkeleton'
+import ExperienceEducationSkeleton from '@/components/skeletons/ExperienceEducationSkeleton'
 
 function Experience({ experience, setEditModalShow, setDeleteModalShow, setExperienceInfo }) {
   const { id } = experience
