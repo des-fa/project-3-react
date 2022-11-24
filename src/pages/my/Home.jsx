@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import Skeleton from 'react-loading-skeleton'
 import { useSearchParams } from 'react-router-dom'
 
 import { useGetMyFollowingPostsQuery } from '@/services/api/my/MyConnections'
+import { useGetMyUserQuery } from '@/services/api/Auth'
+
 import { TimeAgo } from '@/components/TimeAgo'
 import ReadMore from '@/components/ReadMore'
 import GeneratePagination from '@/components/Pagination'
 import ImageModal from '@/components/ImageModal'
-import { useGetMyUserQuery } from '@/services/api/Auth'
+import HomePostSkeleton from '@/components/HomePostSkeleton'
 
 function FollowingPost({ post }) {
   // console.log(post.id)
@@ -98,9 +99,7 @@ function PagesMyHome() {
 
   let content
   if (isLoading) {
-    content = (
-      <Skeleton count={5} />
-    )
+    content = <HomePostSkeleton quantity={3} />
   } else if (myFollowing?.length > 0 && myFollowingPosts?.length === 0) {
     content = (
       <h5 className="text-muted mx-3 fw-light">There&apos;s nothing new to report!</h5>

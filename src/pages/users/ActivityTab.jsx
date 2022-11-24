@@ -64,7 +64,7 @@ function UsersActivityTab({ posts }) {
       <h5 className="text-muted mt-2 fw-light">There&apos;s nothing to see here!</h5>
     )
   } else if (posts?.length > 0) {
-    console.log(posts)
+    // console.log(posts)
     content = posts.map((post) => (
       <Post
         key={post.id}

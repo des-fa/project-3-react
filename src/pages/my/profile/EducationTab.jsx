@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import Dropdown from 'react-bootstrap/Dropdown'
-import Skeleton from 'react-loading-skeleton'
 
 import { useGetMyEducationsQuery, useGetMyEducationQuery, useDeleteMyEducationMutation } from '@/services/api/my/MyEducations'
 import FormsEducationsChangeModal from '@/forms/profile/EducationsChange'
 
 import DeleteConfirmation from '@/components/DeleteConfirmation'
 import GeneratePagination from '@/components/Pagination'
+import ExperienceEducationSkeleton from '@/components/ExperienceEducationSkeleton'
 
 function Education({ education, setEditModalShow, setDeleteModalShow, setEducationInfo }) {
   const { id } = education
@@ -99,7 +99,7 @@ function EducationTab() {
 
   if (isLoading) {
     content = (
-      <Skeleton count={5} />
+      <ExperienceEducationSkeleton quantity={1} />
     )
   } else if (myEducations?.length === 0) {
     content = (

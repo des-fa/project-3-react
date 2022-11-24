@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import Dropdown from 'react-bootstrap/Dropdown'
-import Skeleton from 'react-loading-skeleton'
 
 import { useGetMyExperiencesQuery, useGetMyExperienceQuery, useDeleteMyExperienceMutation } from '@/services/api/my/MyExperiences'
 import FormsExperiencesChangeModal from '@/forms/profile/ExperiencesChange'
 
 import DeleteConfirmation from '@/components/DeleteConfirmation'
 import GeneratePagination from '@/components/Pagination'
+import ExperienceEducationSkeleton from '@/components/ExperienceEducationSkeleton'
 
 function Experience({ experience, setEditModalShow, setDeleteModalShow, setExperienceInfo }) {
   const { id } = experience
@@ -108,7 +108,7 @@ function ExperienceTab() {
 
   if (isLoading) {
     content = (
-      <Skeleton count={5} />
+      <ExperienceEducationSkeleton quantity={1} />
     )
   } else if (myExperiences?.length === 0) {
     content = (

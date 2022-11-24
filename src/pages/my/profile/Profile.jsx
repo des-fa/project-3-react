@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
-import Skeleton from 'react-loading-skeleton'
 
 import { useGetMyProfileQuery } from '@/services/api/my/MyProfile'
 
 import FormsProfileChangeModal from '@/forms/profile/ProfileChange'
 
 import ProfileTabs from '@/components/ProfileTabs'
+import ProfileSkeleton from '@/components/Profile'
 
 function MyProfile({ profile, show, onClick, onHide, setEditModalShow }) {
   return (
@@ -86,11 +86,9 @@ function PagesMyProfile() {
 
   let content
 
-  if (isLoading) {
+  if (true) {
     content = (
-      <div className="p-5 mb-4 bg-light border rounded-3">
-        <Skeleton count={5} />
-      </div>
+      <ProfileSkeleton quantity={1} />
     )
   } else if (!profile) {
     content = ''

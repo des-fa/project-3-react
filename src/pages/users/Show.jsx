@@ -2,12 +2,11 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { OverlayTrigger, Tooltip } from 'react-bootstrap'
 
-import Skeleton from 'react-loading-skeleton'
-
 import { useGetUserQuery } from '@/services/api/Users'
 import { useMyUserState } from '@/services/api/Auth'
 import { useCreateMyFollowingMutation, useDeleteMyFollowingMutation } from '@/services/api/my/MyConnections'
 
+import PostSkeleton from '@/components/PostSkeleton'
 import ProfileTabs from '../../components/ProfileTabs'
 
 function UserProfile({ currentUser, user: { profile, fullName, id, email, avatar, following, followedBy } = {} }) {
@@ -180,8 +179,8 @@ function PagesUsersShow() {
 
   if (isLoading) {
     content = (
-      <div className="p-5 mb-4 bg-light border rounded-3">
-        <Skeleton count={5} />
+      <div className="my-4 px-5 py-2">
+        <PostSkeleton quantity={1} />
       </div>
     )
   } else if (!user) {

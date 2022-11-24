@@ -2,7 +2,7 @@ import { toast } from 'react-toastify'
 
 export const renderErrors = (err) => {
   // Console Log for debugging purposes
-  console.log(err.response.data) // eslint-disable-line
+  // console.log(err.response.data) // eslint-disable-line
   // console.log(err.response.data?.email)  // eslint-disable-line
   const error = err.response.data
   // console.log(Object.keys(error)[0])

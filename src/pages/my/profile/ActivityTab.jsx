@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import Dropdown from 'react-bootstrap/Dropdown'
 import { Modal } from 'react-bootstrap'
-import Skeleton from 'react-loading-skeleton'
 
 import { useGetMyPostsQuery, useGetMyPostQuery, useDeleteMyPostMutation } from '@/services/api/my/MyPosts'
 import FormsPostsChange from '@/forms/profile/PostsChange'
@@ -11,6 +10,7 @@ import DeleteConfirmation from '@/components/DeleteConfirmation'
 import ReadMore from '@/components/ReadMore'
 import GeneratePagination from '@/components/Pagination'
 import ImageModal from '@/components/ImageModal'
+import PostSkeleton from '@/components/PostSkeleton'
 import { TimeAgo } from '../../../components/TimeAgo'
 
 function Post({ post, setEditModalShow, setDeleteModalShow, setPostInfo }) {
@@ -143,13 +143,7 @@ function ActivityTab() {
 
   if (isLoading) {
     content = (
-      Array(10).fill(null).map((temp, i) => (
-        <tr key={i}>
-          <td><Skeleton /></td>
-          <td><Skeleton /></td>
-          <td><Skeleton /></td>
-        </tr>
-      ))
+      <PostSkeleton quantity={1} />
     )
   } else if (myPosts?.length === 0) {
     content = (

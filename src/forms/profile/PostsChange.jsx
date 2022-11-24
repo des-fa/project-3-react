@@ -27,7 +27,7 @@ function FormsPostsChange(props) {
     if (props?.postInfo?.content) {
       setInputText(props?.postInfo?.content)
       // console.log(props.postInfo.content.length)
-      console.log('checked posts')
+      // console.log('checked posts')
     }
   }, [props?.postInfo])
 

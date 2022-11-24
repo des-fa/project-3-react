@@ -8,7 +8,7 @@ const axiosBaseQuery = ({ baseUrl } = { baseUrl: '' }) => async ({ url, noError,
   } catch (err) {
     // const err = axiosError
     if (!noError) renderErrors(err)
-    console.log(err)
+    // console.log(err)
     return {
       error: { status: err.response?.status, data: err.response?.data }
     }

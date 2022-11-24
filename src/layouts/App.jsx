@@ -22,7 +22,7 @@ function App() {
             <LayoutsNavbar />
             <Outlet />
             <LayoutsFooter />
-            <ScrollToTop smooth />
+            <ScrollToTop smooth className="scroll-btn" style={{ bottom: 95 }} />
           </>
         )
       }
