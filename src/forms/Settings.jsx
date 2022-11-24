@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 
@@ -16,6 +17,7 @@ const initialValues = {
 }
 
 function FormsAccountSettingsChangeModal(props) {
+  const navigate = useNavigate()
   const [avatarPreview, setAvatarPreview] = useState(props.initialValues.avatar)
   const avatarRef = useRef(null)
 
@@ -25,6 +27,7 @@ function FormsAccountSettingsChangeModal(props) {
     update(data).unwrap().then(() => {
     // console.log(data)
       props.onHide()
+      navigate('/my/account/settings')
     })
   }
 
@@ -37,7 +40,14 @@ function FormsAccountSettingsChangeModal(props) {
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
-      <Modal.Header closeButton>
+      <Modal.Header
+        closeButton
+        onClick={() => {
+          props.onHide()
+          setAvatarPreview(props.initialValues.avatar)
+          avatarRef.current.value = null
+        }}
+      >
         <Modal.Title id="contained-modal-title-vcenter">
           Edit Account Settings
         </Modal.Title>
@@ -50,7 +60,9 @@ function FormsAccountSettingsChangeModal(props) {
         validationSchema={
         Yup.object({
           email: Yup.string().label('Email'),
-          fullName: Yup.string().label('Full name'),
+          fullName: Yup.string()
+            .matches(/^\s*[\S]+(\s[\S]+)+\s*$/gms, 'Please enter your full name.')
+            .label('Full name'),
           password: Yup.string().min(6).label('Password'),
           passwordConfirmation: Yup.string().oneOf([Yup.ref('password')], 'Passwords need to match').label('Password confirmation'),
           avatar: Yup.mixed().label('Profile picture')

@@ -58,7 +58,10 @@ function FormsAuthSignupModal(props) {
         validationSchema={
         Yup.object({
           email: Yup.string().required().label('Email'),
-          fullName: Yup.string().required().label('Full name'),
+          fullName: Yup.string()
+            .matches(/^\s*[\S]+(\s[\S]+)+\s*$/gms, 'Please enter your full name.')
+            .required()
+            .label('Full name'),
           password: Yup.string().min(6).required().label('Password'),
           passwordConfirmation: Yup.string().oneOf([Yup.ref('password')], 'Passwords need to match').required().label('Password confirmation'),
           avatar: Yup.mixed().required().label('Profile picture')

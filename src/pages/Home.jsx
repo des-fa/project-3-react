@@ -20,17 +20,20 @@ function PagesHome() {
 
   return (
 
-    <div id="pages-home" className="container col-xl-8 col-xxl-10 py-2">
-      <div className="row align-items-center g-lg-5 py-5 my-4">
-        <div className="col-lg-7 text-lg-start lh-lg mb-5 px-5">
+    <div id="pages-home" className="container col-xl-8 col-xxl-10 py-2 mt-5">
+      <div className="d-flex flex-row align-items-center justify-content-center pt-5 mt-5">
+        <div className="col-lg-6 text-lg-start lh-lg ms-3 px-4">
           <h1 className="display-4 fw-bold lh-1 mb-4">t b d</h1>
           <h5 className="fst-italic mb-3">abbreviation</h5>
           <h3 className="col-lg-10 fw-bold mb-4">to be discussed, to be determined.</h3>
-          <p className="fs-5 mb-4">1. used to facilitate the sharing of information about the incalculable number of career paths available for us to choose from</p>
-          <p className="fs-5">2. used to promote more open conversations regarding the infinite uncertainties encountered on our journey of life</p>
-          {/* used to create a community to discuss */}
+
+          <div className="pe-4">
+            <p className="fs-5 mb-4">1. used to facilitate the sharing of information about the infinite career possibilities available for us to choose from</p>
+            <p className="fs-5">2. used to promote open conversations regarding the unknown that is life &
+              how to face the uncertainties thrown our way</p>
+          </div>
         </div>
-        <div className="col-md-10 mx-auto col-lg-5">
+        <div className="col-md-10 mx-auto col-lg-4">
           <FormsAuthLogin
             onSubmit={customLogin}
           />
