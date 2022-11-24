@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 // import { skipToken } from '@reduxjs/toolkit/dist/query'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 
@@ -24,16 +24,14 @@ function FormsSearch(props) {
   //   }
   // }
   const [trigger, { data }] = useLazyGetUsersQuery()
-
-  // useEffect(() => {
-  //   navigate('/users', { state: { users: data?.users, meta: data?.meta } })
-  // }, [data?.users])
+  console.log('lazy', data)
 
   const handleSubmit = (values, { resetForm }) => {
-    // await setSearchParams({ q: values.q })
-    trigger(searchInput)
-
-    resetForm()
+    trigger(searchInput).unwrap().then((resp) => {
+      // console.log('resp', resp)
+      resetForm()
+      navigate('/users', { state: { users: resp?.users, meta: resp?.meta } })
+    })
   }
 
   // const [click, setClick] = useState(true)
@@ -43,7 +41,6 @@ function FormsSearch(props) {
   //       setClick(false)
   //     }}
   // console.log(data)
-  console.log(data?.users)
 
   return (
     <Formik

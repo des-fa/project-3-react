@@ -9,7 +9,7 @@ export const apiMyPosts = createApi({
   refetchOnMountOrArgChange: true,
   // refetchOnFocus: true,
   refetchOnReconnect: true,
-  tagTypes: ['MyPosts'],
+  tagTypes: ['MyPosts', 'MyPostShow'],
   endpoints: (builder) => ({
     getMyPosts: builder.query({
       query: (page) => ({
@@ -17,14 +17,17 @@ export const apiMyPosts = createApi({
         method: 'GET',
         params: { page }
       }),
-      providesTags: (result) => (result?.posts ? result?.posts?.map(({ id }) => ({ type: 'MyPosts', id })) : [])
+      providesTags: (result) => (result?.posts ? [
+        ...result.posts.map(({ id }) => ({ type: 'MyPosts', id })),
+        'MyPosts'
+      ] : ['MyPosts'])
     }),
     getMyPost: builder.query({
       query: (id) => ({
         url: `/${id}`,
         method: 'GET'
       }),
-      providesTags: (result) => (result ? [{ type: 'MyPosts', id: result?.post?.id }] : [])
+      providesTags: (result) => (result ? [{ type: 'MyPostShow', id: result?.post?.id }] : [])
     }),
     createMyPost: builder.mutation({
       query: (data) => ({
@@ -32,7 +35,7 @@ export const apiMyPosts = createApi({
         method: 'POST',
         data: serialize(data, { indices: true })
       }),
-      invalidatesTags: (result) => (result ? [{ type: 'MyPosts', id: result?.post?.id }] : [])
+      invalidatesTags: (result) => (result ? ['MyPosts'] : [])
     }),
     updateMyPost: builder.mutation({
       query: (data) => ({
@@ -40,14 +43,14 @@ export const apiMyPosts = createApi({
         method: 'PUT',
         data: serialize(data, { indices: true })
       }),
-      invalidatesTags: (result) => (result ? [{ type: 'MyPosts', id: result?.post?.id }] : [])
+      invalidatesTags: (result) => (result ? ['MyPosts', { type: 'MyPostShow', id: result?.post?.id }] : [])
     }),
     deleteMyPost: builder.mutation({
       query: (data) => ({
         url: `/${data.id}`,
         method: 'DELETE'
       }),
-      invalidatesTags: (result) => (result ? [{ type: 'MyPosts', id: result?.post?.id }] : [])
+      invalidatesTags: (result) => (result ? ['MyPosts'] : [])
     })
   })
 })
