@@ -15,7 +15,8 @@ export const apiMyConnections = createApi({
       query: (page) => ({
         url: '/following',
         method: 'GET',
-        params: { page }
+        params: { page },
+        noError: true
       }),
       providesTags: (result) => (result?.following ? (
         [
@@ -30,7 +31,8 @@ export const apiMyConnections = createApi({
       query: (page) => ({
         url: '/followers',
         method: 'GET',
-        params: { page }
+        params: { page },
+        noError: true
       }),
       providesTags: (result) => (result?.followers ? (
         result.followers.map(({ followingId, followerId }) => ({
@@ -42,7 +44,8 @@ export const apiMyConnections = createApi({
       query: (page) => ({
         url: '/following/posts',
         method: 'GET',
-        params: { page }
+        params: { page },
+        noError: true
       }),
       providesTags: (result) => (result?.following ? (
         result.following.map(({ followingId, followerId }) => ({
@@ -54,6 +57,7 @@ export const apiMyConnections = createApi({
       query: (data) => ({
         url: `/following/${data}`,
         method: 'POST',
+        noError: true,
         data
       }),
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
