@@ -40,10 +40,10 @@ function Follower({ follower }) {
               className="follower-name mb-2 fw-bold"
             ><a
               href={`/users/${follower?.follower?.id}`}
-              className="link-secondary text-decoration-none"
+              className="link-secondary text-decoration-none text-capitalize"
             >{follower?.follower?.fullName}</a></h5>
-            <h6 className="follower-job mb-2">{follower?.follower?.profile?.currentJob}</h6>
-            <h6 className="follower-education">
+            <h6 className="follower-job mb-2 text-capitalize">{follower?.follower?.profile?.currentJob}</h6>
+            <h6 className="follower-education text-capitalize">
               {follower?.follower?.profile?.highestEducation}
             </h6>
           </div>

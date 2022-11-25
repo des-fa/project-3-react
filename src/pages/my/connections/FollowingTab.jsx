@@ -39,10 +39,10 @@ function Following({ following }) {
               className="following-name mb-2 fw-bold"
             ><a
               href={`/users/${following?.following?.id}`}
-              className="link-secondary text-decoration-none"
+              className="link-secondary text-decoration-none text-capitalize"
             >{following?.following?.fullName}</a></h5>
-            <h6 className="following-job mb-2">{following?.following?.profile?.currentJob}</h6>
-            <h6 className="following-education">
+            <h6 className="following-job mb-2 text-capitalize">{following?.following?.profile?.currentJob}</h6>
+            <h6 className="following-education text-capitalize">
               {following?.following?.profile?.highestEducation}
             </h6>
           </div>
