@@ -36,6 +36,7 @@ function App() {
         pauseOnFocusLoss
         draggable
         pauseOnHover
+        limit={1}
         theme="dark"
       />
     </>
