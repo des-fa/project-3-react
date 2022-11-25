@@ -6,7 +6,7 @@ export const apiUsers = createApi({
   baseQuery: axiosBaseQuery({ baseUrl: `${process.env.API_URL}/api/users` }),
   reducerPath: 'apiUsers',
   refetchOnMountOrArgChange: true,
-  // refetchOnFocus: true,
+  refetchOnFocus: true,
   refetchOnReconnect: true,
   tagTypes: ['Users'],
   endpoints: (builder) => ({
@@ -21,7 +21,8 @@ export const apiUsers = createApi({
     getUser: builder.query({
       query: (id) => ({
         url: `/${id}`,
-        method: 'GET'
+        method: 'GET',
+        noError: true
       }),
       providesTags: (result) => (result ? [{ type: 'Users', id: result?.user?.id }, 'Users'] : ['Users'])
     })

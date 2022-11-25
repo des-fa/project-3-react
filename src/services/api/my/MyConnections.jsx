@@ -7,7 +7,7 @@ export const apiMyConnections = createApi({
   baseQuery: axiosBaseQuery({ baseUrl: `${process.env.API_URL}/api/my/connections` }),
   reducerPath: 'apiMyConnections',
   refetchOnMountOrArgChange: true,
-  // refetchOnFocus: true,
+  refetchOnFocus: true,
   refetchOnReconnect: true,
   tagTypes: ['MyConnections'],
   endpoints: (builder) => ({
