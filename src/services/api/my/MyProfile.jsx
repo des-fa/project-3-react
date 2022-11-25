@@ -32,7 +32,8 @@ export const apiMyProfile = createApi({
     getMyProfile: builder.query({
       query: () => ({
         url: '',
-        method: 'GET'
+        method: 'GET',
+        noError: true
       }),
       providesTags: (result) => (result ? ['MyProfile'
       ] : ['MyProfile'])
