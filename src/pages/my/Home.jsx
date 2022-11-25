@@ -41,7 +41,7 @@ function FollowingPost({ post }) {
           <div className="d-flex flex-column w-75 pe-3 mb-1">
             <h5 className="user-post-name mb-2 fw-bold"><a
               href={`/users/${post?.userId}`}
-              className="link-secondary text-decoration-none"
+              className="link-secondary text-decoration-none text-capitalize"
             >{post?.user?.fullName}</a></h5>
             <ReadMore text={post?.content} />
             {/* <h6 className="user-post-content mb-2 pe-5">{post?.content.substring(0, 400)}</h6> */}

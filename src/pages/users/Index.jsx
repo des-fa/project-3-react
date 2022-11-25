@@ -37,10 +37,10 @@ function User({ user }) {
               className="following-name mb-2 fw-bold"
             ><a
               href={`/users/${user?.id}`}
-              className="link-secondary text-decoration-none"
+              className="link-secondary text-decoration-none text-capitalize"
             >{user?.fullName}</a></h5>
-            <h6 className="following-job mb-2">{user?.profile?.currentJob}</h6>
-            <h6 className="following-education">
+            <h6 className="following-job mb-2 text-capitalize">{user?.profile?.currentJob}</h6>
+            <h6 className="following-education text-capitalize">
               {user.profile?.highestEducation}
             </h6>
           </div>
