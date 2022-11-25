@@ -37,7 +37,7 @@ function FormsSearch(props) {
   }
 
   useEffect(() => {
-    if (location.pathname !== '.users') {
+    if (location.pathname !== '/users') {
       formikRef.current?.resetForm()
     }
   }, [location])
