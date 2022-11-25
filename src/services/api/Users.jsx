@@ -3,7 +3,7 @@ import { createApi } from '@reduxjs/toolkit/query/react'
 import axiosBaseQuery from '@/services/axios-base-query'
 
 export const apiUsers = createApi({
-  baseQuery: axiosBaseQuery({ baseUrl: 'http://localhost:3000/api/users' }),
+  baseQuery: axiosBaseQuery({ baseUrl: `${process.env.API_URL}/api/users` }),
   reducerPath: 'apiUsers',
   refetchOnMountOrArgChange: true,
   // refetchOnFocus: true,

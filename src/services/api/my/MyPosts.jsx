@@ -4,7 +4,7 @@ import { serialize } from 'object-to-formdata'
 import axiosBaseQuery from '@/services/axios-base-query'
 
 export const apiMyPosts = createApi({
-  baseQuery: axiosBaseQuery({ baseUrl: 'http://localhost:3000/api/my/posts' }),
+  baseQuery: axiosBaseQuery({ baseUrl: `${process.env.API_URL}/api/my/posts` }),
   reducerPath: 'apiMyPosts',
   refetchOnMountOrArgChange: true,
   // refetchOnFocus: true,

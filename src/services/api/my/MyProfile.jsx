@@ -4,7 +4,7 @@ import axiosBaseQuery from '@/services/axios-base-query'
 import { apiAuth } from '@/services/api/Auth'
 
 export const apiMyProfile = createApi({
-  baseQuery: axiosBaseQuery({ baseUrl: 'http://localhost:3000/api/my/profile' }),
+  baseQuery: axiosBaseQuery({ baseUrl: `${process.env.API_URL}/api/my/profile` }),
   reducerPath: 'apiMyProfile',
   refetchOnMountOrArgChange: true,
   // refetchOnFocus: true,
