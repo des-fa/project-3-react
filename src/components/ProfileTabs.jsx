@@ -19,7 +19,6 @@ function ProfileTabs(props) {
 
   const removeQueryParams = () => {
     const param = searchParams.get('page')
-
     if (param) {
       searchParams.delete('page')
       setSearchParams(searchParams)
@@ -33,14 +32,16 @@ function ProfileTabs(props) {
       <Tabs
         id="profile-tabs"
         activeKey={key}
-        onSelect={(k) => setKey(k)}
+        onSelect={(k) => {
+          setKey(k)
+          removeQueryParams()
+        }}
         className="mb-3"
       >
 
         <Tab
           eventKey="activity"
           title="Activity"
-          onClick={removeQueryParams}
         >
           {!id ? (
             <ActivityTab />
@@ -52,7 +53,6 @@ function ProfileTabs(props) {
         <Tab
           eventKey="experience"
           title="Experience"
-          onClick={removeQueryParams}
         >
           {!id ? (
             <ExperienceTab />
@@ -65,7 +65,6 @@ function ProfileTabs(props) {
         <Tab
           eventKey="education"
           title="Education"
-          onClick={removeQueryParams}
         >
 
           {!id ? (
