@@ -14,8 +14,17 @@ import EducationTab from '../pages/my/profile/EducationTab'
 
 function ProfileTabs(props) {
   const { id } = useParams()
-
+  const [searchParams, setSearchParams] = useSearchParams()
   const [key, setKey] = useState('activity')
+
+  const removeQueryParams = () => {
+    const param = searchParams.get('page')
+
+    if (param) {
+      searchParams.delete('page')
+      setSearchParams(searchParams)
+    }
+  }
 
   return (
     <div
@@ -28,7 +37,11 @@ function ProfileTabs(props) {
         className="mb-3"
       >
 
-        <Tab eventKey="activity" title="Activity">
+        <Tab
+          eventKey="activity"
+          title="Activity"
+          onClick={removeQueryParams}
+        >
           {!id ? (
             <ActivityTab />
           ) : (
@@ -36,7 +49,11 @@ function ProfileTabs(props) {
           )}
         </Tab>
 
-        <Tab eventKey="experience" title="Experience">
+        <Tab
+          eventKey="experience"
+          title="Experience"
+          onClick={removeQueryParams}
+        >
           {!id ? (
             <ExperienceTab />
           ) : (
@@ -45,7 +62,11 @@ function ProfileTabs(props) {
 
         </Tab>
 
-        <Tab eventKey="education" title="Education">
+        <Tab
+          eventKey="education"
+          title="Education"
+          onClick={removeQueryParams}
+        >
 
           {!id ? (
             <EducationTab />
